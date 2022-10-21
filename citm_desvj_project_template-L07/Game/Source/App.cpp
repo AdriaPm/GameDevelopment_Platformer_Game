@@ -26,6 +26,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new Textures();
 	audio = new Audio();
 	//L07 TODO 2: Add Physics module
+	physics = new Physics();
 	scene = new Scene();
 	entityManager = new EntityManager();
 	map = new Map();
@@ -37,6 +38,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	//L07 TODO 2: Add Physics module
+	AddModule(physics);
 	AddModule(scene);
 	AddModule(entityManager);
 	AddModule(map);

@@ -7,6 +7,7 @@
 
 class App;
 // L07 TODO 2: Add Physics Module
+class PhysBody;
 
 class Module
 {
@@ -68,6 +69,9 @@ public:
 	}
 
 	// L07 TODO 2: Add Physics Module
+	virtual void OnCollision(PhysBody* bodyA, PhysBody* bodyB) {
+
+	}
 
 public:
 
