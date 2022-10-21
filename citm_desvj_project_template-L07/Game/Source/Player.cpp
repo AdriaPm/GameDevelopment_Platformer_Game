@@ -29,6 +29,9 @@ bool Player::Awake() {
 	position.y = parameters.attribute("y").as_int();
 	texturePath = parameters.attribute("texturepath").as_string();
 
+	width = 32;
+	height = 32;
+
 	return true;
 }
 
@@ -39,25 +42,43 @@ bool Player::Start() {
 
 	// L07 TODO 5: Add physics to the player - initialize physics body
 
+	pbody = app->physics->CreateCircle(position.x, position.y, width / 2, bodyType::DYNAMIC);
+
 	return true;
 }
 
 bool Player::Update()
 {
 	// L07 TODO 5: Add physics to the player - updated player position using physics
+	b2Vec2 velocity;
+	velocity = { 0, -GRAVITY_Y }; // Players default velocity (when any key is pressed)
 
 	//L02: DONE 4: modify the position of the player using arrow keys and render the texture
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-		position.y -= 1;
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+		//position.y -= 1;
+	
+	}
+	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+		//position.y += 1;
 
-	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-		position.y += 1;
+	}
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+		//position.x -= 1;
+	
+		velocity = { -5, -GRAVITY_Y };
+		
+	}
+	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+		//position.x += 1;		
+		
+		velocity = { 5, -GRAVITY_Y };
 
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		position.x -= 1;
+	}
+	pbody->body->SetLinearVelocity(velocity);
 
-	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		position.x += 1;
+	// Link player's texture with pbody when moving
+	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x - (width / 2));
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y - (height / 2));
 
 	app->render->DrawTexture(texture, position.x, position.y);
 

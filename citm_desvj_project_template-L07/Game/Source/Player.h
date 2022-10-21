@@ -32,6 +32,10 @@ private:
 	const char* texturePath;
 
 	// L07 TODO 5: Add physics to the player - declare a Physics body
+	PhysBody* pbody;
+
+	int width;
+	int height;
 
 };
 

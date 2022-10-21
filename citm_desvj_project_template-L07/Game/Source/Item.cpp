@@ -41,7 +41,7 @@ bool Item::Start() {
 
 bool Item::Update()
 {
-
+	// Link item's texture with pbody when moving
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x - (width / 2));
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y - (height / 2));
 
