@@ -3,6 +3,7 @@
 
 #include "Entity.h"
 #include "Point.h"
+#include "Animation.h"
 #include "SDL/include/SDL.h"
 
 struct SDL_Texture;
@@ -24,6 +25,15 @@ public:
 	bool CleanUp();
 
 public:
+
+	// The pointer to the current player animation
+	// It will be switched depending on the player's movement direction
+	Animation* currentAnim;
+
+	//Set of animations
+	Animation idlePlayer;
+	Animation runPlayer;
+	Animation jumpPlayer;
 
 private:
 

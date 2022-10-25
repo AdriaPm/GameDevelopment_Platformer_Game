@@ -32,6 +32,17 @@ bool Player::Awake() {
 	width = 32;
 	height = 32;
 
+	idlePlayer.PushBack({ 23, 10, 17, 23 });
+	idlePlayer.PushBack({ 87, 10, 17, 23 });
+	idlePlayer.PushBack({ 151, 10, 17, 23 });
+	idlePlayer.PushBack({ 215, 10, 17, 23 });
+	idlePlayer.PushBack({ 279, 10, 17, 23 });
+	idlePlayer.PushBack({ 343, 10, 17, 23 });
+	idlePlayer.PushBack({ 407, 10, 17, 23 });
+	idlePlayer.PushBack({ 471, 10, 17, 23 });
+	idlePlayer.loop = true;
+	idlePlayer.speed = 1.0f;
+
 	return true;
 }
 
@@ -40,9 +51,11 @@ bool Player::Start() {
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 
+	currentAnim = &idlePlayer;
+
 	// L07 TODO 5: Add physics to the player - initialize physics body
 
-	pbody = app->physics->CreateCircle(position.x, position.y, width / 2, bodyType::DYNAMIC);
+	pbody = app->physics->CreateCircle(position.x, position.y, width / 2.5, bodyType::DYNAMIC);
 
 	return true;
 }
@@ -80,7 +93,8 @@ bool Player::Update()
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x - (width / 2));
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y - (height / 2));
 
-	app->render->DrawTexture(texture, position.x, position.y);
+	SDL_Rect rect = currentAnim->GetCurrentFrame();
+	app->render->DrawTexture(texture, position.x, position.y, &rect);
 
 	return true;
 }
