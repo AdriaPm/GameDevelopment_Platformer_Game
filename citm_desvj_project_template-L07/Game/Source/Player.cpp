@@ -41,7 +41,7 @@ bool Player::Awake() {
 	idlePlayer.PushBack({ 407, 10, 17, 23 });
 	idlePlayer.PushBack({ 471, 10, 17, 23 });
 	idlePlayer.loop = true;
-	idlePlayer.speed = 1.0f;
+	idlePlayer.speed = 0.1f;
 
 	return true;
 }
@@ -79,12 +79,14 @@ bool Player::Update()
 		//position.x -= 1;
 	
 		velocity = { -5, -GRAVITY_Y };
+		//currentAnim = &runPlayer;
 		
 	}
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 		//position.x += 1;		
 		
 		velocity = { 5, -GRAVITY_Y };
+		//currentAnim = &runPlayer;
 
 	}
 	pbody->body->SetLinearVelocity(velocity);
@@ -95,6 +97,7 @@ bool Player::Update()
 
 	SDL_Rect rect = currentAnim->GetCurrentFrame();
 	app->render->DrawTexture(texture, position.x, position.y, &rect);
+	currentAnim->Update();
 
 	return true;
 }

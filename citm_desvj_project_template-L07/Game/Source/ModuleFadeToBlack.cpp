@@ -1,22 +1,40 @@
 #include "ModuleFadeToBlack.h"
 
 #include "App.h"
-#include "Window.h"
 #include "Render.h"
+#include "Log.h"
 
 #include "SDL/include/SDL_render.h"
 
 ModuleFadeToBlack::ModuleFadeToBlack() : Module()
 {
-	app->win->GetWindowSize(width, height);
-	
 	name.Create("fade");
-	screenRect = {0, 0, width * app->win->GetScale() , height * app->win->GetScale() };
 }
 
 ModuleFadeToBlack::~ModuleFadeToBlack()
 {
 
+}
+
+bool ModuleFadeToBlack::Awake(pugi::xml_node& config)
+{
+	LOG("Init FadeScreen");
+	bool ret = true;
+	width = config.child("resolution").attribute("width").as_int();
+	height = config.child("resolution").attribute("height").as_int();
+	size = config.child("resolution").attribute("scale").as_int();
+
+	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	{
+		LOG("SDL_VIDEO could not initialize! SDL_Error: %s\n", SDL_GetError());
+		ret = false;
+	}
+	else
+	{
+		screenRect = { 0, 0, width * size , height * size };
+	}
+
+	return ret;
 }
 
 bool ModuleFadeToBlack::Start()
