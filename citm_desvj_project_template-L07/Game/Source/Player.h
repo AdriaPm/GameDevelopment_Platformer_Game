@@ -44,8 +44,16 @@ private:
 	// L07 TODO 5: Add physics to the player - declare a Physics body
 	PhysBody* pbody;
 
+	SDL_RendererFlip fliped = SDL_FLIP_NONE;
+
 	int width;
 	int height;
+	float playerSpeed = 1.0f;
+	double angle = 0;
+	int pivotX = INT_MAX;
+	int pivotY = INT_MAX;
+
+	bool isFliped = false;
 
 };
 

@@ -77,8 +77,14 @@ bool Player::Update()
 	}
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 		//position.x -= 1;
-	
+		isFliped = true;
+
 		velocity = { -5, -GRAVITY_Y };
+
+		if (isFliped == true && fliped == SDL_FLIP_NONE) {
+			fliped = SDL_FLIP_HORIZONTAL;
+			LOG("FLIPED");
+		}
 		//currentAnim = &runPlayer;
 		
 	}
@@ -87,6 +93,8 @@ bool Player::Update()
 		
 		velocity = { 5, -GRAVITY_Y };
 		//currentAnim = &runPlayer;
+		/*if (isFliped)
+			fliped = SDL_FLIP_HORIZONTAL;*/
 
 	}
 	pbody->body->SetLinearVelocity(velocity);
@@ -96,7 +104,7 @@ bool Player::Update()
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y - (height / 2));
 
 	SDL_Rect rect = currentAnim->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x, position.y, &rect);
+	app->render->DrawTexture(texture, position.x, position.y, &rect, playerSpeed, angle, pivotX, pivotY, fliped);
 	currentAnim->Update();
 
 	return true;

@@ -12,6 +12,7 @@ public:
 	bool loop = true;
 	// Allows the animation to keep going back and forth
 	bool pingpong = false;
+	bool flip = false;
 
 private:
 	float currentFrame = 0.0f;
