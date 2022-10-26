@@ -305,7 +305,7 @@ bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
     //Reserve the memory for the data 
     layer->data = new uint[layer->width * layer->height];
     memset(layer->data, 0, layer->width * layer->height);
-
+    
     //Iterate over all the tiles and assign the values
     pugi::xml_node tile;
     int i = 0;
