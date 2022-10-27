@@ -7,7 +7,6 @@
 #include "Scene.h"
 #include "Log.h"
 #include "Point.h"
-#include "Physics.h"
 
 Player::Player() : Entity(EntityType::PLAYER)
 {
@@ -42,6 +41,17 @@ bool Player::Awake() {
 	idlePlayer.PushBack({ 471, 10, 17, 23 });
 	idlePlayer.loop = true;
 	idlePlayer.speed = 0.1f;
+	
+	runPlayer.PushBack({ 24, 42, 16, 23 });
+	runPlayer.PushBack({ 88, 41, 15, 21 });
+	runPlayer.PushBack({ 152, 39, 15, 21 });
+	runPlayer.PushBack({ 216, 40, 15, 22 });
+	runPlayer.PushBack({ 280, 42, 16, 23 });
+	runPlayer.PushBack({ 344, 41, 18, 21 });
+	runPlayer.PushBack({ 408, 39, 18, 22 });
+	runPlayer.PushBack({ 472, 40, 18, 22 });
+	runPlayer.loop = true;
+	runPlayer.speed = 0.1f;
 
 	return true;
 }
@@ -55,7 +65,7 @@ bool Player::Start() {
 
 	// L07 TODO 5: Add physics to the player - initialize physics body
 
-	pbody = app->physics->CreateCircle(position.x, position.y, width / 2.5, bodyType::DYNAMIC);
+	pbody = app->physics->CreateCircle(position.x, position.y, width / 3, bodyType::DYNAMIC);
 
 	return true;
 }
@@ -66,13 +76,32 @@ bool Player::Update()
 	b2Vec2 velocity;
 	velocity = { 0, -GRAVITY_Y }; // Players default velocity (when any key is pressed)
 
+	currentAnim = &idlePlayer;
+
+	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+		app->physics->debug = !app->physics->debug;
+
 	//L02: DONE 4: modify the position of the player using arrow keys and render the texture
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 		//position.y -= 1;
+		longPress = false;
 		
-		if(onGround == true)
-			velocity = { 0, +GRAVITY_Y };
-	
+		if (onGround == true) {
+			jumping = true;
+			jumpingTime = 0;
+		}
+		
+		onGround = false;
+	}
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
+		//position.y -= 1;
+		longPress = true;
+		
+		if (onGround == true) {
+			jumping = true;
+			jumpingTime = 0;
+		}
+		
 		onGround = false;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
@@ -83,35 +112,53 @@ bool Player::Update()
 		//position.x -= 1;
 		isFliped = true;
 
-		velocity = { -5, -GRAVITY_Y };
+		velocity.x = -5;
 
 		if (isFliped == true && fliped == SDL_FLIP_NONE) {
 			fliped = SDL_FLIP_HORIZONTAL;
 			LOG("FLIPED");
 		}
-		//currentAnim = &runPlayer;
+		currentAnim = &runPlayer;
 		
 	}
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 		isFliped = false;
 		//position.x += 1;		
 		
-		velocity = { 5, -GRAVITY_Y };
+		velocity.x = 5;
 
 		if (isFliped == false && fliped == SDL_FLIP_HORIZONTAL) {
 			fliped = SDL_FLIP_NONE;
 			LOG("FLIPED");
 		}
+		currentAnim = &runPlayer;
 
 	}
+
+
+	//Jumping Function
+	if (jumping == true && jumpingTime <= 12 ) {
+		velocity.y = +jumpVel;
+
+		//Mini Jump
+		if(longPress == true)
+			jumpVel -= 0.5;
+		else
+			jumpVel+= 1.0f;
+
+		jumpingTime++;
+	} 	
+
+	longPress = false;
+	
 	pbody->body->SetLinearVelocity(velocity);
 
 	// Link player's texture with pbody when moving
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x - (width / 2));
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y - (height / 2));
+	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x - (width / 4));
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y - (height / 3));
 
 	SDL_Rect rect = currentAnim->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x, position.y, &rect, playerSpeed, angle, pivotX, pivotY, fliped);
+	app->render->DrawTexture(texture, position.x, position.y, &rect, fliped);
 	currentAnim->Update();
 
 	return true;

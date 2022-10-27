@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "Point.h"
 #include "Animation.h"
+#include "Physics.h"
 #include "SDL/include/SDL.h"
 
 struct SDL_Texture;
@@ -50,12 +51,16 @@ private:
 
 	int width;
 	int height;
-	float playerSpeed = 1.0f;
-	double angle = 0;
-	int pivotX = INT_MAX;
-	int pivotY = INT_MAX;
+	int jumpingTime;
+
+	
 
 	bool isFliped = false;
+
+	//Jump Variables
+	float jumpVel = GRAVITY_Y;
+	bool jumping = false;
+	bool longPress = false;
 
 };
 
