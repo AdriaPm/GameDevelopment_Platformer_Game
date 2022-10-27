@@ -73,11 +73,12 @@ bool Player::Start() {
 bool Player::Update()
 {
 	// L07 TODO 5: Add physics to the player - updated player position using physics
-	b2Vec2 velocity;
+	//b2Vec2 velocity;
 	velocity = { 0, -GRAVITY_Y }; // Players default velocity (when any key is pressed)
 
 	currentAnim = &idlePlayer;
 
+	//Enable/Disable Debug
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		app->physics->debug = !app->physics->debug;
 
@@ -135,18 +136,9 @@ bool Player::Update()
 
 	}
 
-
 	//Jumping Function
 	if (jumping == true && jumpingTime <= 12 ) {
-		velocity.y = +jumpVel;
-
-		//Mini Jump
-		if(longPress == true)
-			jumpVel -= 0.5;
-		else
-			jumpVel+= 1.0f;
-
-		jumpingTime++;
+		Jump();
 	} 	
 
 	longPress = false;
@@ -168,4 +160,16 @@ bool Player::CleanUp()
 {
 
 	return true;
+}
+
+void Player::Jump() {
+	velocity.y = +jumpVel;
+
+	//Mini Jump
+	if (longPress == true)
+		jumpVel -= .5f;
+	else
+		jumpVel += 1.0f;
+
+	jumpingTime++;
 }

@@ -25,6 +25,8 @@ public:
 
 	bool CleanUp();
 
+	void Jump();
+
 public:
 
 	// The pointer to the current player animation
@@ -48,16 +50,16 @@ private:
 	PhysBody* pbody;
 
 	SDL_RendererFlip fliped = SDL_FLIP_NONE;
+	
+	b2Vec2 velocity;
 
 	int width;
 	int height;
-	int jumpingTime;
-
-	
 
 	bool isFliped = false;
 
 	//Jump Variables
+	int jumpingTime;
 	float jumpVel = GRAVITY_Y;
 	bool jumping = false;
 	bool longPress = false;
