@@ -25,6 +25,8 @@ public:
 
 	bool CleanUp();
 
+	void OnCollision(Collider* c1, Collider* c2);
+
 	void Jump();
 
 public:
@@ -63,6 +65,9 @@ private:
 	float jumpVel = GRAVITY_Y;
 	bool jumping = false;
 	bool longPress = false;
+
+	Collider* collider = nullptr;
+	
 
 };
 

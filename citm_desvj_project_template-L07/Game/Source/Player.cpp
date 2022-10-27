@@ -139,7 +139,7 @@ bool Player::Update()
 	//Jumping Function
 	if (jumping == true && jumpingTime <= 12 ) {
 		Jump();
-	} 	
+	}
 
 	longPress = false;
 	
