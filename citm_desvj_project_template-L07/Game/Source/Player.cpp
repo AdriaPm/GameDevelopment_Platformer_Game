@@ -89,12 +89,15 @@ bool Player::Update()
 		
 	}
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+		isFliped = false;
 		//position.x += 1;		
 		
 		velocity = { 5, -GRAVITY_Y };
-		//currentAnim = &runPlayer;
-		/*if (isFliped)
-			fliped = SDL_FLIP_HORIZONTAL;*/
+
+		if (isFliped == false && fliped == SDL_FLIP_HORIZONTAL) {
+			fliped = SDL_FLIP_NONE;
+			LOG("FLIPED");
+		}
 
 	}
 	pbody->body->SetLinearVelocity(velocity);
