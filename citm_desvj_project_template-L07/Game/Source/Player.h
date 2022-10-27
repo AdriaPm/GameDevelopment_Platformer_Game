@@ -35,6 +35,8 @@ public:
 	Animation runPlayer;
 	Animation jumpPlayer;
 
+	bool onGround = true;
+
 private:
 
 	//L02: DONE 1: Declare player parameters
