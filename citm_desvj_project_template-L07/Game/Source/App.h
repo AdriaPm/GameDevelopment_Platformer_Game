@@ -109,6 +109,7 @@ private:
 	pugi::xml_node configNode;
 
 	uint frames;
+	uint maxFPS = 60;
 	float dt;
 
 	// L03: DONE 1: Create control variables to control that the real Load and Save happens at the end of the frame
