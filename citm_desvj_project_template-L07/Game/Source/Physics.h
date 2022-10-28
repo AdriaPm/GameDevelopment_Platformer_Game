@@ -22,7 +22,7 @@
 enum bodyType {
 	DYNAMIC,
 	STATIC,
-	KINEMATIC
+	KINEMATIC,
 };
 
 // Small class to return to other modules to track position and rotation of physics bodies

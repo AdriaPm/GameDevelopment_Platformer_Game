@@ -130,7 +130,6 @@ bool Player::Update()
 
 		if (isFliped == false && fliped == SDL_FLIP_HORIZONTAL) {
 			fliped = SDL_FLIP_NONE;
-			LOG("FLIPED");
 		}
 		currentAnim = &runPlayer;
 
@@ -160,6 +159,16 @@ bool Player::CleanUp()
 {
 
 	return true;
+}
+
+void Player::OnCollision(PhysBody* b1, PhysBody* b2) {
+
+	if ( b1->body->GetType() == bodyType::DYNAMIC && b2->body->GetType() == bodyType::STATIC) {
+		LOG("COLLISION STATIC");
+		onGround = true;
+		jumping = false;
+	}
+
 }
 
 void Player::Jump() {
