@@ -140,6 +140,8 @@ bool Player::Update()
 		Jump();
 	}
 
+	//if(pbody->listener->OnCollision(pbody, ))
+
 	longPress = false;
 	
 	pbody->body->SetLinearVelocity(velocity);
@@ -176,7 +178,7 @@ void Player::Jump() {
 
 	//Mini Jump
 	if (longPress == true)
-		jumpVel -= .5f;
+		jumpVel -= 1.5f;
 	else
 		jumpVel += 1.0f;
 
