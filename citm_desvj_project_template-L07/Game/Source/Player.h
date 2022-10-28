@@ -26,8 +26,6 @@ public:
 
 	bool CleanUp();
 
-	void Player::OnCollision(PhysBody* p1, PhysBody* p2);
-
 	void Jump();
 
 public:
