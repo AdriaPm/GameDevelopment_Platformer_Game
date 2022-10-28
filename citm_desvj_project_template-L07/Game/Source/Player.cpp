@@ -142,11 +142,17 @@ bool Player::Update()
 	}
 
 	longPress = false;
-
-	if (pbody->body->GetType() == b2_dynamicBody && app->physics->world->GetBodyList()->GetType() == b2_staticBody) {
+	
+	/*if (pbody->body->GetFixtureList()->GetBody()->GetType() == b2_staticBody) {
+		LOG("HIT GROUND");
 		onGround = true;
 		jumping = false;
-	}
+	}*/
+
+	/*if (pbody->body->GetType() == DYNAMIC && app->map->bodies == STATIC) {
+		onGround = true;
+		jumping = false;
+	}*/
 
 	
 	pbody->body->SetLinearVelocity(velocity);
@@ -168,9 +174,13 @@ bool Player::CleanUp()
 	return true;
 }
 
-//void OnCollision(PhysBody* c1, PhysBody* c2) {
-//
-//}
+void Player::OnCollision(PhysBody* p1, PhysBody* p2){
+	if (p1->body->GetType() == bodyType::DYNAMIC && p1->body->GetType() == bodyType::STATIC) {
+		LOG("HIT GROUND");
+		onGround = true;
+		jumping = false;
+	}
+}
 
 void Player::Jump() {
 	velocity.y = +jumpVel;
