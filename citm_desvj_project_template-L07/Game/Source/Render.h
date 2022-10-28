@@ -48,6 +48,9 @@ public:
 
 public:
 
+	//Called for limit FPS to 60 in Main Funct, Takes the value from vsync config.xml--> If it is false then limit to 60, if is true use screen refresh rate
+	bool limitFPS;
+
 	SDL_Renderer* renderer;
 	SDL_Rect camera;
 	SDL_Rect viewport;
