@@ -8447,6 +8447,9 @@
   </data>
  </layer>
  <layer id="9" name="Collisions" width="105" height="20">
+  <properties>
+   <property name="Draw" type="bool" value="false"/>
+  </properties>
   <data>
    <tile/>
    <tile/>
