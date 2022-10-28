@@ -54,6 +54,15 @@ bool Player::Awake() {
 	runPlayer.loop = true;
 	runPlayer.speed = 0.1f;
 
+	diePlayer.PushBack({ 23, 202, 16, 22 });
+	diePlayer.PushBack({ 87, 206, 21, 18 });
+	diePlayer.PushBack({ 153, 213, 25, 11 });
+	diePlayer.PushBack({ 217, 212, 25, 12 });
+	diePlayer.PushBack({ 281, 213, 25, 11 });
+	diePlayer.loop = false;
+	diePlayer.speed = 0.1f;
+
+
 	return true;
 }
 

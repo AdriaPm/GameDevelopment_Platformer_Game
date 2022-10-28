@@ -40,6 +40,7 @@ public:
 	Animation idlePlayer;
 	Animation runPlayer;
 	Animation jumpPlayer;
+	Animation diePlayer;
 
 	bool onGround = true;
 
