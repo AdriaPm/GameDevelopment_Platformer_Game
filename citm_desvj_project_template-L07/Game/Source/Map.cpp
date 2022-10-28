@@ -205,8 +205,12 @@ bool Map::Load()
     app->physics->CreateRectangle((32*34)+32, (32*12)+16, 32*2, 32, STATIC);
     app->physics->CreateRectangle((32*38)+192, (32*10)+128, 32*12, 32*8, STATIC);
     app->physics->CreateRectangle((32*50)+64, (32*14)+64, 32*4, 32*4, STATIC);
-    b2Vec2 p1 = { 32 * 50, 32 * 10 };   b2Vec2 p2 = { 32 * 55, 32 * 15 };
-    //app->physics->CreateEdge(p1,p2)->Set(p1,p2);
+        
+    int points1[6] = { 32 * 50, 32 * 10,
+                       32 * 50, 32 * 14,
+                       32 * 54, 32 * 14 };
+    app->physics->CreateChain(0, 0, points1, 6, STATIC);
+
     app->physics->CreateRectangle((32*57)+16 , (32*13)+80 , 32, 32*5, STATIC);
     app->physics->CreateRectangle((32*61)+48 , (32*11)+32 , 32*3, 32*2, STATIC);
     app->physics->CreateRectangle((32*67)+48 , (32*15)+48 , 32*3, 32*3, STATIC);
@@ -216,17 +220,27 @@ bool Map::Load()
     app->physics->CreateRectangle((32*77)+16 , (32*6)+192 , 32, 32*12, STATIC);
     app->physics->CreateRectangle((32*78)+64 , (32*5)+208 , 32*4, 32*13, STATIC);
     app->physics->CreateRectangle((32*82)+32 , (32*13)+80 , 32*2, 32*5, STATIC);
-    b2Vec2 p3 = { 32 * 82, 32 * 11 };   b2Vec2 p4 = { 32 * 85, 32 * 14 };
-    //app->physics->CreateEdge(p3, p4);
+     
+    int points2[6] = { 32 * 82, 32 * 11,
+                       32 * 82, 32 * 13,
+                       32 * 84, 32 * 13 };
+    app->physics->CreateChain(0, 0, points2, 6, STATIC);
+
     app->physics->CreateRectangle((32*85)+32, (32*4)+16, 32*2, 32, STATIC);
     app->physics->CreateRectangle((32*90)+48, (32*6)+32, 32*3, 32*2, STATIC);
     app->physics->CreateRectangle((32*95)+96, (32*11)+112, 32*6, 32*7, STATIC);
-    b2Vec2 p5 = { 32 * 101, 32 * 11 };  b2Vec2 p6 = { 32 * 106,32 * 16 };
-    //app->physics->CreateEdge(p5, p6);
+    app->physics->CreateRectangle((32*101)+64, (32*15)+48, 32*4, 32*3, STATIC);
     
+    int points3[6] = {32 * 101, 32 * 11,
+                      32 * 101, 32 * 15,
+                      32 * 105, 32 *  15};
+    app->physics->CreateChain(0, 0, points3, 6, STATIC);
+
+
     // WATER collider
-    app->physics->CreateRectangle(((32*17)+16)+1680, (32*105)+40 ,32*105 ,(32*2)+16, STATIC);
+    app->physics->CreateRectangle(0+1680, 560+40, 32*105, (32*2)+16, STATIC);
     
+
 
     if(ret == true)
     {

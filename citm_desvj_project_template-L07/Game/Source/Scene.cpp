@@ -93,6 +93,10 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera.x -= 5;
 
+	// Camera movement related to player's movement
+	//app->render->camera.x = -player->position.x + 250;
+
+
 	//app->render->DrawTexture(img, 380, 100); // Placeholder not needed any more
 
 	// Draw map
