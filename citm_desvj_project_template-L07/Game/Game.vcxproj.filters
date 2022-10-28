@@ -66,6 +66,7 @@
     <ClInclude Include="Source\Physics.h" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\ModuleFadeToBlack.h" />
+    <ClInclude Include="Collider.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
