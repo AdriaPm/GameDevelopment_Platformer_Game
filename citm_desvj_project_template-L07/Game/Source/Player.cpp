@@ -7,6 +7,7 @@
 #include "Scene.h"
 #include "Log.h"
 #include "Point.h"
+#include "Map.h"
 
 Player::Player() : Entity(EntityType::PLAYER)
 {
@@ -140,9 +141,13 @@ bool Player::Update()
 		Jump();
 	}
 
-	//if(pbody->listener->OnCollision(pbody, ))
-
 	longPress = false;
+
+	if (pbody->body->GetType() == b2_dynamicBody && app->physics->world->GetBodyList()->GetType() == b2_staticBody) {
+		onGround = true;
+		jumping = false;
+	}
+
 	
 	pbody->body->SetLinearVelocity(velocity);
 
@@ -163,15 +168,9 @@ bool Player::CleanUp()
 	return true;
 }
 
-void Player::OnCollision(PhysBody* b1, PhysBody* b2) {
-
-	if ( b1->body->GetType() == bodyType::DYNAMIC && b2->body->GetType() == bodyType::STATIC) {
-		LOG("COLLISION STATIC");
-		onGround = true;
-		jumping = false;
-	}
-
-}
+//void OnCollision(PhysBody* c1, PhysBody* c2) {
+//
+//}
 
 void Player::Jump() {
 	velocity.y = +jumpVel;

@@ -8,6 +8,7 @@
 #include "SDL/include/SDL.h"
 
 struct SDL_Texture;
+struct Collider;
 
 class Player : public Entity
 {
@@ -22,8 +23,6 @@ public:
 	bool Start();
 
 	bool Update();
-
-	void OnCollision(PhysBody* b1, PhysBody* b2);
 
 	bool CleanUp();
 
@@ -65,6 +64,8 @@ private:
 	float jumpVel = GRAVITY_Y;
 	bool jumping = false;
 	bool longPress = false;
+
+	Collider* collider = nullptr;
 
 };
 

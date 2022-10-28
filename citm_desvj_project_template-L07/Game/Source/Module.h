@@ -9,6 +9,8 @@ class App;
 // L07 TODO 2: Add Physics Module
 class PhysBody;
 
+struct Collider;
+
 class Module
 {
 public:
