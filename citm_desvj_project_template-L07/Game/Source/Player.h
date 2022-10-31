@@ -40,6 +40,10 @@ public:
 	Animation jumpPlayer;
 	Animation diePlayer;
 
+	//Set of SFX
+	uint jumpSFX = 0;
+
+
 	bool onGround = true;
 
 private:

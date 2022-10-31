@@ -62,6 +62,8 @@ bool Player::Awake() {
 	diePlayer.loop = false;
 	diePlayer.speed = 0.1f;
 
+	jumpSFX = app->audio->LoadFx("Assets/Audio/Fx/jump.wav");
+	
 
 	return true;
 }
@@ -100,6 +102,8 @@ bool Player::Update()
 		if (onGround == true) {
 			jumping = true;
 			jumpingTime = 0;
+
+			app->audio->PlayFx(jumpSFX);
 		}
 		
 		onGround = false;
@@ -111,6 +115,8 @@ bool Player::Update()
 		if (onGround == true) {
 			jumping = true;
 			jumpingTime = 0;
+
+			app->audio->PlayFx(jumpSFX);
 		}
 		
 		onGround = false;
