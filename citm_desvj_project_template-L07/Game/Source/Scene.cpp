@@ -38,8 +38,11 @@ bool Scene::Awake(pugi::xml_node& config)
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	player->parameters = config.child("player");
 
-
+	// Play level music
 	app->audio->PlayMusic("Assets/Audio/Music/song1.ogg", 1.0f);
+
+	// Loading set of SFX
+	selectSFX = app->audio->LoadFx("Assets/Audio/Fx/select.wav");
 
 	return ret;
 }
@@ -99,6 +102,10 @@ bool Scene::Update(float dt)
 	// Camera movement related to player's movement
 	//app->render->camera.x = -player->position.x + 250;
 
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN){
+		player->godMode = !player->godMode;
+		app->audio->PlayFx(selectSFX);
+	}
 
 	//app->render->DrawTexture(img, 380, 100); // Placeholder not needed any more
 

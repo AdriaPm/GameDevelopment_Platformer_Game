@@ -39,6 +39,9 @@ public:
 	//L02: DONE 3: Declare a Player attribute 
 	Player* player;
 
+	// Set of SFX
+	uint selectSFX = 0;
+
 private:
 	SDL_Texture* img;
 

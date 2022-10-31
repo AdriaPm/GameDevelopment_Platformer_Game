@@ -43,8 +43,9 @@ public:
 	//Set of SFX
 	uint jumpSFX = 0;
 
-
 	bool onGround = true;
+
+	bool godMode = false;
 
 private:
 

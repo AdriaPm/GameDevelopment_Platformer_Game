@@ -62,8 +62,9 @@ bool Player::Awake() {
 	diePlayer.loop = false;
 	diePlayer.speed = 0.1f;
 
+	// Loading the set of SFX
 	jumpSFX = app->audio->LoadFx("Assets/Audio/Fx/jump.wav");
-	
+
 
 	return true;
 }
@@ -94,69 +95,95 @@ bool Player::Update()
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		app->physics->debug = !app->physics->debug;
 
-	//L02: DONE 4: modify the position of the player using arrow keys and render the texture
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-		//position.y -= 1;
+	if (godMode == true) {
+
+		// Fly around the map
+		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+			position.y -= 1;
+			velocity.y = -5;
+		}
+		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+			position.y += 1;
+			velocity.y = 5;
+		}
+		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+			position.x -= 1;
+			velocity.x = -5;
+		}
+		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+			position.x += 1;
+			velocity.x = 5;
+		}
+
+
+	}
+	else
+	{
+
+		//L02: DONE 4: modify the position of the player using arrow keys and render the texture
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+			//position.y -= 1;
+			longPress = false;
+
+			if (onGround == true) {
+				jumping = true;
+				jumpingTime = 0;
+
+				app->audio->PlayFx(jumpSFX);
+			}
+
+			onGround = false;
+		}
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
+			//position.y -= 1;
+			longPress = true;
+
+			if (onGround == true) {
+				jumping = true;
+				jumpingTime = 0;
+
+				app->audio->PlayFx(jumpSFX);
+			}
+
+			onGround = false;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+			//position.x -= 1;
+			isFliped = true;
+
+			velocity.x = -5;
+
+			if (isFliped == true && fliped == SDL_FLIP_NONE) {
+				fliped = SDL_FLIP_HORIZONTAL;
+				LOG("FLIPED");
+			}
+			currentAnim = &runPlayer;
+
+		}
+		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+			isFliped = false;
+			//position.x += 1;		
+
+			velocity.x = 5;
+
+			if (isFliped == false && fliped == SDL_FLIP_HORIZONTAL) {
+				fliped = SDL_FLIP_NONE;
+			}
+			currentAnim = &runPlayer;
+
+		}
+
+		//Jumping Function
+		if (jumping == true && jumpingTime <= 12) {
+			Jump();
+		}
+
 		longPress = false;
-		
-		if (onGround == true) {
-			jumping = true;
-			jumpingTime = 0;
-
-			app->audio->PlayFx(jumpSFX);
-		}
-		
-		onGround = false;
 	}
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
-		//position.y -= 1;
-		longPress = true;
-		
-		if (onGround == true) {
-			jumping = true;
-			jumpingTime = 0;
 
-			app->audio->PlayFx(jumpSFX);
-		}
-		
-		onGround = false;
-	}
+		pbody->body->SetLinearVelocity(velocity);
 	
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-		//position.x -= 1;
-		isFliped = true;
-
-		velocity.x = -5;
-
-		if (isFliped == true && fliped == SDL_FLIP_NONE) {
-			fliped = SDL_FLIP_HORIZONTAL;
-			LOG("FLIPED");
-		}
-		currentAnim = &runPlayer;
-		
-	}
-	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-		isFliped = false;
-		//position.x += 1;		
-		
-		velocity.x = 5;
-
-		if (isFliped == false && fliped == SDL_FLIP_HORIZONTAL) {
-			fliped = SDL_FLIP_NONE;
-		}
-		currentAnim = &runPlayer;
-
-	}
-
-	//Jumping Function
-	if (jumping == true && jumpingTime <= 12 ) {
-		Jump();
-	}
-
-	longPress = false;
-	
-	pbody->body->SetLinearVelocity(velocity);
-
 	// Link player's texture with pbody when moving
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x - (width / 4));
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y - (height / 3));
