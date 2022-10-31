@@ -121,10 +121,7 @@ bool Player::Update()
 		
 		onGround = false;
 	}
-	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-		//position.y += 1;
-
-	}
+	
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 		//position.x -= 1;
 		isFliped = true;

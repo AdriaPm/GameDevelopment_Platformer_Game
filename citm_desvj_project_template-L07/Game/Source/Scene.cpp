@@ -38,6 +38,9 @@ bool Scene::Awake(pugi::xml_node& config)
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	player->parameters = config.child("player");
 
+
+	app->audio->PlayMusic("Assets/Audio/Music/song1.ogg", 1.0f);
+
 	return ret;
 }
 

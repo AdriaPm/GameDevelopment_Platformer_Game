@@ -247,6 +247,7 @@ bool App::CleanUp()
 		item = item->prev;
 	}
 
+
 	return ret;
 }
 
