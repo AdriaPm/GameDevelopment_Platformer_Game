@@ -201,17 +201,6 @@ bool Player::CleanUp()
 	return true;
 }
 
-//void Player::OnCollision(PhysBody* p1, PhysBody* p2){
-//
-//	if (p1->body->GetType() == bodyType::DYNAMIC && p2->body->GetType() == bodyType::STATIC) {
-//		LOG("HIT GROUND");
-//		onGround = true;
-//		jumping = false;
-//	}
-//
-//
-//}
-
 void Player::Jump() {
 	velocity.y = +jumpVel;
 

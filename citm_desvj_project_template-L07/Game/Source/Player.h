@@ -71,8 +71,6 @@ private:
 	bool jumping = false;
 	bool longPress = false;
 
-	Collider* collider = nullptr;
-
 };
 
 #endif // __PLAYER_H__

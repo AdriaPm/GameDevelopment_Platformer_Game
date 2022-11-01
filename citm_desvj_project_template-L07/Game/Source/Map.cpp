@@ -194,50 +194,50 @@ bool Map::Load()
     // L07 TODO 3: Create colliders
     // Later you can create a function here to load and create the colliders from the map
     // GROUND colliders
-    bodies[0] = app->physics->CreateRectangle(0+16, (32*3)+240, 32, 32*15, STATIC);
-    bodies[1] = app->physics->CreateRectangle(32+16, (32*7)+176, 32, 32*11, STATIC);
-    bodies[2] = app->physics->CreateRectangle((32*2)+16, (32*8)+160, 32, 32*10, STATIC);
-    bodies[3] = app->physics->CreateRectangle((32*3)+224, (32*17)+16, 32*14, 32, STATIC);
-    bodies[4] = app->physics->CreateRectangle((32*17)+48, (32*15)+48, 32*3, 32*3, STATIC);
-    bodies[5] = app->physics->CreateRectangle((32*15)+32, (32*12)+16, 32*2, 32, STATIC);
-    bodies[6] = app->physics->CreateRectangle((32*20)+80, (32*11)+32, 32*5, 32*2, STATIC);
-    bodies[7] = app->physics->CreateRectangle((32*28)+64, (32*14)+16, 32*4, 32, STATIC);
-    bodies[8] = app->physics->CreateRectangle((32*34)+32, (32*12)+16, 32*2, 32, STATIC);
-    bodies[9] = app->physics->CreateRectangle((32*38)+192, (32*10)+128, 32*12, 32*8, STATIC);
-    bodies[10] = app->physics->CreateRectangle((32*50)+64, (32*14)+64, 32*4, 32*4, STATIC);
+    app->physics->CreateRectangle(0+16, (32*3)+240, 32, 32*15, STATIC);
+    app->physics->CreateRectangle(32+16, (32*7)+176, 32, 32*11, STATIC);
+    app->physics->CreateRectangle((32*2)+16, (32*8)+160, 32, 32*10, STATIC);
+    app->physics->CreateRectangle((32*3)+224, (32*17)+16, 32*14, 32, STATIC);
+    app->physics->CreateRectangle((32*17)+48, (32*15)+48, 32*3, 32*3, STATIC);
+    app->physics->CreateRectangle((32*15)+32, (32*12)+16, 32*2, 32, STATIC);
+    app->physics->CreateRectangle((32*20)+80, (32*11)+32, 32*5, 32*2, STATIC);
+    app->physics->CreateRectangle((32*28)+64, (32*14)+16, 32*4, 32, STATIC);
+    app->physics->CreateRectangle((32*34)+32, (32*12)+16, 32*2, 32, STATIC);
+    app->physics->CreateRectangle((32*38)+192, (32*10)+128, 32*12, 32*8, STATIC);
+    app->physics->CreateRectangle((32*50)+64, (32*14)+64, 32*4, 32*4, STATIC);
      
      int points1[6] = { 32 * 50, 32 * 10,
                         32 * 50, 32 * 14,
                         32 * 54, 32 * 14 };
-    bodies[11] = app->physics->CreateChain(0, 0, points1, 6, STATIC);
+    app->physics->CreateChain(0, 0, points1, 6, STATIC);
 
-    bodies[12] = app->physics->CreateRectangle((32*57)+16 , (32*13)+80 , 32, 32*5, STATIC);
-    bodies[13] = app->physics->CreateRectangle((32*61)+48 , (32*11)+32 , 32*3, 32*2, STATIC);
-    bodies[14] = app->physics->CreateRectangle((32*67)+48 , (32*15)+48 , 32*3, 32*3, STATIC);
-    bodies[15] = app->physics->CreateRectangle((32*68)+48 , (32*9)+16 , 32*3, 32, STATIC);
-    bodies[16] = app->physics->CreateRectangle((32*72)+32 , (32*12)+16 , 32*2, 32, STATIC);
-    bodies[17] = app->physics->CreateRectangle((32*75)+32 , (32*8)+160 , 32*2, 32*10, STATIC);
-    bodies[18] = app->physics->CreateRectangle((32*77)+16 , (32*6)+192 , 32, 32*12, STATIC);
-    bodies[19] = app->physics->CreateRectangle((32*78)+64 , (32*5)+208 , 32*4, 32*13, STATIC);
-    bodies[20] = app->physics->CreateRectangle((32*82)+32 , (32*13)+80 , 32*2, 32*5, STATIC);
+    app->physics->CreateRectangle((32*57)+16 , (32*13)+80 , 32, 32*5, STATIC);
+    app->physics->CreateRectangle((32*61)+48 , (32*11)+32 , 32*3, 32*2, STATIC);
+    app->physics->CreateRectangle((32*67)+48 , (32*15)+48 , 32*3, 32*3, STATIC);
+    app->physics->CreateRectangle((32*68)+48 , (32*9)+16 , 32*3, 32, STATIC);
+    app->physics->CreateRectangle((32*72)+32 , (32*12)+16 , 32*2, 32, STATIC);
+    app->physics->CreateRectangle((32*75)+32 , (32*8)+160 , 32*2, 32*10, STATIC);
+    app->physics->CreateRectangle((32*77)+16 , (32*6)+192 , 32, 32*12, STATIC);
+    app->physics->CreateRectangle((32*78)+64 , (32*5)+208 , 32*4, 32*13, STATIC);
+    app->physics->CreateRectangle((32*82)+32 , (32*13)+80 , 32*2, 32*5, STATIC);
  
      int points2[6] = { 32 * 82, 32 * 11,
                         32 * 82, 32 * 13,
                         32 * 84, 32 * 13 };
-    bodies[21] = app->physics->CreateChain(0, 0, points2, 6, STATIC);
+    app->physics->CreateChain(0, 0, points2, 6, STATIC);
  
-    bodies[22] = app->physics->CreateRectangle((32*85)+32, (32*4)+16, 32*2, 32, STATIC);
-    bodies[23] = app->physics->CreateRectangle((32*90)+48, (32*6)+32, 32*3, 32*2, STATIC);
-    bodies[24] = app->physics->CreateRectangle((32*95)+96, (32*11)+112, 32*6, 32*7, STATIC);
-    bodies[25] = app->physics->CreateRectangle((32*101)+64, (32*15)+48, 32*4, 32*3, STATIC);
+    app->physics->CreateRectangle((32*85)+32, (32*4)+16, 32*2, 32, STATIC);
+    app->physics->CreateRectangle((32*90)+48, (32*6)+32, 32*3, 32*2, STATIC);
+    app->physics->CreateRectangle((32*95)+96, (32*11)+112, 32*6, 32*7, STATIC);
+    app->physics->CreateRectangle((32*101)+64, (32*15)+48, 32*4, 32*3, STATIC);
 
      int points3[6] = {32 * 101, 32 * 11,
                        32 * 101, 32 * 15,
                        32 * 105, 32 *  15};
-    bodies[26] = app->physics->CreateChain(0, 0, points3, 6, STATIC);
+    app->physics->CreateChain(0, 0, points3, 6, STATIC);
 
      // WATER collider
-    bodies[27] = app->physics->CreateRectangle(0+1680, 560+40, 32*105, (32*2)+16, STATIC);
+    app->physics->CreateRectangle(0+1680, 560+40, 32*105, (32*2)+16, STATIC);
     
 
 
