@@ -1,5 +1,6 @@
 #pragma once
 #include "Module.h"
+#include "Entity.h"
 
 #include "Box2D/Box2D/Box2D.h"
 
@@ -25,11 +26,20 @@ enum bodyType {
 	KINEMATIC
 };
 
+enum class ColliderType {
+	PLAYER,
+	ITEM,
+	PLATFORM,
+	WALL,
+	WATER,
+	UNKNOWN
+};
+
 // Small class to return to other modules to track position and rotation of physics bodies
 class PhysBody
 {
 public:
-	PhysBody() : listener(NULL), body(NULL)
+	PhysBody() : listener(NULL), body(NULL), cType(ColliderType::UNKNOWN)
 	{}
 
 	void GetPosition(int& x, int& y) const;
@@ -40,7 +50,8 @@ public:
 public:
 	int width, height;
 	b2Body* body;
-	Module* listener;
+	Entity* listener;
+	ColliderType cType;
 };
 
 // Module --------------------------------------
@@ -56,10 +67,10 @@ public:
 	bool CleanUp();
 
 	
-	PhysBody* CreateRectangle(int x, int y, int width, int height, bodyType type);
-	PhysBody* CreateCircle(int x, int y, int radious, bodyType type);
-	PhysBody* CreateRectangleSensor(int x, int y, int width, int height, bodyType type);
-	PhysBody* CreateChain(int x, int y, int* points, int size, bodyType type);
+	PhysBody* CreateRectangle(int x, int y, int width, int height, bodyType type, ColliderType ctype);
+	PhysBody* CreateCircle(int x, int y, int radious, bodyType type, ColliderType ctype);
+	PhysBody* CreateRectangleSensor(int x, int y, int width, int height, bodyType type, ColliderType ctype);
+	PhysBody* CreateChain(int x, int y, int* points, int size, bodyType type, ColliderType ctype);
 	b2RevoluteJoint* CreateRevoluteJoint(PhysBody* A, b2Vec2 anchorA, PhysBody* B, b2Vec2 anchorB, float angle, bool collideConnected, bool enableLimit);
 	b2PrismaticJoint* CreatePrismaticJoint(PhysBody* A, b2Vec2 anchorA, PhysBody* B, b2Vec2 anchorB, b2Vec2 axys, float maxHeight, bool collideConnected, bool enableLimit);
 	b2WeldJoint* CreateWeldJoint(PhysBody* A, b2Vec2 anchorA, PhysBody* B, b2Vec2 anchorB, float angle, bool collideConnected, bool enableLimit);

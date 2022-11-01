@@ -35,6 +35,7 @@ bool Physics::Start()
 
 	world = new b2World(b2Vec2(GRAVITY_X, -GRAVITY_Y));
 	
+	world->SetContactListener(this);
 
 	return true;
 }
@@ -61,7 +62,7 @@ bool Physics::PreUpdate()
 
 
 
-PhysBody* Physics::CreateRectangle(int x, int y, int width, int height, bodyType type)
+PhysBody* Physics::CreateRectangle(int x, int y, int width, int height, bodyType type, ColliderType ctype)
 {
 	b2BodyDef body;
 
@@ -87,11 +88,12 @@ PhysBody* Physics::CreateRectangle(int x, int y, int width, int height, bodyType
 	b->SetUserData(pbody);
 	pbody->width = width * 0.5f;
 	pbody->height = height * 0.5f;
+	pbody->cType = ctype;
 
 	return pbody;
 }
 
-PhysBody* Physics::CreateCircle(int x, int y, int radious, bodyType type)
+PhysBody* Physics::CreateCircle(int x, int y, int radious, bodyType type, ColliderType ctype)
 {
 	b2BodyDef body;
 
@@ -121,7 +123,7 @@ PhysBody* Physics::CreateCircle(int x, int y, int radious, bodyType type)
 	return pbody;
 }
 
-PhysBody* Physics::CreateRectangleSensor(int x, int y, int width, int height, bodyType type)
+PhysBody* Physics::CreateRectangleSensor(int x, int y, int width, int height, bodyType type, ColliderType ctype)
 {
 	b2BodyDef body;
 
@@ -152,7 +154,7 @@ PhysBody* Physics::CreateRectangleSensor(int x, int y, int width, int height, bo
 	return pbody;
 }
 
-PhysBody* Physics::CreateChain(int x, int y, int* points, int size, bodyType type)
+PhysBody* Physics::CreateChain(int x, int y, int* points, int size, bodyType type, ColliderType ctype)
 {
 	b2BodyDef body;
 

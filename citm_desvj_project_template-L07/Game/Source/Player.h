@@ -8,7 +8,6 @@
 #include "SDL/include/SDL.h"
 
 struct SDL_Texture;
-struct Collider;
 
 class Player : public Entity
 {
@@ -25,6 +24,8 @@ public:
 	bool Update();
 
 	bool CleanUp();
+
+	void OnCollision(PhysBody* physA, PhysBody* physB);
 
 	void Jump();
 
@@ -49,12 +50,12 @@ public:
 
 private:
 
+	// L07 TODO 5: Add physics to the player - declare a Physics body
+	PhysBody* pbody;
+
 	//L02: DONE 1: Declare player parameters
 	SDL_Texture* texture;
 	const char* texturePath;
-
-	// L07 TODO 5: Add physics to the player - declare a Physics body
-	PhysBody* pbody;
 
 	SDL_RendererFlip fliped = SDL_FLIP_NONE;
 	

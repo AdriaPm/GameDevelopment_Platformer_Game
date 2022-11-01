@@ -78,7 +78,9 @@ bool Player::Start() {
 
 	// L07 TODO 5: Add physics to the player - initialize physics body
 
-	pbody = app->physics->CreateCircle(position.x, position.y, width / 3, bodyType::DYNAMIC);
+	pbody = app->physics->CreateCircle(position.x, position.y, width / 3, bodyType::DYNAMIC, ColliderType::PLAYER);
+
+	pbody->listener = this;
 
 	return true;
 }
@@ -156,7 +158,6 @@ bool Player::Update()
 
 			if (isFliped == true && fliped == SDL_FLIP_NONE) {
 				fliped = SDL_FLIP_HORIZONTAL;
-				LOG("FLIPED");
 			}
 			currentAnim = &runPlayer;
 
@@ -182,7 +183,7 @@ bool Player::Update()
 		longPress = false;
 	}
 
-		pbody->body->SetLinearVelocity(velocity);
+	pbody->body->SetLinearVelocity(velocity);
 	
 	// Link player's texture with pbody when moving
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x - (width / 4));
@@ -199,6 +200,35 @@ bool Player::CleanUp()
 {
 
 	return true;
+}
+
+void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
+
+	// L07 DONE 7: Detect the type of collision
+
+	switch (physB->cType)
+	{
+	case ColliderType::ITEM:
+		LOG("Collision ITEM");
+		break;
+	case ColliderType::PLATFORM:
+		LOG("Collision PLATFORM");
+		jumpVel = GRAVITY_Y;
+		onGround = true;
+		jumping = false;
+		break;
+	case ColliderType::WATER:
+		LOG("Collision WATER");
+		currentAnim = &diePlayer;
+		jumpVel = GRAVITY_Y;
+		onGround = true;
+		jumping = false;
+		break;
+	case ColliderType::UNKNOWN:
+		LOG("Collision UNKNOWN");
+		break;
+	}
+
 }
 
 void Player::Jump() {
