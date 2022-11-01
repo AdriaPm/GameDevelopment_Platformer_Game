@@ -74,6 +74,7 @@ private:
 
 	bool dead = false;
 
+	int coins = 0;
 };
 
 #endif // __PLAYER_H__

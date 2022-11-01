@@ -34,7 +34,7 @@ bool Item::Start() {
 	texture = app->tex->Load(texturePath);
 	
 	// L07 TODO 4: Add a physics to an item - initialize the physics body
-	pbody = app->physics->CreateCircle(position.x, position.y, width/2, bodyType::DYNAMIC, ColliderType::ITEM);
+	pbody = app->physics->CreateCircle(position.x, position.y, width/3, bodyType::KINEMATIC, ColliderType::ITEM);
 
 	pbody->listener = this;
 
@@ -44,9 +44,23 @@ bool Item::Start() {
 bool Item::Update()
 {
 	// Link item's texture with pbody when moving
+	
+
+	if (timeMov <= 50)
+		velocity.y = .5f;
+	else if (timeMov <= 100) {
+		velocity.y = -.5f;
+	}
+	else
+		timeMov = 0;
+
+
+	timeMov++;
+
+	pbody->body->SetLinearVelocity(velocity);
+
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x - (width / 2));
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y - (height / 2));
-
 	// L07 TODO 4: Add a physics to an item - update the position of the object from the physics.  
 	app->render->DrawTexture(texture, position.x, position.y);
 
@@ -56,4 +70,18 @@ bool Item::Update()
 bool Item::CleanUp()
 {
 	return true;
+}
+
+void Item::OnCollision(PhysBody* physA, PhysBody* physB) {
+
+	switch (physB->cType)
+	{
+	case ColliderType::PLAYER:
+		LOG("Collision PLAYER");
+		pbody->body->SetActive(false);
+		
+		this->Disable();
+		break;
+	}
+
 }

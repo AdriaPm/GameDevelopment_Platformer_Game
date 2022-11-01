@@ -67,7 +67,6 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 
-	
 	PhysBody* CreateRectangle(int x, int y, int width, int height, bodyType type, ColliderType ctype);
 	PhysBody* CreateCircle(int x, int y, int radious, bodyType type, ColliderType ctype);
 	PhysBody* CreateRectangleSensor(int x, int y, int width, int height, bodyType type, ColliderType ctype);
