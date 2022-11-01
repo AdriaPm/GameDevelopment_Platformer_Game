@@ -89,7 +89,7 @@ bool Player::Update()
 {
 	// L07 TODO 5: Add physics to the player - updated player position using physics
 	//b2Vec2 velocity;
-	velocity = { 0, -GRAVITY_Y }; // Players default velocity (when any key is pressed)
+	// Players default velocity (when any key is pressed)
 
 	currentAnim = &idlePlayer;
 
@@ -99,28 +99,35 @@ bool Player::Update()
 
 	if (godMode == true) {
 
+		velocity = { 0, 0 };
+
 		// Fly around the map
 		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-			position.y -= 1;
 			velocity.y = -5;
 		}
 		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-			position.y += 1;
 			velocity.y = 5;
 		}
 		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-			position.x -= 1;
+			isFliped = true;
 			velocity.x = -5;
+			if (isFliped == true && fliped == SDL_FLIP_NONE) {
+				fliped = SDL_FLIP_HORIZONTAL;
+			}
 		}
 		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-			position.x += 1;
+			isFliped = false;
 			velocity.x = 5;
+			if (isFliped == false && fliped == SDL_FLIP_HORIZONTAL) {
+				fliped = SDL_FLIP_NONE;
+			}
 		}
 
 
 	}
 	else
 	{
+		velocity = { 0, -GRAVITY_Y };
 
 		//L02: DONE 4: modify the position of the player using arrow keys and render the texture
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
