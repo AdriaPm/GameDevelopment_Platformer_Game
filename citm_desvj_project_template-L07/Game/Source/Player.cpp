@@ -125,7 +125,7 @@ bool Player::Update()
 
 
 	}
-	else
+	else if(godMode == false && dead == false)
 	{
 		velocity = { 0, -GRAVITY_Y };
 
@@ -192,9 +192,18 @@ bool Player::Update()
 
 	pbody->body->SetLinearVelocity(velocity);
 	
-	// Link player's texture with pbody when moving
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x - (width / 4));
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y - (height / 3));
+	// Link player's texture with pbody when moving, if player's dies then stop motion
+	if (dead == true) {
+		currentAnim = &diePlayer;
+		position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x - (width / 4));
+		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
+		pbody->body->SetActive(false);
+	}
+	else {
+		position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x - (width / 4));
+		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y - (height / 3));
+	}
+	
 
 	SDL_Rect rect = currentAnim->GetCurrentFrame();
 	app->render->DrawTexture(texture, position.x, position.y, &rect, fliped);
@@ -226,10 +235,14 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::WATER:
 		LOG("Collision WATER");
-		currentAnim = &diePlayer;
-		jumpVel = GRAVITY_Y;
-		onGround = true;
-		jumping = false;
+		if(godMode == false)
+			dead = true;
+		break;
+	case ColliderType::ENEMY:
+		LOG("Collision ENEMY");
+		break;
+	case ColliderType::WALL:
+		LOG("Collision WALL");
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");

@@ -72,6 +72,8 @@ private:
 	bool jumping = false;
 	bool longPress = false;
 
+	bool dead = false;
+
 };
 
 #endif // __PLAYER_H__
