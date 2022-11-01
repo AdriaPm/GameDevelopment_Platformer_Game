@@ -43,6 +43,7 @@ public:
 
 	//Set of SFX
 	uint jumpSFX = 0;
+	uint dieSFX = 0;
 
 	bool onGround = false;
 

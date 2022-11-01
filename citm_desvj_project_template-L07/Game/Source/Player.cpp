@@ -64,6 +64,7 @@ bool Player::Awake() {
 
 	// Loading the set of SFX
 	jumpSFX = app->audio->LoadFx("Assets/Audio/Fx/jump.wav");
+	dieSFX = app->audio->LoadFx("Assets/Audio/Fx/death.wav");
 
 
 	return true;
@@ -239,6 +240,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		LOG("Collision WATER");
 		if(godMode == false)
 			dead = true;
+			app->audio->PlayFx(dieSFX);
 		break;
 	case ColliderType::ENEMY:
 		LOG("Collision ENEMY");
