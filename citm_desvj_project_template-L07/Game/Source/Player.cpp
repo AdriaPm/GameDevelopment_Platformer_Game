@@ -8,6 +8,8 @@
 #include "Log.h"
 #include "Point.h"
 #include "Map.h"
+#include "ModuleFadeToBlack.h"
+
 
 Player::Player() : Entity(EntityType::PLAYER)
 {
@@ -241,6 +243,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		if(godMode == false)
 			dead = true;
 			app->audio->PlayFx(dieSFX);
+			//app->fade->FadeToBlack(this, (Module*)app->scene, 90);
 		break;
 	case ColliderType::ENEMY:
 		LOG("Collision ENEMY");
