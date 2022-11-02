@@ -21,6 +21,7 @@
     <ClCompile Include="Source\Map.cpp" />
     <ClCompile Include="Source\Physics.cpp" />
     <ClCompile Include="Source\ModuleFadeToBlack.cpp" />
+    <ClCompile Include="Source\TitleScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -67,6 +68,7 @@
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\ModuleFadeToBlack.h" />
     <ClInclude Include="Collider.h" />
+    <ClInclude Include="Source\TitleScreen.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

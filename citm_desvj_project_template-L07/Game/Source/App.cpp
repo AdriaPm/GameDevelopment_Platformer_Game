@@ -9,6 +9,7 @@
 #include "Map.h"
 #include "Physics.h"
 #include "ModuleFadeToBlack.h"
+#include "TitleScreen.h"
 
 
 #include "Defs.h"
@@ -27,12 +28,13 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	render = new Render();
 	tex = new Textures();
 	audio = new Audio();
+	fade = new ModuleFadeToBlack();
+	titlescreen = new TitleScreen();
 	//L07 TODO 2: Add Physics module
 	physics = new Physics();
 	scene = new Scene();
 	entityManager = new EntityManager();
 	map = new Map();
-	fade = new ModuleFadeToBlack();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -40,12 +42,13 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);
+	AddModule(fade);
+	AddModule(titlescreen);
 	//L07 TODO 2: Add Physics module
 	AddModule(physics);
 	AddModule(scene);
 	AddModule(entityManager);
 	AddModule(map);
-	AddModule(fade);
 
 	// Render last to swap buffer
 	AddModule(render);
