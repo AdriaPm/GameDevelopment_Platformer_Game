@@ -7,6 +7,8 @@
 #include "Scene.h"
 #include "EntityManager.h"
 #include "Map.h"
+#include "ModuleFadeToBlack.h"
+
 
 #include "Defs.h"
 #include "Log.h"
