@@ -16,6 +16,7 @@
 Scene::Scene() : Module()
 {
 	name.Create("scene");
+	active = false;
 }
 
 // Destructor

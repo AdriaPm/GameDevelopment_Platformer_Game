@@ -37,7 +37,7 @@ bool TitleScreen::Awake(pugi::xml_node& config)
 }
 
 // Called before the first frame
-bool Scene::Start()
+bool TitleScreen::Start()
 {
 	img = app->tex->Load("Assets/Textures/TitleScreen.png");
 	
@@ -54,7 +54,7 @@ bool TitleScreen::PreUpdate()
 // Called each loop iteration
 bool TitleScreen::Update(float dt)
 {
-	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
+	
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		app->fade->FadeToBlack(this, (Module*)app->scene, 90);
 
