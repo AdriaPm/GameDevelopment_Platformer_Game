@@ -44,7 +44,7 @@ public:
 
 private:
 	SDL_Texture* img;
-
+	iPoint startPosition;
 };
 
 #endif // __SCENE_H__

@@ -49,10 +49,12 @@ public:
 
 	bool godMode = false;
 
+	PhysBody* pbody;
+
 private:
 
 	// L07 TODO 5: Add physics to the player - declare a Physics body
-	PhysBody* pbody;
+	
 
 	//L02: DONE 1: Declare player parameters
 	SDL_Texture* texture;

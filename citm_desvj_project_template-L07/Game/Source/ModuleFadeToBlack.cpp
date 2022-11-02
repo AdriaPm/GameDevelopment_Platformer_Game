@@ -47,15 +47,18 @@ bool ModuleFadeToBlack::Start()
 bool ModuleFadeToBlack::Update(float dt)
 {
 	// Exit this function if we are not performing a fade
-	if (currentStep == Fade_Step::NONE) return true;
+	if (currentStep == Fade_Step::NONE) {
+		LOG("NO PASA NA");
+		return true;
+	} 
 
 	if (currentStep == Fade_Step::TO_BLACK)
 	{
 		++frameCount;
 		if (frameCount >= maxFadeFrames)
 		{
-			/*moduleToDisable->Disable();
-			moduleToEnable->Enable();*/
+			moduleToDisable->Disable();
+			moduleToEnable->Enable();
 
 			currentStep = Fade_Step::FROM_BLACK;
 		}
@@ -82,6 +85,7 @@ bool ModuleFadeToBlack::PostUpdate()
 	// Render the black square with alpha on the screen
 	SDL_SetRenderDrawColor(app->render->renderer, 0, 0, 0, (Uint8)(fadeRatio * 255.0f));
 	SDL_RenderFillRect(app->render->renderer, &screenRect);
+	LOG("APARESE LO NEGRITO");
 
 	return true;
 }

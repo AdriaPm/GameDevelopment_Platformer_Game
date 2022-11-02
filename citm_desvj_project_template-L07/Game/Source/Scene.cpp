@@ -16,9 +16,7 @@
 
 Scene::Scene() : Module()
 {
-	app->physics->Init();
-	app->entityManager->Init();
-	active = true;
+	
 	name.Create("scene");
 	
 }
@@ -30,6 +28,7 @@ Scene::~Scene()
 // Called before render is available
 bool Scene::Awake(pugi::xml_node& config)
 {
+
 	LOG("Loading Scene");
 	bool ret = true;
 
@@ -56,10 +55,11 @@ bool Scene::Awake(pugi::xml_node& config)
 
 // Called before the first frame
 bool Scene::Start()
-{
+{	
 	//img = app->tex->Load("Assets/Textures/test.png");
 	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
 	
+
 	// L03: DONE: Load map
 	app->map->Load();
 
@@ -72,6 +72,12 @@ bool Scene::Start()
 		app->map->mapData.tilesets.Count());
 
 	app->win->SetTitle(title.GetString());
+
+	
+	app->entityManager->Enable();
+	app->physics->Enable();
+	player->pbody->body->SetType(b2_dynamicBody);
+	
 
 	return true;
 }

@@ -62,6 +62,7 @@ public:
 	Physics();
 	~Physics();
 
+	bool Awake(){ return true; }
 	bool Start();
 	bool PreUpdate();
 	bool PostUpdate();

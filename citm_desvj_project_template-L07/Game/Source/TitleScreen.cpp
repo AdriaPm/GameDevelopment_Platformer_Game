@@ -6,8 +6,9 @@
 #include "Audio.h"
 #include "Render.h"
 #include "Window.h"
-
-
+#include "Entity.h"
+#include "Physics.h"
+#include "EntityManager.h"
 #include "ModuleFadeToBlack.h"
 
 #include "SDL/include/SDL_render.h"
@@ -27,6 +28,8 @@ TitleScreen::~TitleScreen()
 // Called before render is available
 bool TitleScreen::Awake(pugi::xml_node& config)
 {
+	app->entityManager->Disable();
+	app->physics->Disable();
 	LOG("Loading TitleScreen");
 	bool ret = true;
 	
@@ -54,8 +57,11 @@ bool TitleScreen::PreUpdate()
 bool TitleScreen::Update(float dt)
 {
 	
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+		LOG("PASA A OTRA PUTA ESCENA");
 		app->fade->FadeToBlack(this, (Module*)app->scene, 90);
+	}
+		
 
 	return true;
 }
