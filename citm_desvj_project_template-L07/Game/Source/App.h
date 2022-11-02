@@ -47,7 +47,7 @@ public:
 	bool CleanUp();
 
 	// Add a new module to handle
-	void AddModule(Module* module);
+	void AddModule(Module* module, bool activate);
 
 	// Exposing some properties for reading
 	int GetArgc() const;

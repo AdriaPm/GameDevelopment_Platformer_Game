@@ -38,20 +38,20 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
-	AddModule(input);
-	AddModule(win);
-	AddModule(tex);
-	AddModule(audio);
-	AddModule(fade);
-	AddModule(titlescreen);
+	AddModule(input, true);
+	AddModule(win, true);
+	AddModule(tex, true);
+	AddModule(audio, true);
+	AddModule(fade, true);
+	AddModule(titlescreen, true);
 	//L07 TODO 2: Add Physics module
-	AddModule(physics);
-	AddModule(scene);
-	AddModule(entityManager);
-	AddModule(map);
+	AddModule(physics, true);
+	AddModule(scene, false);
+	AddModule(entityManager, true);
+	AddModule(map, true);
 
 	// Render last to swap buffer
-	AddModule(render);
+	AddModule(render, true);
 }
 
 // Destructor
@@ -69,9 +69,11 @@ App::~App()
 	modules.Clear();
 }
 
-void App::AddModule(Module* module)
+void App::AddModule(Module* module, bool activate)
 {
-	module->Init();
+	if(activate == true)
+		module->Init();
+
 	modules.Add(module);
 }
 
