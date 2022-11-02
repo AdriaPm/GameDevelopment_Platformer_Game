@@ -6,9 +6,8 @@
 #include "Audio.h"
 #include "Render.h"
 #include "Window.h"
-#include "Scene.h"
-#include "EntityManager.h"
-#include "Map.h"
+
+
 #include "ModuleFadeToBlack.h"
 
 #include "SDL/include/SDL_render.h"

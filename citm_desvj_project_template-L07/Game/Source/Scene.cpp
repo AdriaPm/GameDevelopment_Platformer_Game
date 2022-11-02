@@ -7,6 +7,7 @@
 #include "Scene.h"
 #include "EntityManager.h"
 #include "Map.h"
+#include "Physics.h"
 #include "ModuleFadeToBlack.h"
 
 
@@ -15,8 +16,11 @@
 
 Scene::Scene() : Module()
 {
+	app->physics->Init();
+	app->entityManager->Init();
+	active = true;
 	name.Create("scene");
-	active = false;
+	
 }
 
 // Destructor
