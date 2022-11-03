@@ -263,9 +263,9 @@ void Player::Jump() {
 
 	//Mini Jump
 	if (longPress == true)
-		jumpVel -= 2.0f;
+		jumpVel -= 1.5f;
 	else
-		jumpVel += 1.0f;
+		jumpVel += 2.0f;
 
 	jumpingTime++;
 }
