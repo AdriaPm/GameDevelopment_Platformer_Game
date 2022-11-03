@@ -68,7 +68,7 @@ bool Player::Awake() {
 	// Loading the set of SFX
 	jumpSFX = app->audio->LoadFx("Assets/Audio/Fx/jump.wav");
 	dieSFX = app->audio->LoadFx("Assets/Audio/Fx/death.wav");
-
+	pickCoinSFX = app->audio->LoadFx("Assets/Audio/Fx/pick_coin.wav");
 
 	return true;
 }
@@ -243,6 +243,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
 		coins++;
+		app->audio->PlayFx(pickCoinSFX);
 		LOG("COINS: %d", coins);
 		break;
 	case ColliderType::PLATFORM:
