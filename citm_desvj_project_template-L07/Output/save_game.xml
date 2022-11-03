@@ -4,11 +4,14 @@
 	<window />
 	<textures />
 	<audio />
+	<fade />
 	<anonymous />
 	<scene />
 	<entitymanager />
+	<TitleScreen />
 	<map />
+	<EndingScreen />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-195" y="0" />
 	</renderer>
 </save_state>

@@ -33,6 +33,8 @@ public:
 
 	void Jump();
 
+	void ResetPlayerPos();
+
 public:
 
 	// The pointer to the current player animation
@@ -51,7 +53,7 @@ public:
 	uint pickCoinSFX = 0;
 
 	bool onGround = false;
-
+	bool dead = false;
 	bool godMode = false;
 
 	PhysBody* pbody;
@@ -80,8 +82,6 @@ private:
 	float jumpVel = GRAVITY_Y;
 	bool jumping = false;
 	bool longPress = false;
-
-	bool dead = false;
 
 	int coins = 0;
 };

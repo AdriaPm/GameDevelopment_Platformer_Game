@@ -28,8 +28,11 @@ bool Player::Awake() {
 	//texturePath = "Assets/Textures/player/idle1.png";
 
 	//L02: DONE 5: Get Player parameters from XML
-	position.x = parameters.attribute("x").as_int();
-	position.y = parameters.attribute("y").as_int();
+	startingPosition.x = parameters.attribute("x").as_int();
+	startingPosition.y = parameters.attribute("y").as_int();
+	/*position.x = startingPosition.x;
+	position.y = startingPosition.y;*/
+
 	texturePath = parameters.attribute("texturepath").as_string();
 
 	width = 32;
@@ -74,11 +77,13 @@ bool Player::Awake() {
 }
 
 bool Player::Start() {
-
+	position.x = startingPosition.x;
+	position.y = startingPosition.y;
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 
 	currentAnim = &idlePlayer;
+	dead = false;
 
 	// L07 TODO 5: Add physics to the player - initialize physics body
 
@@ -209,7 +214,7 @@ bool Player::Update()
 	if (dead == true) {
 		currentAnim = &diePlayer;
 		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
-		pbody->body->SetActive(false);
+		pbody->body->SetAwake(false);
 	}
 	else {
 		position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x - (width / 4));
@@ -293,4 +298,11 @@ void Player::Jump() {
 		jumpVel += 2.0f;
 
 	jumpingTime++;
+}
+
+void Player::ResetPlayerPos() {
+
+	pbody->body->SetSleepingAllowed(false);
+	
+	LOG("--RESETING PLAYER--");
 }

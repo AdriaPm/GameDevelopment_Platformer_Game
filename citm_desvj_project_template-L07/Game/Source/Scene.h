@@ -34,10 +34,14 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	void ResetScene();
+
 public:
 
 	//L02: DONE 3: Declare a Player attribute 
 	Player* player;
+
+	Item* item;
 
 	// Set of SFX
 	uint selectSFX = 0;

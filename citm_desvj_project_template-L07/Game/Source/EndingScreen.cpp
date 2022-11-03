@@ -32,9 +32,9 @@ EndingScreen::~EndingScreen()
 bool EndingScreen::Awake(pugi::xml_node& config)
 {
 	app->map->Disable();
+	app->physics->Disable();
 	app->scene->Disable();
 	app->entityManager->Disable();
-	app->physics->Disable();	
 
 	LOG("Loading EndingScreen");
 	bool ret = true;
@@ -47,7 +47,8 @@ bool EndingScreen::Awake(pugi::xml_node& config)
 bool EndingScreen::Start()
 {
 	img = app->tex->Load("Assets/Textures/EndingScreen.png");
-
+	app->scene->player->dead = false;
+	app->scene->player->godMode = true;
 	//app->audio->PlayMusic("Assets/Audio/Music/menu_music.ogg");
 
 	return true;
@@ -64,12 +65,14 @@ bool EndingScreen::Update(float dt)
 {
 	
 
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
 		LOG("PASA A OTRA PUTA ESCENA");
 		app->fade->FadeToBlack(this, (Module*)app->scene, 90);
 	}
 
 	//app->render->DrawTexture(img, app->render->viewport.x, app->render->viewport.y, NULL);
+	// Render GAME OVER image
+	//app->render->DrawTexture(img, (app->scene->player->position.x) - ((app->win->screenSurface->w) / 2), 0, NULL);
 
 	return true;
 }
@@ -78,15 +81,9 @@ bool EndingScreen::Update(float dt)
 bool EndingScreen::PostUpdate()
 {
 	bool ret = true;
-
-	//app->render->DrawTexture(img, 0, 0, NULL);
-
+	app->render->DrawTexture(img, (app->scene->player->position.x) - ((app->win->screenSurface->w) / 2), 0, NULL);
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
-	
-
-	// Render GAME OVER image
-	app->render->DrawTexture(img, (app->scene->player->position.x)-((app->win->screenSurface->w) / 2), 0, NULL);
 
 	return ret;
 }

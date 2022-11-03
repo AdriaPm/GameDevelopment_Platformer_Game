@@ -36,7 +36,7 @@ bool Scene::Awake(pugi::xml_node& config)
 	// Check https://pugixml.org/docs/quickstart.html#access
 	for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
 	{
-		Item* item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+		item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
 		item->parameters = itemNode;
 	}
 
@@ -58,8 +58,8 @@ bool Scene::Start()
 {	
 	//img = app->tex->Load("Assets/Textures/test.png");
 	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
-	
 
+	
 	// L03: DONE: Load map
 	app->map->Load();
 
@@ -77,7 +77,7 @@ bool Scene::Start()
 	app->entityManager->Enable();
 	app->physics->Enable();
 	player->pbody->body->SetType(b2_dynamicBody);
-	
+	player->position = player->startingPosition;
 
 	return true;
 }
@@ -148,4 +148,10 @@ bool Scene::CleanUp()
 	LOG("Freeing scene");
 
 	return true;
+}
+
+void Scene::ResetScene() {
+	player->Awake();
+	item->Awake();
+	player->ResetPlayerPos();
 }

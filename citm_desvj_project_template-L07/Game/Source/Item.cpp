@@ -79,7 +79,6 @@ void Item::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::PLAYER:
 		LOG("Collision PLAYER");
 		pbody->body->SetActive(false);
-		
 		this->Disable();
 		break;
 	}
