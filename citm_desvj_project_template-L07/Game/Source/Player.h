@@ -75,6 +75,7 @@ private:
 
 	//Jump Variables
 	int jumpingTime;
+	uint jumpCount = 1;
 	float jumpVel = GRAVITY_Y;
 	bool jumping = false;
 	bool longPress = false;

@@ -149,6 +149,10 @@ bool Player::Update()
 
 				app->audio->PlayFx(jumpSFX);
 			}
+			else if (onGround == false && jumpCount > 1 && jumping == true) {
+				Jump();
+				jumpCount--;
+			}
 
 			onGround = false;
 		}
@@ -204,7 +208,6 @@ bool Player::Update()
 	// Link player's texture with pbody when moving, if player's dies then stop motion
 	if (dead == true) {
 		currentAnim = &diePlayer;
-		position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x - (width / 4));
 		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
 		pbody->body->SetActive(false);
 	}
@@ -247,6 +250,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		jumpVel = GRAVITY_Y;
 		onGround = true;
 		jumping = false;
+		jumpCount = 2;
 		break;
 	case ColliderType::WATER:
 		LOG("Collision WATER");
@@ -282,6 +286,8 @@ void Player::Jump() {
 	//Mini Jump
 	if (longPress == true)
 		jumpVel -= 1.5f;
+	else if(jumpCount == 0)
+		jumpVel -= 5.0f;
 	else
 		jumpVel += 2.0f;
 
