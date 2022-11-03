@@ -20,6 +20,7 @@ class TitleScreen;
 class Scene;
 class EntityManager;
 class Map;
+class EndingScreen;
 //L07 TODO 2: Add Physics module
 class Physics;
 class Animation;
@@ -94,6 +95,7 @@ public:
 	Scene* scene;
 	EntityManager* entityManager;
 	Map* map;
+	EndingScreen* endingscreen;
 	//L07 TODO 2: Add Physics module
 	Physics* physics;
 

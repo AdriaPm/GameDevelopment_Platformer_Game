@@ -10,6 +10,7 @@
 #include "Physics.h"
 #include "ModuleFadeToBlack.h"
 #include "TitleScreen.h"
+#include "EndingScreen.h"
 
 
 #include "Defs.h"
@@ -35,6 +36,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	scene = new Scene();
 	entityManager = new EntityManager();
 	map = new Map();
+	endingscreen = new EndingScreen();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -49,6 +51,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(entityManager, false);
 	AddModule(titlescreen, true);
 	AddModule(map, false);
+	AddModule(endingscreen, false);
 
 	// Render last to swap buffer
 	AddModule(render, true);

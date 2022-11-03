@@ -22,6 +22,7 @@
     <ClCompile Include="Source\Physics.cpp" />
     <ClCompile Include="Source\ModuleFadeToBlack.cpp" />
     <ClCompile Include="Source\TitleScreen.cpp" />
+    <ClCompile Include="Source\EndingScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -69,6 +70,7 @@
     <ClInclude Include="Source\ModuleFadeToBlack.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Source\TitleScreen.h" />
+    <ClInclude Include="Source\EndingScreen.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

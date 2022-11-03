@@ -257,7 +257,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		if(godMode == false)
 			dead = true;
 			app->audio->PlayFx(dieSFX);
-			//app->fade->FadeToBlack(this, (Module*)app->scene, 90);
+			app->fade->FadeToBlack((Module*)this, (Module*)app->endingscreen, 50);
 		break;
 	case ColliderType::ENEMY:
 		LOG("Collision ENEMY");
