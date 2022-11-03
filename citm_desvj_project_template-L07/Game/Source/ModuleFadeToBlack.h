@@ -19,6 +19,10 @@ public:
 	// Enables the blending mode for transparency
 	bool Start();
 
+	// Called at the start of the application loop
+	// Updates the fade logic
+	bool PreUpdate();
+	
 	// Called at the middle of the application loop
 	// Updates the fade logic
 	bool Update(float dt);

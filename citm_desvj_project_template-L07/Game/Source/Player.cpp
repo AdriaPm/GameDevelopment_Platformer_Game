@@ -88,6 +88,11 @@ bool Player::Start() {
 	return true;
 }
 
+bool Player::PreUpdate() {
+
+	return true;
+}
+
 bool Player::Update()
 {
 	// L07 TODO 5: Add physics to the player - updated player position using physics
@@ -212,6 +217,10 @@ bool Player::Update()
 	app->render->DrawTexture(texture, position.x, position.y, &rect, fliped);
 	currentAnim->Update();
 
+	return true;
+}
+
+bool Player::PostUpdate() {
 	return true;
 }
 

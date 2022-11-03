@@ -21,7 +21,11 @@ public:
 
 	bool Start();
 
+	bool PreUpdate();
+
 	bool Update();
+
+	bool PostUpdate();
 
 	bool CleanUp();
 

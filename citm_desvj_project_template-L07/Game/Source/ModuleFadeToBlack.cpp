@@ -32,6 +32,7 @@ bool ModuleFadeToBlack::Awake(pugi::xml_node& config)
 	else
 	{
 		screenRect = { 0, 0, width * size , height * size };
+		
 	}
 
 	return ret;
@@ -41,6 +42,11 @@ bool ModuleFadeToBlack::Start()
 {
 	// Enable blending mode for transparency
 	SDL_SetRenderDrawBlendMode(app->render->renderer, SDL_BLENDMODE_BLEND);
+
+	return true;
+}
+
+bool ModuleFadeToBlack::PreUpdate() {
 	return true;
 }
 
@@ -56,10 +62,12 @@ bool ModuleFadeToBlack::Update(float dt)
 		++frameCount;
 		if (frameCount >= maxFadeFrames)
 		{
+			app->render->ResetViewPort();
 			moduleToDisable->Disable();
 			moduleToEnable->Enable();
-
+			
 			currentStep = Fade_Step::FROM_BLACK;
+			
 		}
 	}
 	else
@@ -84,10 +92,11 @@ bool ModuleFadeToBlack::PostUpdate()
 	// Render the black square with alpha on the screen
 	SDL_SetRenderDrawColor(app->render->renderer, 0, 0, 0, (Uint8)(fadeRatio * 255.0f));
 	LOG("%f", fadeRatio);
-	SDL_RenderFillRect(app->render->renderer, &app->render->viewport);
+	SDL_RenderFillRect(app->render->renderer, &app->render->camera);
 
 	return true;
 }
+
 
 bool ModuleFadeToBlack::FadeToBlack(Module* moduleToDisable, Module* moduleToEnable, float frames)
 {
@@ -96,6 +105,7 @@ bool ModuleFadeToBlack::FadeToBlack(Module* moduleToDisable, Module* moduleToEna
 	// If we are already in a fade process, ignore this call
 	if(currentStep == Fade_Step::NONE)
 	{
+		//app->render->SetViewPort(screenRect);
 		currentStep = Fade_Step::TO_BLACK;
 		frameCount = 0;
 		maxFadeFrames = frames;

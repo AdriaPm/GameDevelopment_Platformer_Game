@@ -57,11 +57,12 @@ bool TitleScreen::PreUpdate()
 bool TitleScreen::Update(float dt)
 {
 	
+	
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 		LOG("PASA A OTRA PUTA ESCENA");
 		app->fade->FadeToBlack(this, (Module*)app->scene, 90);
 	}
-		
+	app->render->DrawTexture(img, 0, 0, NULL);
 
 	return true;
 }
@@ -71,10 +72,11 @@ bool TitleScreen::PostUpdate()
 {
 	bool ret = true;
 
-	app->render->DrawTexture(img, 0, 0, NULL);
+	//app->render->DrawTexture(img, 0, 0, NULL);
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
+	app->render->DrawTexture(img, 0, 0, NULL);
 
 	return ret;
 }
