@@ -76,7 +76,7 @@ bool TitleScreen::PostUpdate()
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
-	app->render->DrawTexture(img, 0, 0, NULL);
+	//app->render->DrawTexture(img, 0, 0, NULL);
 
 	return ret;
 }

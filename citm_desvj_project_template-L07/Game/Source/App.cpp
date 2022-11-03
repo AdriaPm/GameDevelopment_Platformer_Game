@@ -43,11 +43,11 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex, true);
 	AddModule(audio, true);
 	AddModule(fade, true);
-	AddModule(titlescreen, true);
 	//L07 TODO 2: Add Physics module
 	AddModule(physics, false);
 	AddModule(scene, false);
 	AddModule(entityManager, false);
+	AddModule(titlescreen, true);
 	AddModule(map, false);
 
 	// Render last to swap buffer

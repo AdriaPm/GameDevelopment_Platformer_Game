@@ -4,6 +4,7 @@
 #include "Audio.h"
 #include "Input.h"
 #include "Render.h"
+#include "Window.h"
 #include "Scene.h"
 #include "Log.h"
 #include "Point.h"
@@ -259,6 +260,10 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::WALL:
 		LOG("Collision WALL");
+		break;
+	case ColliderType::CAMERAFIX:
+		LOG("Collision CameraFix");
+		app->render->camera.x = -position.x + (app->win->screenSurface->w) / 2;
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
