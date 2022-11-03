@@ -238,7 +238,10 @@ bool Map::Load()
 
      // WATER collider
      PhysBody* c28 = app->physics->CreateRectangle(0+1680, 560+40, 32*105, (32*2)+16, STATIC, ColliderType::WATER);
+
+     PhysBody* c29 = app->physics->CreateRectangle((32*16)+27 ,(32*13)+64 , 10, 32*4, STATIC, ColliderType::CAMERAFIX);
     
+
 
 
     if(ret == true)
