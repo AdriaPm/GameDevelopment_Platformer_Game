@@ -42,6 +42,8 @@ public:
 	// Set of SFX
 	uint selectSFX = 0;
 
+	bool cameraFix = false;
+
 private:
 	SDL_Texture* img;
 	iPoint startPosition;

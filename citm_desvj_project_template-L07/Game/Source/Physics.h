@@ -34,6 +34,7 @@ enum class ColliderType {
 	WALL,
 	WATER,
 	CAMERAFIX,
+	NONCAMERAFIX,
 	UNKNOWN
 };
 

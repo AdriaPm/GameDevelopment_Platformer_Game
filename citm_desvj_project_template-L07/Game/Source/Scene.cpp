@@ -113,7 +113,10 @@ bool Scene::Update(float dt)
 		app->render->camera.x -= 5;
 
 	// Camera movement related to player's movement
-	//app->render->camera.x = -player->position.x + (app->win->screenSurface->w)/2;
+	if (cameraFix == true)
+		app->render->camera.x = -player->position.x + (app->win->screenSurface->w) / 2;
+	else
+		app->render->camera.x = 0;
 
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN){
 		player->godMode = !player->godMode;
