@@ -26,10 +26,9 @@ bool Player::Awake() {
 	//L02: DONE 1: Initialize Player parameters
 	//pos = position;
 	//texturePath = "Assets/Textures/player/idle1.png";
-
 	//L02: DONE 5: Get Player parameters from XML
-	startingPosition.x = parameters.attribute("x").as_int();
-	startingPosition.y = parameters.attribute("y").as_int();
+	startPos.x = parameters.attribute("x").as_int();
+	startPos.y = parameters.attribute("y").as_int();
 	/*position.x = startingPosition.x;
 	position.y = startingPosition.y;*/
 
@@ -77,8 +76,6 @@ bool Player::Awake() {
 }
 
 bool Player::Start() {
-	position.x = startingPosition.x;
-	position.y = startingPosition.y;
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 
@@ -87,7 +84,7 @@ bool Player::Start() {
 
 	// L07 TODO 5: Add physics to the player - initialize physics body
 
-	pbody = app->physics->CreateCircle(position.x, position.y, width / 3, bodyType::STATIC, ColliderType::PLAYER);
+	pbody = app->physics->CreateCircle(position.x, position.y, width / 3, bodyType::DYNAMIC, ColliderType::PLAYER);
 
 	pbody->listener = this;
 
@@ -199,11 +196,17 @@ bool Player::Update()
 			currentAnim = &runPlayer;
 
 		}
+		if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
+			ResetPlayerPos();
+
+		}
+
 
 		//Jumping Function
 		if (jumping == true && jumpingTime <= 12) {
 			Jump();
 		}
+
 
 		longPress = false;
 	}
@@ -303,6 +306,10 @@ void Player::Jump() {
 void Player::ResetPlayerPos() {
 
 	pbody->body->SetSleepingAllowed(false);
+	velocity = { 0, 0 };
+	pbody->body->SetTransform(PIXEL_TO_METERS(startPos), 0.0f);
+	//position = startingPosition;
+	//app->scene->cameraFix = false;
 	
 	LOG("--RESETING PLAYER--");
 }

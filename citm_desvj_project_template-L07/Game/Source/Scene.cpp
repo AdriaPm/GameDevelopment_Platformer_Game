@@ -76,8 +76,9 @@ bool Scene::Start()
 	
 	app->entityManager->Enable();
 	app->physics->Enable();
-	player->pbody->body->SetType(b2_dynamicBody);
-	player->position = player->startingPosition;
+	app->scene->player->ResetPlayerPos();
+	//player->pbody->body->SetType(b2_dynamicBody);
+	//player->position = player->startingPosition;
 
 	return true;
 }

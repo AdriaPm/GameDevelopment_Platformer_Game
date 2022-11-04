@@ -70,6 +70,7 @@ private:
 	SDL_RendererFlip fliped = SDL_FLIP_NONE;
 	
 	b2Vec2 velocity;
+	b2Vec2 startPos;
 
 	int width;
 	int height;

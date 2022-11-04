@@ -48,7 +48,7 @@ bool EndingScreen::Start()
 {
 	img = app->tex->Load("Assets/Textures/EndingScreen.png");
 	app->scene->player->dead = false;
-	app->scene->player->godMode = true;
+	//app->scene->player->godMode = true;
 	//app->audio->PlayMusic("Assets/Audio/Music/menu_music.ogg");
 
 	return true;
