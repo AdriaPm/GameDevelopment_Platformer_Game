@@ -237,13 +237,15 @@ bool Map::Load()
      PhysBody* c27 = app->physics->CreateChain(0, 0, points3, 6, STATIC, ColliderType::PLATFORM);
 
      // WATER collider
-     PhysBody* c28 = app->physics->CreateRectangle(0+1680, 560+40, 32*105, (32*2)+16, STATIC, ColliderType::WATER);
+     PhysBody* c28 = app->physics->CreateRectangle(0+1648, 560+40, 32*103, (32*2)+16, STATIC, ColliderType::WATER);
 
      //Camera Fixed To Player Colliders
      PhysBody* c29 = app->physics->CreateRectangleSensor((32*16)+27 ,(32*8)+144 , 10, 32 * 9, STATIC, ColliderType::CAMERAFIX);
      PhysBody* c30 = app->physics->CreateRectangleSensor((32*16)-8 ,(32*8)+144 , 10, 32 * 9, STATIC, ColliderType::NONCAMERAFIX);
-    
 
+     // WIN collider (if player touches it, player wins)
+     PhysBody* c31 = app->physics->CreateRectangleSensor((32 * 103) + 16, (32 * 8) + 80, 32, 32 * 5, STATIC, ColliderType::WIN_ZONE);
+    
 
 
     if(ret == true)

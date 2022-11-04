@@ -35,6 +35,7 @@ enum class ColliderType {
 	WATER,
 	CAMERAFIX,
 	NONCAMERAFIX,
+	WIN_ZONE,
 	UNKNOWN
 };
 

@@ -71,6 +71,7 @@ bool Player::Awake() {
 	jumpSFX = app->audio->LoadFx("Assets/Audio/Fx/jump.wav");
 	dieSFX = app->audio->LoadFx("Assets/Audio/Fx/death.wav");
 	pickCoinSFX = app->audio->LoadFx("Assets/Audio/Fx/pick_coin.wav");
+	levelCompletedSFX = app->audio->LoadFx("Assets/Audio/Fx/level_completed.wav");
 
 	return true;
 }
@@ -267,6 +268,11 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			dead = true;
 			app->audio->PlayFx(dieSFX);
 			app->fade->FadeToBlack((Module*)this, (Module*)app->endingscreen, 50);
+		break;
+	case ColliderType::WIN_ZONE:
+		LOG("Collision WIN ZONE");
+		app->fade->FadeToBlack((Module*)this, (Module*)app->titlescreen, 90);
+		app->audio->PlayFx(levelCompletedSFX);
 		break;
 	case ColliderType::ENEMY:
 		LOG("Collision ENEMY");
