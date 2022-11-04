@@ -288,6 +288,14 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		LOG("Collision CameraFix");
 		app->scene->cameraFix = false;
 		break;
+	case ColliderType::CAMERAFIX_2:
+		LOG("Collision CameraFix 2");
+		app->scene->cameraFix2 = true;
+		break;
+	case ColliderType::NONCAMERAFIX_2:
+		LOG("Collision CameraFix 2");
+		app->scene->cameraFix2 = false;
+		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
 		break;

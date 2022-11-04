@@ -118,10 +118,21 @@ bool Scene::Update(float dt)
 		app->render->camera.x -= 5;
 
 	// Camera movement related to player's movement
-	if (cameraFix == true)
-		app->render->camera.x = -player->position.x + (app->win->screenSurface->w) / 2;
-	else
-		app->render->camera.x = 0;
+	if (cameraFix2 == true)
+	{
+		if (cameraFix == true)
+			app->render->camera.x = -player->position.x + (app->win->screenSurface->w) / 2;
+		else
+			app->render->camera.x = 0;
+	}
+
+	if (cameraFix == true) 
+	{
+		if (cameraFix2 == true)
+			app->render->camera.x = -2336;  // 2236 = map width - window width 
+		else
+			app->render->camera.x = -player->position.x + (app->win->screenSurface->w) / 2;
+	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN){
 		player->godMode = !player->godMode;

@@ -47,6 +47,7 @@ public:
 	uint selectSFX = 0;
 
 	bool cameraFix = false;
+	bool cameraFix2 = false;
 
 private:
 	SDL_Texture* img;

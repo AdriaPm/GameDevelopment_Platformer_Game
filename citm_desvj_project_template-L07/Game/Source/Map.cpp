@@ -4,6 +4,7 @@
 #include "Textures.h"
 #include "Map.h"
 #include "Physics.h"
+#include "Player.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -239,12 +240,16 @@ bool Map::Load()
      // WATER collider
      PhysBody* c28 = app->physics->CreateRectangle(0+1648, 560+40, 32*103, (32*2)+16, STATIC, ColliderType::WATER);
 
-     //Camera Fixed To Player Colliders
+     //Camera Fixed To Player Colliders (left side)
      PhysBody* c29 = app->physics->CreateRectangleSensor((32*16)+27 ,(32*8)+144 , 10, 32 * 9, STATIC, ColliderType::CAMERAFIX);
      PhysBody* c30 = app->physics->CreateRectangleSensor((32*16)-8 ,(32*8)+144 , 10, 32 * 9, STATIC, ColliderType::NONCAMERAFIX);
 
+     //Camera Fixed To Player Colliders (right side)
+     PhysBody* c31 = app->physics->CreateRectangleSensor((2858)-24, 0+288, 10, 32 * 18, STATIC, ColliderType::NONCAMERAFIX_2);
+     PhysBody* c32 = app->physics->CreateRectangleSensor((2858)+8, 0+288, 10, 32 * 18, STATIC, ColliderType::CAMERAFIX_2);
+
      // WIN collider (if player touches it, player wins)
-     PhysBody* c31 = app->physics->CreateRectangleSensor((32 * 103) + 16, (32 * 8) + 80, 32, 32 * 5, STATIC, ColliderType::WIN_ZONE);
+     PhysBody* c33 = app->physics->CreateRectangleSensor((32 * 103) + 16, (32 * 8) + 80, 32, 32 * 5, STATIC, ColliderType::WIN_ZONE);
     
 
 
