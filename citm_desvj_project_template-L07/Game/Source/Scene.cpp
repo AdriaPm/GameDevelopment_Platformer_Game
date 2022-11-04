@@ -63,6 +63,9 @@ bool Scene::Start()
 	// L03: DONE: Load map
 	app->map->Load();
 
+	SString title("Misco Jones Adventures by ADVENTURES JOKES STUDIO");
+
+	/*
 	// L04: DONE 7: Set the window title with map/tileset info
 	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
 		app->map->mapData.width,
@@ -70,6 +73,7 @@ bool Scene::Start()
 		app->map->mapData.tileWidth,
 		app->map->mapData.tileHeight,
 		app->map->mapData.tilesets.Count());
+	*/
 
 	app->win->SetTitle(title.GetString());
 

@@ -9,6 +9,7 @@
 #include "Map.h"
 #include "Physics.h"
 #include "ModuleFadeToBlack.h"
+#include "LogoScreen.h"
 #include "TitleScreen.h"
 #include "EndingScreen.h"
 
@@ -30,6 +31,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new Textures();
 	audio = new Audio();
 	fade = new ModuleFadeToBlack();
+	logoscreen = new LogoScreen();
 	titlescreen = new TitleScreen();
 	//L07 TODO 2: Add Physics module
 	physics = new Physics();
@@ -49,7 +51,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(physics, false);
 	AddModule(scene, false);
 	AddModule(entityManager, false);
-	AddModule(titlescreen, true);
+	AddModule(logoscreen, true);
+	AddModule(titlescreen, false);
 	AddModule(map, false);
 	AddModule(endingscreen, false);
 

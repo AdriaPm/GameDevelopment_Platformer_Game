@@ -16,6 +16,7 @@ class Render;
 class Textures;
 class Audio;
 class ModuleFadeToBlack;
+class LogoScreen;
 class TitleScreen;
 class Scene;
 class EntityManager;
@@ -91,6 +92,7 @@ public:
 	Textures* tex;
 	Audio* audio;
 	ModuleFadeToBlack* fade;
+	LogoScreen* logoscreen;
 	TitleScreen* titlescreen;
 	Scene* scene;
 	EntityManager* entityManager;
