@@ -266,6 +266,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		LOG("Collision WATER");
 		if(godMode == false)
 			dead = true;
+			coins = 0;
 			app->audio->PlayFx(dieSFX);
 			app->fade->FadeToBlack((Module*)this, (Module*)app->endingscreen, 50);
 		break;

@@ -48,6 +48,8 @@ bool EndingScreen::Start()
 {
 	img = app->tex->Load("Assets/Textures/EndingScreen.png");
 	app->scene->player->dead = false;
+	app->scene->player->ResetPlayerPos();
+
 	//app->scene->player->godMode = true;
 	//app->audio->PlayMusic("Assets/Audio/Music/menu_music.ogg");
 
@@ -65,9 +67,10 @@ bool EndingScreen::Update(float dt)
 {
 	
 
-	if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 		LOG("PASA A OTRA PUTA ESCENA");
 		app->fade->FadeToBlack(this, (Module*)app->scene, 90);
+		app->scene->cameraFix = false;
 	}
 
 	//app->render->DrawTexture(img, app->render->viewport.x, app->render->viewport.y, NULL);
