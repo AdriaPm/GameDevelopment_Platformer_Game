@@ -70,11 +70,8 @@ bool LogoScreen::PostUpdate()
 {
 	bool ret = true;
 
-	//app->render->DrawTexture(img, 0, 0, NULL);
-
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
-	//app->render->DrawTexture(img, 0, 0, NULL);
 
 	return ret;
 }

@@ -49,6 +49,8 @@ public:
 	bool cameraFix = false;
 	bool cameraFix2 = false;
 
+	bool playing = false;
+
 private:
 	SDL_Texture* img;
 	iPoint startPosition;

@@ -9,6 +9,7 @@
 #include "Render.h"
 #include "Player.h"
 #include "Window.h"
+#include "Scene.h"
 #include "Box2D/Box2D/Box2D.h"
 
 #ifdef _DEBUG
@@ -219,7 +220,10 @@ bool Physics::PostUpdate()
 					uint width, height;
 					app->win->GetWindowSize(width, height);
 					b2Vec2 pos = f->GetBody()->GetPosition();
-					app->render->DrawCircle(METERS_TO_PIXELS(pos.x), METERS_TO_PIXELS(pos.y), METERS_TO_PIXELS(shape->m_radius) * app->win->GetScale(), 255, 255, 255);
+					if(app->scene->active == false)
+						app->render->DrawCircle(METERS_TO_PIXELS(pos.x), METERS_TO_PIXELS(pos.y), METERS_TO_PIXELS(shape->m_radius) * 0, 255, 255, 255);
+					else
+						app->render->DrawCircle(METERS_TO_PIXELS(pos.x), METERS_TO_PIXELS(pos.y), METERS_TO_PIXELS(shape->m_radius) * app->win->GetScale(), 255, 255, 255);
 				}
 				break;
 

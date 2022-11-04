@@ -2,6 +2,7 @@
 
 #include "App.h"
 #include "Render.h"
+#include "Scene.h"
 #include "Log.h"
 
 #include "SDL/include/SDL_render.h"
@@ -62,7 +63,6 @@ bool ModuleFadeToBlack::Update(float dt)
 		++frameCount;
 		if (frameCount >= maxFadeFrames)
 		{
-			app->render->ResetViewPort();
 			moduleToDisable->Disable();
 			moduleToEnable->Enable();
 			

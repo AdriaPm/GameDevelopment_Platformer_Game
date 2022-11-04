@@ -70,6 +70,7 @@ public:
 	bool Awake(){ return true; }
 	bool Start();
 	bool PreUpdate();
+	bool Update();
 	bool PostUpdate();
 	bool CleanUp();
 
