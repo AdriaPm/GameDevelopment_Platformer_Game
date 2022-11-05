@@ -44,11 +44,6 @@ bool Scene::Awake(pugi::xml_node& config)
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	player->parameters = config.child("player");
 
-	// Play level music
-	app->audio->PlayMusic("Assets/Audio/Music/song1.ogg", 1.0f);
-
-	// Loading set of SFX
-	selectSFX = app->audio->LoadFx("Assets/Audio/Fx/select.wav");
 
 	return ret;
 }
@@ -56,9 +51,12 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {	
-	//img = app->tex->Load("Assets/Textures/test.png");
-	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
 
+	// Play level music
+	app->audio->PlayMusic("Assets/Audio/Music/song1.ogg", 1.0f);
+
+	// Loading set of SFX
+	selectSFX = app->audio->LoadFx("Assets/Audio/Fx/select.wav");
 	
 	// L03: DONE: Load map
 	app->map->Load();

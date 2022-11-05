@@ -41,6 +41,7 @@ bool TitleScreen::Start()
 {
 	img = app->tex->Load("Assets/Textures/TitleScreen.png");
 	
+	//app->audio->PlayMusic("Assets/Audio/Music/menuMusic.ogg");
 
 	return true;
 }
