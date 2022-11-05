@@ -38,7 +38,6 @@ bool TitleScreen::Awake(pugi::xml_node& config)
 bool TitleScreen::Start()
 {
 
-
 	img = app->tex->Load("Assets/Textures/TitleScreen.png");
 	
 	// Music
