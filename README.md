@@ -17,12 +17,17 @@
 
  - {WASD} - Player's movement
  - {SPACEBAR} - Player's jump
+ - {SPACEBAR + SPACEBAR} - Player's DOUBLE jump 
+ - {ENTER} - Pass to the next screen  
  - {ESCAPE} - Exit the game
 
 ## Developers
 
  - [Arnau Jiménez Gallego](https://github.com/Historn) - CODE 
+ ![](https://raw.githubusercontent.com/Historn/GameDev-Platformer/main/arnaujimenez.png)
+
  - [Adrià Pons Mensa](https://github.com/AdriaPm) - ART & CODE
+ ![](https://raw.githubusercontent.com/Historn/GameDev-Platformer/main/adriapons.jpg)
  
 ## License
 
