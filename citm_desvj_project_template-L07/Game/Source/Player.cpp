@@ -79,6 +79,7 @@ bool Player::Start() {
 	dieSFX = app->audio->LoadFx("Assets/Audio/Fx/death.wav");
 	pickCoinSFX = app->audio->LoadFx("Assets/Audio/Fx/pick_coin.wav");
 	levelCompletedSFX = app->audio->LoadFx("Assets/Audio/Fx/level_completed.wav");
+	selectSFX = app->audio->LoadFx("Assets/Audio/Fx/select.wav");
 
 	currentAnim = &idlePlayer;
 	dead = false;
@@ -102,7 +103,10 @@ bool Player::Update()
 
 	//Enable/Disable Debug
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
 		app->physics->debug = !app->physics->debug;
+		app->audio->PlayFx(selectSFX);
+	}
 
 	if (godMode == true) {
 
