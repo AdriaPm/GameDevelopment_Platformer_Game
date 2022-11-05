@@ -37,6 +37,8 @@ bool TitleScreen::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool TitleScreen::Start()
 {
+
+
 	img = app->tex->Load("Assets/Textures/TitleScreen.png");
 	
 	// Music

@@ -51,6 +51,11 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {	
+	app->physics->Enable();
+	app->entityManager->Enable();
+	app->map->Enable();
+	// L03: DONE: Load map
+	app->map->Load();
 
 	// Play level music
 	app->audio->PlayMusic("Assets/Audio/Music/song1.ogg", 1.0f);
@@ -74,11 +79,7 @@ bool Scene::Start()
 
 	app->win->SetTitle(title.GetString());
 
-	// L03: DONE: Load map
-	app->map->Load();
 	
-	app->entityManager->Enable();
-	app->physics->Enable();
 	app->scene->player->ResetPlayerPos();
 
 	return true;

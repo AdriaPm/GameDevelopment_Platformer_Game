@@ -47,12 +47,12 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex, true);
 	AddModule(audio, true);
 	AddModule(fade, true);
+	AddModule(logoscreen, true);
+	AddModule(titlescreen, false);
 	//L07 TODO 2: Add Physics module
 	AddModule(physics, false);
 	AddModule(scene, false);
 	AddModule(entityManager, false);
-	AddModule(logoscreen, true);
-	AddModule(titlescreen, false);
 	AddModule(map, false);
 	AddModule(endingscreen, false);
 
@@ -119,11 +119,17 @@ bool App::Start()
 	bool ret = true;
 	ListItem<Module*>* item;
 	item = modules.start;
+	Module* pModule = NULL;
 
-	while (item != NULL && ret == true)
+	for (item = modules.start; item != NULL && ret == true; item = item->next)
 	{
+		pModule = item->data;
+
+		if (pModule->active == false) {
+			continue;
+		}
+
 		ret = item->data->Start();
-		item = item->next;
 	}
 
 	return ret;
