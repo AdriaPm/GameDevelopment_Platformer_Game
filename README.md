@@ -26,8 +26,8 @@
  ![](https://raw.githubusercontent.com/Historn/GameDev-Platformer/main/arnaujimenez.png)
  - [Arnau Jiménez Gallego](https://github.com/Historn) - CODE 
  
+ ![](https://raw.githubusercontent.com/Historn/GameDev-Platformer/main/adriapons.jpg)
  - [Adrià Pons Mensa](https://github.com/AdriaPm) - ART & CODE
-![](https://raw.githubusercontent.com/Historn/GameDev-Platformer/main/adriapons.jpg)
  
 ## License
 
