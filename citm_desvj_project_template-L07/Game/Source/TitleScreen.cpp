@@ -28,8 +28,6 @@ TitleScreen::~TitleScreen()
 // Called before render is available
 bool TitleScreen::Awake(pugi::xml_node& config)
 {
-	app->entityManager->Disable();
-	app->physics->Disable();
 	LOG("Loading TitleScreen");
 	bool ret = true;
 	
@@ -89,6 +87,8 @@ bool TitleScreen::CleanUp()
 	if (img != nullptr) {
 		app->tex->UnLoad(img);
 	}
+
+	app->titlescreen->Disable();
 
 	return true;
 }

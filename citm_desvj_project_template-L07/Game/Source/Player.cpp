@@ -67,12 +67,6 @@ bool Player::Awake() {
 	diePlayer.loop = false;
 	diePlayer.speed = 0.1f;
 
-	// Loading the set of SFX
-	jumpSFX = app->audio->LoadFx("Assets/Audio/Fx/jump.wav");
-	dieSFX = app->audio->LoadFx("Assets/Audio/Fx/death.wav");
-	pickCoinSFX = app->audio->LoadFx("Assets/Audio/Fx/pick_coin.wav");
-	levelCompletedSFX = app->audio->LoadFx("Assets/Audio/Fx/level_completed.wav");
-
 	return true;
 }
 
@@ -80,11 +74,16 @@ bool Player::Start() {
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 
+	// Loading the set of SFX, BETTER HERE FOR ENABLE/DISABLE
+	jumpSFX = app->audio->LoadFx("Assets/Audio/Fx/jump.wav");
+	dieSFX = app->audio->LoadFx("Assets/Audio/Fx/death.wav");
+	pickCoinSFX = app->audio->LoadFx("Assets/Audio/Fx/pick_coin.wav");
+	levelCompletedSFX = app->audio->LoadFx("Assets/Audio/Fx/level_completed.wav");
+
 	currentAnim = &idlePlayer;
 	dead = false;
 
-	// L07 TODO 5: Add physics to the player - initialize physics body
-
+	//Add physics to the player - initialize physics body
 	pbody = app->physics->CreateCircle(position.x, position.y, width / 3, bodyType::DYNAMIC, ColliderType::PLAYER);
 
 	pbody->listener = this;
@@ -99,10 +98,6 @@ bool Player::PreUpdate() {
 
 bool Player::Update()
 {
-	// L07 TODO 5: Add physics to the player - updated player position using physics
-	//b2Vec2 velocity;
-	// Players default velocity (when any key is pressed)
-
 	currentAnim = &idlePlayer;
 
 	//Enable/Disable Debug
@@ -143,7 +138,7 @@ bool Player::Update()
 
 		//L02: DONE 4: modify the position of the player using arrow keys and render the texture
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-			//position.y -= 1;
+
 			longPress = false;
 
 			if (onGround == true) {
@@ -160,7 +155,7 @@ bool Player::Update()
 			onGround = false;
 		}
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
-			//position.y -= 1;
+
 			longPress = true;
 
 			if (onGround == true) {
@@ -174,7 +169,7 @@ bool Player::Update()
 		}
 
 		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-			//position.x -= 1;
+
 			isFliped = true;
 
 			velocity.x = -5;
@@ -187,7 +182,7 @@ bool Player::Update()
 		}
 		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 			isFliped = false;
-			//position.x += 1;		
+	
 
 			velocity.x = 5;
 
@@ -269,6 +264,9 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			coins = 0;
 			app->audio->PlayFx(dieSFX);
 			app->fade->FadeToBlack((Module*)this, (Module*)app->endingscreen, 50);
+			app->scene->cameraFix2 = false;
+			app->scene->cameraFix = false;
+			app->render->camera.x = 0;
 		break;
 	case ColliderType::WIN_ZONE:
 		LOG("Collision WIN ZONE");

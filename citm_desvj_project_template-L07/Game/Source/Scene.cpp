@@ -162,6 +162,7 @@ bool Scene::PostUpdate()
 bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
+	app->scene->Disable();
 
 	return true;
 }

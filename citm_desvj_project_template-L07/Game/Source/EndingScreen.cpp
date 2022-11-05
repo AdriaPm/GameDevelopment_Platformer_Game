@@ -84,17 +84,9 @@ bool EndingScreen::Update(float dt)
 bool EndingScreen::PostUpdate()
 {
 	bool ret = true;
-	//(app->scene->player->position.x) - ((app->win->screenSurface->w) / 2)  app->render->camera.x
+	
 
-	/*if(app->scene->cameraFix == true)
-		app->render->DrawTexture(img, (app->scene->player->position.x) - ((app->win->screenSurface->w) / 2), 0, NULL);
-	else 
-		app->render->DrawTexture(img, (app->scene->player->position.x), 0, NULL);*/
-
-	if (app->scene->cameraFix2 == true || app->scene->cameraFix == true)
-		app->render->DrawTexture(img, -((app->win->screenSurface->w) / 3.45), 0, &app->render->viewport);
-	else
-		app->render->DrawTexture(img, -((app->win->screenSurface->w) / 3.45), 0, &app->render->viewport);
+	app->render->DrawTexture(img, app->render->camera.x, 0,NULL);
 
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
