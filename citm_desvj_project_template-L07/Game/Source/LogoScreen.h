@@ -37,7 +37,7 @@ public:
 
 private:
 	SDL_Texture* img = nullptr;
-
+	int time = 0;
 };
 
 

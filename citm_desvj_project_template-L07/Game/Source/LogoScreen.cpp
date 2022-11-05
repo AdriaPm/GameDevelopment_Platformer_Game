@@ -28,8 +28,6 @@ LogoScreen::~LogoScreen()
 // Called before render is available
 bool LogoScreen::Awake(pugi::xml_node& config)
 {
-	app->entityManager->Disable();
-	app->physics->Disable();
 	LOG("Loading LogoScreen");
 	bool ret = true;
 
@@ -40,7 +38,7 @@ bool LogoScreen::Awake(pugi::xml_node& config)
 bool LogoScreen::Start()
 {
 	img = app->tex->Load("Assets/Textures/LogoScreen.png");
-
+	app->audio->PlayMusic("Assets/Audio/Music/logoedit.ogg");
 
 	return true;
 }
@@ -54,12 +52,16 @@ bool LogoScreen::PreUpdate()
 // Called each loop iteration
 bool LogoScreen::Update(float dt)
 {
+	time++;
 
-
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+	/*if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 		LOG("PASA A OTRA PUTA ESCENA");
 		app->fade->FadeToBlack(this, (Module*)app->titlescreen, 90);
-	}
+	}*/
+
+	if (time >= 600)
+		app->fade->FadeToBlack(this, (Module*)app->titlescreen, 90);
+
 	app->render->DrawTexture(img, 0, 0, NULL);
 
 	return true;
