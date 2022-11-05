@@ -428,6 +428,23 @@ Properties::Property* Properties::GetProperty(const char* name)
     return p;
 }
 
+bool Map::Parallax() {
+
+    //// L05: DONE 9: Complete the draw function
+    //int gid = mapLayerItem->data->Get(x, y);
+
+    //TileSet* tileset = GetTilesetFromTileId(gid);
+
+    //SDL_Rect r = tileset->GetTileRect(gid);
+    //iPoint pos = MapToWorld(x, y);
+
+    //app->render->DrawTexture(tileset->texture,
+    //    pos.x,
+    //    pos.y,
+    //    &r);
+
+}
+
 bool Map::CreateColliders()
 {
     bool ret = true;
