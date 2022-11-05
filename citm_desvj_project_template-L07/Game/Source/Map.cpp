@@ -241,8 +241,8 @@ bool Map::Load()
      PhysBody* c28 = app->physics->CreateRectangle(0+1648, 560+40, 32*103, (32*2)+16, STATIC, ColliderType::WATER);
 
      //Camera Fixed To Player Colliders (left side)
-     PhysBody* c29 = app->physics->CreateRectangleSensor((32*16)+27 ,(32*8)+144 , 10, 32 * 9, STATIC, ColliderType::CAMERAFIX);
-     PhysBody* c30 = app->physics->CreateRectangleSensor((32*16)-8 ,(32*8)+144 , 10, 32 * 9, STATIC, ColliderType::NONCAMERAFIX);
+     PhysBody* c29 = app->physics->CreateRectangleSensor((32*16)+27 ,0+288 , 10, 32 * 18, STATIC, ColliderType::CAMERAFIX);
+     PhysBody* c30 = app->physics->CreateRectangleSensor((32*16)-8 ,0+288 , 10, 32 * 18, STATIC, ColliderType::NONCAMERAFIX);
 
      //Camera Fixed To Player Colliders (right side)
      PhysBody* c31 = app->physics->CreateRectangleSensor((2858)-24, 0+288, 10, 32 * 18, STATIC, ColliderType::NONCAMERAFIX_2);
