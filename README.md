@@ -23,11 +23,11 @@
 
 ## Developers
 
+![](https://raw.githubusercontent.com/Historn/GameDev-Platformer/main/TeamPhotos/arnaujimenez.png)
  - [Arnau Jiménez Gallego](https://github.com/Historn) - CODE 
- ![](https://raw.githubusercontent.com/Historn/GameDev-Platformer/main/TeamPhotos/arnaujimenez.png)
 
+![](https://raw.githubusercontent.com/Historn/GameDev-Platformer/main/TeamPhotos/adriapons.jpg)
  - [Adrià Pons Mensa](https://github.com/AdriaPm) - ART & CODE
- ![](https://raw.githubusercontent.com/Historn/GameDev-Platformer/main/TeamPhotos/adriapons.jpg)
  
 ## License
 
