@@ -41,7 +41,11 @@ bool TitleScreen::Start()
 {
 	img = app->tex->Load("Assets/Textures/TitleScreen.png");
 	
-	//app->audio->PlayMusic("Assets/Audio/Music/menuMusic.ogg");
+	// Music
+	app->audio->PlayMusic("Assets/Audio/Music/title_screen.ogg");
+
+	// Load SFXs
+	startSFX = app->audio->LoadFx("Assets/Audio/Fx/start_game.wav");
 
 	return true;
 }
@@ -60,6 +64,7 @@ bool TitleScreen::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 		LOG("PASA A OTRA PUTA ESCENA");
 		app->fade->FadeToBlack(this, (Module*)app->scene, 90);
+		app->audio->PlayFx(startSFX);
 	}
 	app->render->DrawTexture(img, 0, 0, NULL);
 
