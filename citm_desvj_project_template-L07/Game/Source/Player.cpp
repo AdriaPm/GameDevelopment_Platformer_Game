@@ -155,6 +155,8 @@ bool Player::Update()
 				jumpingTime = 5;
 				Jump();
 				jumpCount--;
+
+				app->audio->PlayFx(jumpSFX);
 			}
 
 			onGround = false;
