@@ -52,6 +52,7 @@ public:
 	uint dieSFX = 0;
 	uint pickCoinSFX = 0;
 	uint levelCompletedSFX = 0;
+	uint selectSFX = 0;
 
 	bool onGround = false;
 	bool dead = false;
