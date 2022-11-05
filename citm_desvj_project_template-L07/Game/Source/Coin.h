@@ -1,5 +1,5 @@
-#ifndef __ITEM_H__
-#define __ITEM_H__
+#ifndef __COIN_H__
+#define __COIN_H__
 
 #include "Entity.h"
 #include "Point.h"
@@ -8,12 +8,12 @@
 
 struct SDL_Texture;
 
-class Item : public Entity
+class Coin : public Entity
 {
 public:
 
-	Item();
-	virtual ~Item();
+	Coin();
+	virtual ~Coin();
 
 	bool Awake();
 

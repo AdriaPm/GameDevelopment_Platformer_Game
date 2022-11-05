@@ -246,6 +246,9 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
+		break;
+	case ColliderType::COIN:
+		LOG("Collision COIN");
 		coins++;
 		app->audio->PlayFx(pickCoinSFX);
 		LOG("COINS: %d", coins);
@@ -264,9 +267,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			coins = 0;
 			app->audio->PlayFx(dieSFX);
 			app->fade->FadeToBlack((Module*)this, (Module*)app->endingscreen, 50);
-			app->scene->cameraFix2 = false;
-			app->scene->cameraFix = false;
-			app->render->camera.x = 0;
 		break;
 	case ColliderType::WIN_ZONE:
 		LOG("Collision WIN ZONE");
@@ -321,8 +321,10 @@ void Player::ResetPlayerPos() {
 	pbody->body->SetSleepingAllowed(false);
 	velocity = { 0, 0 };
 	pbody->body->SetTransform(PIXEL_TO_METERS(startPos), 0.0f);
-	//position = startingPosition;
-	//app->scene->cameraFix = false;
+	app->scene->cameraFix2 = false;
+	app->scene->cameraFix = false;
+	app->render->camera.x = 0;
+	dead = false;
 	
 	LOG("--RESETING PLAYER--");
 }

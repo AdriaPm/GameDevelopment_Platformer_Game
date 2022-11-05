@@ -34,10 +34,10 @@ bool Scene::Awake(pugi::xml_node& config)
 
 	// iterate all objects in the scene
 	// Check https://pugixml.org/docs/quickstart.html#access
-	for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
+	for (pugi::xml_node itemNode = config.child("coin"); itemNode; itemNode = itemNode.next_sibling("coin"))
 	{
-		item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
-		item->parameters = itemNode;
+		coin = (Coin*)app->entityManager->CreateEntity(EntityType::COIN);
+		coin->parameters = itemNode;
 	}
 
 	//L02: DONE 3: Instantiate the player using the entity manager
@@ -79,8 +79,6 @@ bool Scene::Start()
 	app->entityManager->Enable();
 	app->physics->Enable();
 	app->scene->player->ResetPlayerPos();
-	//player->pbody->body->SetType(b2_dynamicBody);
-	//player->position = player->startingPosition;
 
 	return true;
 }
@@ -161,6 +159,10 @@ bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
 	app->scene->Disable();
+	app->entityManager->Disable();
+	//app->physics->Disable();
+	app->map->Disable();
+	player->Disable();
 
 	return true;
 }

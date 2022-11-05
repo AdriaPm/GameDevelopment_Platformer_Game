@@ -24,6 +24,7 @@
     <ClCompile Include="Source\TitleScreen.cpp" />
     <ClCompile Include="Source\EndingScreen.cpp" />
     <ClCompile Include="Source\LogoScreen.cpp" />
+    <ClCompile Include="Source\Coin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -73,6 +74,7 @@
     <ClInclude Include="Source\TitleScreen.h" />
     <ClInclude Include="Source\EndingScreen.h" />
     <ClInclude Include="Source\LogoScreen.h" />
+    <ClInclude Include="Source\Coin.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

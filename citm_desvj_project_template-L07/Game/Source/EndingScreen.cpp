@@ -31,11 +31,6 @@ EndingScreen::~EndingScreen()
 // Called before render is available
 bool EndingScreen::Awake(pugi::xml_node& config)
 {
-	app->map->Disable();
-	app->physics->Disable();
-	app->scene->Disable();
-	app->entityManager->Disable();
-
 	LOG("Loading EndingScreen");
 	bool ret = true;
 
@@ -73,10 +68,6 @@ bool EndingScreen::Update(float dt)
 		app->fade->FadeToBlack(this, (Module*)app->scene, 90);
 		app->scene->cameraFix = false;
 	}
-
-	//app->render->DrawTexture(img, app->render->viewport.x, app->render->viewport.y, NULL);
-	// Render GAME OVER image
-	//app->render->DrawTexture(img, (app->scene->player->position.x) - ((app->win->screenSurface->w) / 2), 0, NULL);
 
 	return true;
 }

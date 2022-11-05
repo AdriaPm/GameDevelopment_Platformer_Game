@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Player.h"
 #include "Item.h"
+#include "Coin.h"
 
 struct SDL_Texture;
 
@@ -42,6 +43,8 @@ public:
 	Player* player;
 
 	Item* item;
+
+	Coin* coin;
 
 	// Set of SFX
 	uint selectSFX = 0;
