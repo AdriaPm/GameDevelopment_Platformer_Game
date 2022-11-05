@@ -102,7 +102,7 @@ bool Player::Update()
 	currentAnim = &idlePlayer;
 
 	//Enable/Disable Debug
-	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 	{
 		app->physics->debug = !app->physics->debug;
 		app->audio->PlayFx(selectSFX);
@@ -196,9 +196,11 @@ bool Player::Update()
 			currentAnim = &runPlayer;
 
 		}
-		if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN 
+			|| app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) 
+		{
 			ResetPlayerPos();
-
+			app->audio->PlayFx(selectSFX);
 		}
 
 
@@ -270,7 +272,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			dead = true;
 			coins = 0;
 			app->audio->PlayFx(dieSFX);
-			app->fade->FadeToBlack((Module*)this, (Module*)app->endingscreen, 50);
+			app->fade->FadeToBlack((Module*)this, (Module*)app->endingscreen, 30);
 		break;
 	case ColliderType::WIN_ZONE:
 		LOG("Collision WIN ZONE");
