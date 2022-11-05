@@ -5,13 +5,14 @@
 	<textures />
 	<audio />
 	<fade />
-	<anonymous />
+	<:anonymous />
 	<scene />
 	<entitymanager />
+	<LogoScreen />
 	<TitleScreen />
 	<map />
 	<EndingScreen />
 	<renderer>
-		<camera x="-195" y="0" />
+		<camera x="-13" y="0" />
 	</renderer>
 </save_state>

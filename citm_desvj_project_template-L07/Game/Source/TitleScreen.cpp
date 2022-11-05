@@ -65,6 +65,7 @@ bool TitleScreen::Update(float dt)
 		app->audio->PlayFx(startSFX);
 	}
 	
+	app->render->DrawTexture(img, 0, 0, NULL);
 
 	return true;
 }
@@ -73,7 +74,6 @@ bool TitleScreen::Update(float dt)
 bool TitleScreen::PostUpdate()
 {
 	bool ret = true;
-	app->render->DrawTexture(img, 0, 0, NULL);
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
@@ -86,11 +86,10 @@ bool TitleScreen::CleanUp()
 {
 	LOG("Freeing scene");
 
-	if (img != nullptr) {
+	/*if (img != nullptr) {
 		app->tex->UnLoad(img);
-	}
+	}*/
 
-	app->titlescreen->Disable();
 
 	return true;
 }

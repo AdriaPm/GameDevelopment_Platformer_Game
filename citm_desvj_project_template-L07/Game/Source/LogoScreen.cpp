@@ -62,7 +62,7 @@ bool LogoScreen::Update(float dt)
 	/*if (time >= 600)
 		app->fade->FadeToBlack(this, (Module*)app->titlescreen, 90);*/
 
-
+	app->render->DrawTexture(img, 0, 0, NULL);
 
 	return true;
 }
@@ -71,8 +71,6 @@ bool LogoScreen::Update(float dt)
 bool LogoScreen::PostUpdate()
 {
 	bool ret = true;
-
-	app->render->DrawTexture(img, 0, 0, NULL);
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;

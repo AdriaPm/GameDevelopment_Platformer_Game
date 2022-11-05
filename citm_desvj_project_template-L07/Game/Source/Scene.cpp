@@ -58,8 +58,7 @@ bool Scene::Start()
 	// Loading set of SFX
 	selectSFX = app->audio->LoadFx("Assets/Audio/Fx/select.wav");
 	
-	// L03: DONE: Load map
-	app->map->Load();
+	
 
 	SString title("Misco Jones Adventures by ADVENTURES JOKES STUDIO");
 
@@ -75,6 +74,8 @@ bool Scene::Start()
 
 	app->win->SetTitle(title.GetString());
 
+	// L03: DONE: Load map
+	app->map->Load();
 	
 	app->entityManager->Enable();
 	app->physics->Enable();

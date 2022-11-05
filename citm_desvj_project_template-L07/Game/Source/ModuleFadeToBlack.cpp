@@ -78,6 +78,12 @@ bool ModuleFadeToBlack::Update(float dt)
 			currentStep = Fade_Step::NONE;
 		}
 	}
+	float fadeRatio = (float)frameCount / (float)maxFadeFrames;
+
+	// Render the black square with alpha on the screen
+	SDL_SetRenderDrawColor(app->render->renderer, 0, 0, 0, (Uint8)(fadeRatio * 255.0f));
+	LOG("%f", fadeRatio);
+
 
 	return true;
 }
@@ -87,12 +93,8 @@ bool ModuleFadeToBlack::PostUpdate()
 	// Exit this function if we are not performing a fade
 	if (currentStep == Fade_Step::NONE) return true;
 
-	float fadeRatio = (float)frameCount / (float)maxFadeFrames;
-
-	// Render the black square with alpha on the screen
-	SDL_SetRenderDrawColor(app->render->renderer, 0, 0, 0, (Uint8)(fadeRatio * 255.0f));
-	LOG("%f", fadeRatio);
-	SDL_RenderFillRect(app->render->renderer, &app->render->viewport);
+	
+	SDL_RenderFillRect(app->render->renderer, NULL);
 
 	return true;
 }
@@ -105,7 +107,6 @@ bool ModuleFadeToBlack::FadeToBlack(Module* moduleToDisable, Module* moduleToEna
 	// If we are already in a fade process, ignore this call
 	if(currentStep == Fade_Step::NONE)
 	{
-		//app->render->SetViewPort(screenRect);
 		currentStep = Fade_Step::TO_BLACK;
 		frameCount = 0;
 		maxFadeFrames = frames;
