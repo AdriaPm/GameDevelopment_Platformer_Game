@@ -252,6 +252,7 @@ bool Map::Load()
      PhysBody* c33 = app->physics->CreateRectangleSensor((32 * 103) + 16, (32 * 8) + 80, 32, 32 * 5, STATIC, ColliderType::WIN_ZONE);
     
 
+    //CreateColliders();
 
     if(ret == true)
     {
@@ -427,4 +428,35 @@ Properties::Property* Properties::GetProperty(const char* name)
     return p;
 }
 
+bool Map::CreateColliders()
+{
+    bool ret = true;
+
+    ListItem<MapLayer*>* mapLayerItem;
+    mapLayerItem = mapData.maplayers.start;
+
+    while (mapLayerItem != NULL)
+    {
+        if (mapLayerItem->data->name == "Collisions")
+        {
+            int halfTileHeight = mapData.tileHeight / 2;
+            int halfTileWidth = mapData.tileWidth / 2;
+
+            for (int x = 0; x < mapLayerItem->data->width; x++)
+            {
+                for (int y = 0; y < mapLayerItem->data->height; y++)
+                {
+                    if (mapLayerItem->data->Get(x, y) == 695)
+                    {
+                        iPoint pos = MapToWorld(x, y);
+                        app->physics->CreateRectangle(pos.x + halfTileHeight, pos.y + halfTileWidth, mapData.tileWidth, mapData.tileHeight, STATIC, ColliderType::PLATFORM);
+                    }
+                }
+            }
+        }
+
+        mapLayerItem = mapLayerItem->next;
+    }
+    return ret;
+}
 

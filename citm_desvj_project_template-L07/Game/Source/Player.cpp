@@ -152,6 +152,7 @@ bool Player::Update()
 				app->audio->PlayFx(jumpSFX);
 			}
 			else if (onGround == false && jumpCount > 1 && jumping == true) {
+				jumpingTime = 5;
 				Jump();
 				jumpCount--;
 			}
@@ -226,15 +227,17 @@ bool Player::Update()
 		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y - (height / 3));
 	}
 	
-
 	SDL_Rect rect = currentAnim->GetCurrentFrame();
 	app->render->DrawTexture(texture, position.x, position.y, &rect, fliped);
 	currentAnim->Update();
+	
 
 	return true;
 }
 
 bool Player::PostUpdate() {
+
+	
 	return true;
 }
 

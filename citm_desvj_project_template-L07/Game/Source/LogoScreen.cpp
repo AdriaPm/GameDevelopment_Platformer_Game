@@ -54,15 +54,15 @@ bool LogoScreen::Update(float dt)
 {
 	time++;
 
-	/*if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 		LOG("PASA A OTRA PUTA ESCENA");
 		app->fade->FadeToBlack(this, (Module*)app->titlescreen, 90);
-	}*/
+	}
 
-	if (time >= 600)
-		app->fade->FadeToBlack(this, (Module*)app->titlescreen, 90);
+	/*if (time >= 600)
+		app->fade->FadeToBlack(this, (Module*)app->titlescreen, 90);*/
 
-	app->render->DrawTexture(img, 0, 0, NULL);
+
 
 	return true;
 }
@@ -71,6 +71,8 @@ bool LogoScreen::Update(float dt)
 bool LogoScreen::PostUpdate()
 {
 	bool ret = true;
+
+	app->render->DrawTexture(img, 0, 0, NULL);
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;

@@ -30,8 +30,6 @@ bool TitleScreen::Awake(pugi::xml_node& config)
 {
 	LOG("Loading TitleScreen");
 	bool ret = true;
-	
-
 
 	return ret;
 }
@@ -66,7 +64,7 @@ bool TitleScreen::Update(float dt)
 		app->fade->FadeToBlack(this, (Module*)app->scene, 90);
 		app->audio->PlayFx(startSFX);
 	}
-	app->render->DrawTexture(img, 0, 0, NULL);
+	
 
 	return true;
 }
@@ -75,12 +73,10 @@ bool TitleScreen::Update(float dt)
 bool TitleScreen::PostUpdate()
 {
 	bool ret = true;
-
-	//app->render->DrawTexture(img, 0, 0, NULL);
+	app->render->DrawTexture(img, 0, 0, NULL);
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
-	//app->render->DrawTexture(img, 0, 0, NULL);
 
 	return ret;
 }

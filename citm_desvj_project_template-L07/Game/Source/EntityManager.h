@@ -21,7 +21,12 @@ public:
 	bool Start();
 
 	// Called every frame
+	bool PreUpdate();
+	
+	// Called every frame
 	bool Update(float dt);
+
+	bool PostUpdate();
 
 	// Called before quitting
 	bool CleanUp();
