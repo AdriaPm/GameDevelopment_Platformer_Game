@@ -111,6 +111,7 @@ bool Player::Update()
 	if (godMode == true) {
 
 		velocity = { 0, 0 };
+		pbody->body->SetGravityScale(0);
 
 		// Fly around the map
 		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {

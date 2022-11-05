@@ -9,6 +9,7 @@
 #include "Map.h"
 #include "Physics.h"
 #include "ModuleFadeToBlack.h"
+#include "EndingScreen.h"
 
 
 #include "Defs.h"
@@ -156,6 +157,7 @@ bool Scene::CleanUp()
 	//app->physics->Disable();
 	app->map->Disable();
 	player->Disable();
+	app->endingscreen->Enable();
 
 	return true;
 }

@@ -53,11 +53,16 @@ bool LogoScreen::PreUpdate()
 bool LogoScreen::Update(float dt)
 {
 	time++;
-
+	frameCount--;
 	/*if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 		LOG("PASA A OTRA PUTA ESCENA");
 		app->fade->FadeToBlack(this, (Module*)app->titlescreen, 90);
 	}*/
+
+	fadeRatio = (float)frameCount / (float)maxFadeFrames;
+
+	
+	SDL_RenderFillRect(app->render->renderer, NULL);
 
 	if (time >= 480)
 		app->fade->FadeToBlack(this, (Module*)app->titlescreen, 90);
@@ -74,6 +79,9 @@ bool LogoScreen::PostUpdate()
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
+
+	SDL_SetRenderDrawColor(app->render->renderer, 0, 0, 0, (Uint8)(fadeRatio * 255.0f));
+	SDL_RenderFillRect(app->render->renderer, NULL);
 
 	return ret;
 }

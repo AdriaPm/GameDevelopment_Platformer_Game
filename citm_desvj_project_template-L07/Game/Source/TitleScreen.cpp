@@ -87,10 +87,9 @@ bool TitleScreen::CleanUp()
 {
 	LOG("Freeing scene");
 
-	/*if (img != nullptr) {
+	if (img != nullptr) {
 		app->tex->UnLoad(img);
-	}*/
-
+	}
 
 	return true;
 }
