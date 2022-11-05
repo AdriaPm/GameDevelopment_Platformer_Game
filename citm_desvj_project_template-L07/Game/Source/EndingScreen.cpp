@@ -51,7 +51,8 @@ bool EndingScreen::Start()
 	app->scene->player->ResetPlayerPos();
 
 	//app->scene->player->godMode = true;
-	//app->audio->PlayMusic("Assets/Audio/Music/menu_music.ogg");
+	app->audio->PlayMusic("Assets/Audio/Music/menuMusic.ogg");
+
 
 	return true;
 }
