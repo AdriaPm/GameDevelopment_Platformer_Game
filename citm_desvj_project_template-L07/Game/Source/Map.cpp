@@ -249,7 +249,7 @@ bool Map::Load()
      PhysBody* c32 = app->physics->CreateRectangleSensor((2858)+8, 0+288, 10, 32 * 18, STATIC, ColliderType::CAMERAFIX_2);
 
      // WIN collider (if player touches it, player wins)
-     PhysBody* c33 = app->physics->CreateRectangleSensor((32 * 103) + 16, (32 * 8) + 80, 32, 32 * 5, STATIC, ColliderType::WIN_ZONE);
+     PhysBody* c33 = app->physics->CreateRectangleSensor((32 * 105) + 16, (32 * 9) + 96, 32, 32 * 6, STATIC, ColliderType::WIN_ZONE);
     
 
     CreateColliders();
