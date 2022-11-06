@@ -42,14 +42,11 @@ bool EndingScreen::Awake(pugi::xml_node& config)
 bool EndingScreen::Start()
 {
 	LOG("--STARTS ENDING SCENE--");
-	/*app->entityManager->Disable();
-	app->scene->Disable();
-	app->physics->Disable();
-	app->map->Disable();*/
-
+	
 	img = app->tex->Load("Assets/Textures/EndingScreen.png");
 	app->scene->player->dead = false;
-	app->scene->player->ResetPlayerPos();
+	app->scene->ResetScene();
+	//app->scene->player->ResetPlayerPos();
 	startSFX = app->audio->LoadFx("Assets/Audio/Fx/start_game.wav");
 	app->audio->PlayMusic("Assets/Audio/Music/gameOver.ogg");
 

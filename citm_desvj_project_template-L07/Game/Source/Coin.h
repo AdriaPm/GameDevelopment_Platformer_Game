@@ -27,6 +27,8 @@ public:
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
+	void ResetCoin();
+
 public:
 
 	bool isPicked = false;

@@ -39,11 +39,6 @@ bool TitleScreen::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool TitleScreen::Start()
 {
-	app->map->Disable();
-	app->entityManager->Disable();
-	app->scene->Disable();
-	app->physics->Disable();
-
 	app->render->camera.x = 0;
 
 	LOG("--STARTS TITLE SCENE--");
@@ -55,6 +50,8 @@ bool TitleScreen::Start()
 
 	// Load SFXs
 	startSFX = app->audio->LoadFx("Assets/Audio/Fx/start_game.wav");
+
+	app->physics->debug = false;
 
 	return true;
 }

@@ -282,8 +282,8 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::WIN_ZONE:
 		LOG("Collision WIN ZONE");
-		app->fade->FadeToBlack((Module*)app->scene, (Module*)app->titlescreen, 90);
 		app->audio->PlayFx(levelCompletedSFX);
+		app->fade->FadeToBlack((Module*)app->scene, (Module*)app->titlescreen, 30);
 		break;
 	case ColliderType::ENEMY:
 		LOG("Collision ENEMY");

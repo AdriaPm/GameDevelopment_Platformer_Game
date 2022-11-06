@@ -82,8 +82,7 @@ bool Scene::Start()
 
 	app->win->SetTitle(title.GetString());
 
-	
-	app->scene->player->ResetPlayerPos();
+	ResetScene();
 
 	return true;
 }
@@ -155,11 +154,27 @@ bool Scene::CleanUp()
 {
 	LOG("Freeing GAME SCENE");
 
+	/*app->map->Disable();
+	app->entityManager->Disable();
+	app->physics->Disable();*/
+
 	return true;
 }
 
 void Scene::ResetScene() {
-	player->Awake();
-	item->Awake();
+	//player->Awake();
+	ListItem<Entity*>* item;
+	for (item = app->entityManager->entities.start; item != NULL; item = item->next)
+	{
+		if (item->data->type == EntityType::COIN)
+		{
+			coin->ResetCoin();
+		}
+	}
+
+	//for(item = coin->)
+
+	
+	app->audio->PlayMusic("Assets/Audio/Music/song1.ogg", 1.0f);
 	player->ResetPlayerPos();
 }

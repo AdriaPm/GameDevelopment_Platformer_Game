@@ -59,6 +59,8 @@ private:
 	int width;
 	int height;
 	int size;
+
+	float fadeRatio;
 };
 
 #endif //__MODULEFADETOBLACK_H__
