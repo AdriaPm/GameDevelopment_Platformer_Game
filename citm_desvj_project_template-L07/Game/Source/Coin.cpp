@@ -38,8 +38,6 @@ bool Coin::Start() {
 
 	pbody->listener = this;
 
-	ResetCoin();
-
 	return true;
 }
 
@@ -64,7 +62,7 @@ bool Coin::Update()
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x - (width / 2));
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y - (height / 2));
 
-	if(renderable == true)
+	if (isPicked == false)
 		app->render->DrawTexture(texture, position.x, position.y);
 
 	return true;
@@ -90,13 +88,14 @@ void Coin::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::PLAYER:
 		LOG("Collision PLAYER");
 		pbody->body->SetActive(false);
-		renderable = false;
+		isPicked = true;
 		break;
 	}
 
 }
 
 void Coin::ResetCoin() {
+	SDL_SetTextureAlphaMod(texture, 1);
 	pbody->body->SetActive(true);
-	renderable = true;
+	isPicked = false;
 }

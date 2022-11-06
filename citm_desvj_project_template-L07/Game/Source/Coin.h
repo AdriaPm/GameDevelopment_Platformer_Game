@@ -41,7 +41,8 @@ private:
 	SDL_Texture* texture;
 	const char* texturePath;
 
-	
+	Uint8 alpha = 0;
+
 	b2Vec2 velocity;
 
 	int timeMov = 0;

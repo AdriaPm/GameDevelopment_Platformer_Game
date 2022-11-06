@@ -58,11 +58,10 @@ bool Scene::Start()
 	LOG("--STARTS GAME SCENE--");
 
 	// L03: DONE: Load map
-
 	app->map->Load();
 
-	//// Play level music
-	//app->audio->PlayMusic("Assets/Audio/Music/song1.ogg", 1.0f);
+	// Play level music
+	app->audio->PlayMusic("Assets/Audio/Music/song1.ogg", 1.0f);
 
 	// Loading set of SFX
 	selectSFX = app->audio->LoadFx("Assets/Audio/Fx/select.wav");
@@ -155,16 +154,11 @@ bool Scene::CleanUp()
 {
 	LOG("Freeing GAME SCENE");
 
-	app->map->Disable();
-	app->entityManager->Disable();
-	app->physics->Disable();
-
 	return true;
 }
 
 void Scene::ResetScene() {
-
-	// Play level music
+	
 	app->audio->PlayMusic("Assets/Audio/Music/song1.ogg", 1.0f);
 	player->ResetPlayerPos();
 }

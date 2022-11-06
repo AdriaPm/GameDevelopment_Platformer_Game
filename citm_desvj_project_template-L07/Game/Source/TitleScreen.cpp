@@ -51,7 +51,7 @@ bool TitleScreen::Start()
 	// Load SFXs
 	startSFX = app->audio->LoadFx("Assets/Audio/Fx/start_game.wav");
 
-	app->physics->debug = true;
+	app->physics->debug = false;
 
 	return true;
 }
