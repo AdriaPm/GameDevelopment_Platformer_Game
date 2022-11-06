@@ -9,6 +9,8 @@
 #include "Entity.h"
 #include "Physics.h"
 #include "EntityManager.h"
+#include "Scene.h"
+#include "Map.h"
 #include "ModuleFadeToBlack.h"
 
 #include "SDL/include/SDL_render.h"
@@ -37,7 +39,12 @@ bool TitleScreen::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool TitleScreen::Start()
 {
+	/*app->map->Disable();
+	app->entityManager->Disable();
+	app->scene->Disable();
+	app->physics->Disable();*/
 
+	LOG("--STARTS TITLE SCENE--");
 	img = app->tex->Load("Assets/Textures/TitleScreen.png");
 	
 	// Music
@@ -61,7 +68,7 @@ bool TitleScreen::Update(float dt)
 	
 	
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
-		LOG("PASA A OTRA PUTA ESCENA");
+		LOG("PASA A GAME SCENE");
 		app->fade->FadeToBlack(this, (Module*)app->scene, 90);
 		app->audio->PlayFx(startSFX);
 	}
@@ -85,7 +92,7 @@ bool TitleScreen::PostUpdate()
 // Called before quitting
 bool TitleScreen::CleanUp()
 {
-	LOG("Freeing scene");
+	LOG("Freeing TITLE SCENE");
 
 	if (img != nullptr) {
 		app->tex->UnLoad(img);

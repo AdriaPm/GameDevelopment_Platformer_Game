@@ -37,6 +37,7 @@ bool LogoScreen::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool LogoScreen::Start()
 {
+	LOG("--STARTS LOGO SCENE--");
 	img = app->tex->Load("Assets/Textures/LogoScreen.png");
 	app->audio->PlayMusic("Assets/Audio/Music/logoedit.ogg");
 
@@ -54,18 +55,21 @@ bool LogoScreen::Update(float dt)
 {
 	time++;
 	frameCount--;
-	/*if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-		LOG("PASA A OTRA PUTA ESCENA");
+
+	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
+		LOG("PASA A TITLE SCENE");
 		app->fade->FadeToBlack(this, (Module*)app->titlescreen, 90);
-	}*/
+	}
 
 	fadeRatio = (float)frameCount / (float)maxFadeFrames;
 
 	
 	SDL_RenderFillRect(app->render->renderer, NULL);
 
-	if (time >= 480)
+	if (time >= 480) {
+		LOG("PASA A TITLE SCENE");
 		app->fade->FadeToBlack(this, (Module*)app->titlescreen, 90);
+	}
 
 	app->render->DrawTexture(img, 0, 0, NULL);
 
@@ -89,7 +93,7 @@ bool LogoScreen::PostUpdate()
 // Called before quitting
 bool LogoScreen::CleanUp()
 {
-	LOG("Freeing scene");
+	LOG("Freeing LOGO SCENE");
 
 	if (img != nullptr) {
 		app->tex->UnLoad(img);

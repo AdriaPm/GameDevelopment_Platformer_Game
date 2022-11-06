@@ -41,6 +41,12 @@ bool EndingScreen::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool EndingScreen::Start()
 {
+	LOG("--STARTS ENDING SCENE--");
+	/*app->entityManager->Disable();
+	app->scene->Disable();
+	app->physics->Disable();
+	app->map->Disable();*/
+
 	img = app->tex->Load("Assets/Textures/EndingScreen.png");
 	app->scene->player->dead = false;
 	app->scene->player->ResetPlayerPos();
@@ -64,9 +70,9 @@ bool EndingScreen::Update(float dt)
 	
 
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
-		LOG("PASA A OTRA PUTA ESCENA");
+		LOG("PASA A GAME SCENE");
 		app->fade->FadeToBlack(this, (Module*)app->scene, 90);
-		app->scene->cameraFix = false;
+		//app->scene->cameraFix = false;
 		app->audio->PlayFx(startSFX);
 	}
 
@@ -77,13 +83,11 @@ bool EndingScreen::Update(float dt)
 bool EndingScreen::PostUpdate()
 {
 	bool ret = true;
-	
-
-	app->render->DrawTexture(img, app->render->camera.x, 0,NULL);
-
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
+
+	app->render->DrawTexture(img, app->render->camera.x, 0, NULL);
 
 	return ret;
 }
@@ -91,8 +95,8 @@ bool EndingScreen::PostUpdate()
 // Called before quitting
 bool EndingScreen::CleanUp()
 {
-	LOG("Freeing scene");
-
+	LOG("Freeing ENDING SCENE");
+	//app->scene->Enable();
 	if (img != nullptr) {
 		app->tex->UnLoad(img);
 	}

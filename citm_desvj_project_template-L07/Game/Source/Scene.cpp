@@ -55,6 +55,8 @@ bool Scene::Start()
 	app->physics->Enable();
 	app->entityManager->Enable();
 	app->map->Enable();
+	LOG("--STARTS GAME SCENE--");
+
 	// L03: DONE: Load map
 	app->map->Load();
 
@@ -151,13 +153,7 @@ bool Scene::PostUpdate()
 // Called before quitting
 bool Scene::CleanUp()
 {
-	LOG("Freeing scene");
-	app->scene->Disable();
-	app->entityManager->Disable();
-	//app->physics->Disable();
-	app->map->Disable();
-	player->Disable();
-	app->endingscreen->Enable();
+	LOG("Freeing GAME SCENE");
 
 	return true;
 }

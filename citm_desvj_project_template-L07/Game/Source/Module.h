@@ -73,11 +73,19 @@ public:
 
 	}
 
-	void Enable() {
+	/*void Enable() {
 		if (!active)
 		{
 			active = true;
 			Start();
+		}
+	}*/
+	
+	void Enable() {
+		if (!active)
+		{
+			active = true;
+			Awake(node);
 		}
 	}
 	

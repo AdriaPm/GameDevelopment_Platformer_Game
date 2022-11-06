@@ -82,7 +82,7 @@ bool ModuleFadeToBlack::Update(float dt)
 
 	// Render the black square with alpha on the screen
 	SDL_SetRenderDrawColor(app->render->renderer, 0, 0, 0, (Uint8)(fadeRatio * 255.0f));
-	LOG("%f", fadeRatio);
+	//LOG("%f", fadeRatio);
 
 
 	return true;
