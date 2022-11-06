@@ -278,12 +278,12 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			dead = true;
 			coins = 0;
 			app->audio->PlayFx(dieSFX);
-			app->fade->FadeToBlack((Module*)this, (Module*)app->endingscreen, 30);
+			app->fade->FadeToBlack((Module*)app->scene, (Module*)app->endingscreen, 60);
 		break;
 	case ColliderType::WIN_ZONE:
 		LOG("Collision WIN ZONE");
 		app->audio->PlayFx(levelCompletedSFX);
-		app->fade->FadeToBlack((Module*)app->scene, (Module*)app->titlescreen, 30);
+		app->fade->FadeToBlack((Module*)app->scene, (Module*)app->titlescreen, 90);
 		break;
 	case ColliderType::ENEMY:
 		LOG("Collision ENEMY");

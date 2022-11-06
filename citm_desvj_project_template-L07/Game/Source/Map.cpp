@@ -33,6 +33,10 @@ bool Map::Awake(pugi::xml_node& config)
     return ret;
 }
 
+bool Map::Start() {
+
+}
+
 void Map::Draw()
 {
     if(mapLoaded == false)
@@ -451,7 +455,7 @@ bool Map::CreateColliders()
 
     while (mapLayerItem != NULL)
     {
-        if (mapLayerItem->data->name == "Collisions")
+        if (mapLayerItem->data->id == 9)
         {
             int halfTileHeight = mapData.tileHeight / 2;
             int halfTileWidth = mapData.tileWidth / 2;

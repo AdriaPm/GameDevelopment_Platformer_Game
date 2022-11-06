@@ -38,6 +38,8 @@ bool Coin::Start() {
 
 	pbody->listener = this;
 
+	ResetCoin();
+
 	return true;
 }
 
