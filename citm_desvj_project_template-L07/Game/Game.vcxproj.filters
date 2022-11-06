@@ -70,7 +70,6 @@
     <ClInclude Include="Source\Physics.h" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\ModuleFadeToBlack.h" />
-    <ClInclude Include="Collider.h" />
     <ClInclude Include="Source\TitleScreen.h" />
     <ClInclude Include="Source\EndingScreen.h" />
     <ClInclude Include="Source\LogoScreen.h" />

@@ -113,7 +113,6 @@
     <ClCompile Include="Source\Textures.cpp" />
     <ClCompile Include="Source\TitleScreen.cpp" />
     <ClCompile Include="Source\Window.cpp" />
-    <ClInclude Include="Collider.h" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Coin.h" />
     <ClInclude Include="Source\EndingScreen.h" />

@@ -47,9 +47,6 @@ bool EndingScreen::Start()
 	app->scene->player->dead = false;
 	app->scene->player->ResetPlayerPos();
 	startSFX = app->audio->LoadFx("Assets/Audio/Fx/start_game.wav");
-	app->audio->PlayMusic("Assets/Audio/Music/gameOver.ogg");
-
-	//app->scene->player->godMode = true;
 
 	return true;
 }
@@ -68,7 +65,6 @@ bool EndingScreen::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
 		LOG("PASA A GAME SCENE");
 		app->fade->FadeToBlack(this, (Module*)app->scene, 90);
-		//app->scene->cameraFix = false;
 		app->audio->PlayFx(startSFX);
 	}
 
@@ -92,7 +88,6 @@ bool EndingScreen::PostUpdate()
 bool EndingScreen::CleanUp()
 {
 	LOG("Freeing ENDING SCENE");
-	//app->scene->Enable();
 	if (img != nullptr) {
 		app->tex->UnLoad(img);
 	}
