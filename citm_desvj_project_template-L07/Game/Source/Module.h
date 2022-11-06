@@ -72,20 +72,12 @@ public:
 	virtual void OnCollision(PhysBody* bodyA, PhysBody* bodyB) {
 
 	}
-
-	/*void Enable() {
-		if (!active)
-		{
-			active = true;
-			Start();
-		}
-	}*/
 	
 	void Enable() {
 		if (!active)
 		{
 			active = true;
-			Awake(node);
+			Start();
 		}
 	}
 	
