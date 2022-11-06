@@ -39,12 +39,15 @@ bool TitleScreen::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool TitleScreen::Start()
 {
-	/*app->map->Disable();
+	app->map->Disable();
 	app->entityManager->Disable();
 	app->scene->Disable();
-	app->physics->Disable();*/
+	app->physics->Disable();
+
+	app->render->camera.x = 0;
 
 	LOG("--STARTS TITLE SCENE--");
+
 	img = app->tex->Load("Assets/Textures/TitleScreen.png");
 	
 	// Music
