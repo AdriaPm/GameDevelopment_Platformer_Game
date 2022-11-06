@@ -153,7 +153,7 @@ bool Player::Update()
 				app->audio->PlayFx(jumpSFX);
 			}
 			else if (onGround == false && jumpCount > 1 && jumping == true) {
-				jumpingTime = 5;
+				jumpingTime = 0;
 				Jump();
 				jumpCount--;
 
@@ -315,15 +315,15 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 }
 
 void Player::Jump() {
-	velocity.y = +jumpVel;
+	velocity.y = jumpVel;
 
 	//Mini Jump
 	if (longPress == true)
-		jumpVel -= 1.5f;
+		jumpVel = -15.0f;
 	else if(jumpCount == 0)
-		jumpVel -= 5.0f;
+		jumpVel = -20.0f;
 	else
-		jumpVel += 2.0f;
+		jumpVel = -5.0f;
 
 	jumpingTime++;
 }
