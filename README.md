@@ -1,4 +1,4 @@
-# Misco Jones Aventures - ADVENTURES JOKES STUDIO
+# Misco Jones Adventures - ADVENTURES JOKES STUDIO
 
 ## Description
 
