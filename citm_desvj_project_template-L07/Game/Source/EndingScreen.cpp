@@ -45,7 +45,7 @@ bool EndingScreen::Start()
 	app->scene->player->dead = false;
 	app->scene->player->ResetPlayerPos();
 	startSFX = app->audio->LoadFx("Assets/Audio/Fx/start_game.wav");
-	app->audio->PlayMusic("Assets/Audio/Music/game_over.ogg");
+	app->audio->PlayMusic("Assets/Audio/Music/gameOver.ogg");
 
 	//app->scene->player->godMode = true;
 

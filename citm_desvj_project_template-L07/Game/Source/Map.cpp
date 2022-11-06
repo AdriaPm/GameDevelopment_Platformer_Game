@@ -428,6 +428,7 @@ Properties::Property* Properties::GetProperty(const char* name)
     return p;
 }
 
+/*
 bool Map::Parallax() {
 
     //// L05: DONE 9: Complete the draw function
@@ -444,6 +445,7 @@ bool Map::Parallax() {
     //    &r);
 
 }
+*/
 
 bool Map::CreateColliders()
 {
