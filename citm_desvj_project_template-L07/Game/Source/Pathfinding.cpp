@@ -177,6 +177,7 @@ int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 {
 	// L12: TODO 1: if origin or destination are not walkable, return -1
 
+
 	// L12: TODO 2: Create two lists: open, close
 	// Add the origin tile to open
 	// Iterate while we have tile in the open list

@@ -8,6 +8,7 @@
 #include "EntityManager.h"
 #include "Map.h"
 #include "Physics.h"
+#include "Pathfinding.h"
 #include "ModuleFadeToBlack.h"
 #include "LogoScreen.h"
 #include "TitleScreen.h"
@@ -35,6 +36,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	titlescreen = new TitleScreen();
 	//L07 TODO 2: Add Physics module
 	physics = new Physics();
+	pathfinding = new PathFinding();
 	scene = new Scene();
 	entityManager = new EntityManager();
 	map = new Map();
@@ -51,6 +53,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(titlescreen, false);
 	//L07 TODO 2: Add Physics module
 	AddModule(physics, false);
+	AddModule(pathfinding, false);
 	AddModule(scene, false);
 	AddModule(entityManager, false);
 	AddModule(map, false);

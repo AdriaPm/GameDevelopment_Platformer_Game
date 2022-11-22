@@ -24,6 +24,7 @@ class Map;
 class EndingScreen;
 //L07 TODO 2: Add Physics module
 class Physics;
+class PathFinding;
 class Animation;
 
 class App
@@ -100,6 +101,7 @@ public:
 	EndingScreen* endingscreen;
 	//L07 TODO 2: Add Physics module
 	Physics* physics;
+	PathFinding* pathfinding;
 
 private:
 
