@@ -133,6 +133,12 @@ public:
 	// L05: DONE 8: Create a method that translates x,y coordinates from map positions to world positions
 	iPoint MapToWorld(int x, int y) const;
 
+	// L08: DONE 3: Add method WorldToMap to obtain  
+	iPoint Map::WorldToMap(int x, int y);
+	
+	// L12: Create walkability map for pathfinding
+	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
+
 private:
 
 	bool LoadMap(pugi::xml_node mapFile);

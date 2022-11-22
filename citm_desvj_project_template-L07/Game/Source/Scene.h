@@ -57,6 +57,13 @@ public:
 private:
 	SDL_Texture* img;
 	iPoint startPosition;
+
+	SDL_Texture* mouseTileTex = nullptr;
+	SDL_Texture* originTex = nullptr;
+
+	// L12: Debug pathfing
+	iPoint origin;
+	bool originSelected = false;
 };
 
 #endif // __SCENE_H__
