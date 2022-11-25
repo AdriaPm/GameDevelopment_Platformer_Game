@@ -76,6 +76,7 @@
     <ClInclude Include="Source\LogoScreen.h" />
     <ClInclude Include="Source\Coin.h" />
     <ClInclude Include="Source\Pathfinding.h" />
+    <ClInclude Include="Source\Enemy.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

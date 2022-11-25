@@ -20,6 +20,7 @@ class LogoScreen;
 class TitleScreen;
 class Scene;
 class EntityManager;
+class Enemy;
 class Map;
 class EndingScreen;
 //L07 TODO 2: Add Physics module

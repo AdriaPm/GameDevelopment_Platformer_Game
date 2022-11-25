@@ -117,6 +117,7 @@
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Coin.h" />
     <ClInclude Include="Source\EndingScreen.h" />
+    <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\Item.h" />

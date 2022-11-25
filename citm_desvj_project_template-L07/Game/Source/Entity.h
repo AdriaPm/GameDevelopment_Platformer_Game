@@ -11,6 +11,7 @@ class PhysBody;
 enum class EntityType
 {
 	PLAYER,
+	ENEMY,
 	ITEM,
 	COIN,
 	UNKNOWN

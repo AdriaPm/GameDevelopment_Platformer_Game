@@ -8,6 +8,7 @@
 #include "EntityManager.h"
 #include "Map.h"
 #include "Physics.h"
+#include "PathFinding.h"
 #include "ModuleFadeToBlack.h"
 #include "EndingScreen.h"
 
@@ -53,6 +54,7 @@ bool Scene::Awake(pugi::xml_node& config)
 bool Scene::Start()
 {	
 	app->physics->Enable();
+	app->pathfinding->Enable();
 	app->entityManager->Enable();
 	app->map->Enable();
 	LOG("--STARTS GAME SCENE--");

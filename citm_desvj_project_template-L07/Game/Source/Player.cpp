@@ -84,6 +84,10 @@ bool Player::Start() {
 
 	pbody->listener = this;
 
+	onGround = true;
+	jumping = false;
+	jumpCount = 2;
+
 	return true;
 }
 
@@ -263,8 +267,10 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
 		jumpVel = GRAVITY_Y;
-		onGround = true;
-		jumping = false;
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) != KEY_REPEAT) {
+			onGround = true;
+			jumping = false;
+		}
 		jumpCount = 2;
 		break;
 	case ColliderType::WATER:

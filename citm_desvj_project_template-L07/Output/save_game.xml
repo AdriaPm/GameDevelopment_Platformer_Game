@@ -8,6 +8,7 @@
 	<LogoScreen />
 	<TitleScreen />
 	<:anonymous />
+	<pathfinding />
 	<scene />
 	<entitymanager />
 	<map />
