@@ -33,15 +33,15 @@ void PathFinding::SetMap(uint width, uint height, uchar* data)
 	this->height = height;
 
 	RELEASE_ARRAY(map);
-	map = new uchar[width*height];
-	memcpy(map, data, width*height);
+	map = new uchar[width * height];
+	memcpy(map, data, width * height);
 }
 
 // Utility: return true if pos is inside the map boundaries
 bool PathFinding::CheckBoundaries(const iPoint& pos) const
 {
 	return (pos.x >= 0 && pos.x <= (int)width &&
-			pos.y >= 0 && pos.y <= (int)height);
+		pos.y >= 0 && pos.y <= (int)height);
 }
 
 // Utility: returns true is the tile is walkable
@@ -54,8 +54,8 @@ bool PathFinding::IsWalkable(const iPoint& pos) const
 // Utility: return the walkability value of a tile
 uchar PathFinding::GetTileAt(const iPoint& pos) const
 {
-	if(CheckBoundaries(pos))
-		return map[(pos.y*width) + pos.x];
+	if (CheckBoundaries(pos))
+		return map[(pos.y * width) + pos.x];
 
 	return INVALID_WALK_CODE;
 }
@@ -78,9 +78,9 @@ void PathFinding::ClearLastPath()
 ListItem<PathNode>* PathList::Find(const iPoint& point) const
 {
 	ListItem<PathNode>* item = list.start;
-	while(item)
+	while (item)
 	{
-		if(item->data.pos == point)
+		if (item->data.pos == point)
 			return item;
 		item = item->next;
 	}
@@ -96,9 +96,9 @@ ListItem<PathNode>* PathList::GetNodeLowestScore() const
 	int min = 65535;
 
 	ListItem<PathNode>* item = list.end;
-	while(item)
+	while (item)
 	{
-		if(item->data.Score() < min)
+		if (item->data.Score() < min)
 		{
 			min = item->data.Score();
 			ret = item;
@@ -130,22 +130,22 @@ uint PathNode::FindWalkableAdjacents(PathList& listToFill) const
 
 	// north
 	cell.Create(pos.x, pos.y + 1);
-	if(app->pathfinding->IsWalkable(cell))
+	if (app->pathfinding->IsWalkable(cell))
 		listToFill.list.Add(PathNode(-1, -1, cell, this));
 
 	// south
 	cell.Create(pos.x, pos.y - 1);
-	if(app->pathfinding->IsWalkable(cell))
+	if (app->pathfinding->IsWalkable(cell))
 		listToFill.list.Add(PathNode(-1, -1, cell, this));
 
 	// east
 	cell.Create(pos.x + 1, pos.y);
-	if(app->pathfinding->IsWalkable(cell))
+	if (app->pathfinding->IsWalkable(cell))
 		listToFill.list.Add(PathNode(-1, -1, cell, this));
 
 	// west
 	cell.Create(pos.x - 1, pos.y);
-	if(app->pathfinding->IsWalkable(cell))
+	if (app->pathfinding->IsWalkable(cell))
 		listToFill.list.Add(PathNode(-1, -1, cell, this));
 
 	return listToFill.list.Count();
@@ -252,6 +252,6 @@ int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 		}
 	}
 
-	return -1;
+	return ret;
 }
 

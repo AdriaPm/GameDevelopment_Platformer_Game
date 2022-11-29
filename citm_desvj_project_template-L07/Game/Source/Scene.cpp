@@ -61,6 +61,17 @@ bool Scene::Start()
 
 	// L03: DONE: Load map
 	app->map->Load();
+	
+	// L12 Create walkability map
+	if (app->map->Load()) {
+		int w, h;
+		uchar* data = NULL;
+
+		bool retWalkMap = app->map->CreateWalkabilityMap(w, h, &data);
+		if (retWalkMap) app->pathfinding->SetMap(w, h, data);
+
+		RELEASE_ARRAY(data);
+	}
 
 	// Play level music
 	app->audio->PlayMusic("Assets/Audio/Music/song1.ogg", 1.0f);
