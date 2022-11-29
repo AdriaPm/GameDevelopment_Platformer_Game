@@ -1,5 +1,5 @@
-#ifndef __ENEMY_H__
-#define __ENEMY_H__
+#ifndef __SLIMEENEMY_H__
+#define __SLIMEENEMY_H__
 
 #include "Entity.h"
 #include "Point.h"
@@ -15,13 +15,13 @@ enum class EnemyType {
 	FLYING
 };
 
-class Enemy : public Entity
+class SlimeEnemy : public Entity
 {
 public:
 
-	Enemy();
+	SlimeEnemy();
 
-	virtual ~Enemy();
+	virtual ~SlimeEnemy();
 
 	bool Awake();
 
