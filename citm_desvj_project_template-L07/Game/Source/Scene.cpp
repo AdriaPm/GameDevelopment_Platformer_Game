@@ -58,6 +58,7 @@ bool Scene::Start()
 	app->entityManager->Enable();
 	app->map->Enable();
 	LOG("--STARTS GAME SCENE--");
+	app->physics->debug = false;
 
 	// L03: DONE: Load map
 	app->map->Load();
@@ -150,6 +151,7 @@ bool Scene::Update(float dt)
 
 	// Draw map
 	app->map->Draw();
+
 
 	// L08: DONE 3: Test World to map method
 	int mouseX, mouseY;

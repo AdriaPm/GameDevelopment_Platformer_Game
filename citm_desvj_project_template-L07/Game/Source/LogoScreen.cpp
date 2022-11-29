@@ -56,6 +56,11 @@ bool LogoScreen::Update(float dt)
 	time++;
 	frameCount--;
 
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
+		LOG("PASA A SCENE DIRECTAMENTE");
+		app->fade->FadeToBlack(this, (Module*)app->scene, 90);
+	}
+
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
 		LOG("PASA A TITLE SCENE");
 		app->fade->FadeToBlack(this, (Module*)app->titlescreen, 90);
