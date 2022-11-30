@@ -26,6 +26,8 @@
     <ClCompile Include="Source\LogoScreen.cpp" />
     <ClCompile Include="Source\Coin.cpp" />
     <ClCompile Include="Source\Pathfinding.cpp" />
+    <ClCompile Include="Source\UI.cpp" />
+    <ClCompile Include="Source\Fonts.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -77,6 +79,8 @@
     <ClInclude Include="Source\Coin.h" />
     <ClInclude Include="Source\Pathfinding.h" />
     <ClInclude Include="Source\SlimeEnemy.h" />
+    <ClInclude Include="Source\UI.h" />
+    <ClInclude Include="Source\Fonts.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

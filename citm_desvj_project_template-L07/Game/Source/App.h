@@ -19,6 +19,8 @@ class ModuleFadeToBlack;
 class LogoScreen;
 class TitleScreen;
 class Scene;
+class Fonts;
+class UI;
 class EntityManager;
 class Enemy;
 class Map;
@@ -97,6 +99,8 @@ public:
 	LogoScreen* logoscreen;
 	TitleScreen* titlescreen;
 	Scene* scene;
+	Fonts* fonts;
+	UI* ui;
 	EntityManager* entityManager;
 	Map* map;
 	EndingScreen* endingscreen;

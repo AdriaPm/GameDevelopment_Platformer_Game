@@ -98,6 +98,7 @@
     <ClCompile Include="Source\Coin.cpp" />
     <ClCompile Include="Source\EndingScreen.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
+    <ClCompile Include="Source\Fonts.cpp" />
     <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\LogoScreen.cpp" />
     <ClCompile Include="Source\Main.cpp" />
@@ -113,10 +114,12 @@
     <ClCompile Include="Source\Render.cpp" />
     <ClCompile Include="Source\Textures.cpp" />
     <ClCompile Include="Source\TitleScreen.cpp" />
+    <ClCompile Include="Source\UI.cpp" />
     <ClCompile Include="Source\Window.cpp" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Coin.h" />
     <ClInclude Include="Source\EndingScreen.h" />
+    <ClInclude Include="Source\Fonts.h" />
     <ClInclude Include="Source\SlimeEnemy.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
@@ -136,6 +139,7 @@
     <ClInclude Include="Source\Render.h" />
     <ClInclude Include="Source\Textures.h" />
     <ClInclude Include="Source\TitleScreen.h" />
+    <ClInclude Include="Source\UI.h" />
     <ClInclude Include="Source\Window.h" />
     <ClInclude Include="Source\Defs.h" />
     <ClInclude Include="Source\List.h" />
