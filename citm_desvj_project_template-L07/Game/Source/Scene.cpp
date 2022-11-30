@@ -11,7 +11,7 @@
 #include "PathFinding.h"
 #include "ModuleFadeToBlack.h"
 #include "EndingScreen.h"
-
+#include "UI.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -152,6 +152,13 @@ bool Scene::Update(float dt)
 	// Draw map
 	app->map->Draw();
 
+	//Blit UI
+	app->ui->BlitCoins();
+
+	if (app->physics->debug) {
+		app->ui->BlitPlayerXPos();
+		app->ui->BlitPlayerYPos();
+	}
 
 	// L08: DONE 3: Test World to map method
 	int mouseX, mouseY;

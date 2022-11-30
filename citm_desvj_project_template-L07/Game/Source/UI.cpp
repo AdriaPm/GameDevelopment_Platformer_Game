@@ -36,12 +36,9 @@ bool UI::Start()
 {
 	LOG("--STARTS UI MODULE--");
 	
-	/*
-	font_id = app->font->Load("Assets/Textures/font.png", "0123456789", 1);
-
-	char lookupTable[] = { "!  ,_./0123456789$;<&?abcdefghijklmnopqrstuvwxyz" };
-	font2_id = app->font->Load("Assets/Textures/font2.png", "! @,_./0123456789$;<&?abcdefghijklmnopqrstuvwxyz", 2);
-	*/
+	//Loading font 1
+	char lookupTableFont1[] = { "! @,_./0123456789$;<&?abcdefghijklmnopqrstuvwxyz" };
+	font1_id = app->fonts->Load("Assets/Textures/font1.png", lookupTableFont1, 2);
 
 	return true;
 }
@@ -56,17 +53,12 @@ bool UI::PreUpdate()
 bool UI::Update(float dt)
 {
 
-
-
-
-
 	return true;
 }
 
 // Called each loop iteration
 bool UI::PostUpdate()
 {
-
 
 	return true;
 }
@@ -76,21 +68,30 @@ bool UI::CleanUp()
 {
 	LOG("Freeing UI_Module");
 
-	//app->font->UnLoad(font_id);
+	app->fonts->UnLoad(font1_id);
+	//app->fonts->UnLoad(font2_id);
 
 	return true;
 }
 
-/*
-void ModuleUI::BlitPlayerXPos() {
-	char playerXPos[25];
-	sprintf_s(playerXPos, 25, "position x; %d", App->player->position.x);
-	App->font->BlitText(465, 743, font2_id, playerXPos);
+
+void UI::BlitCoins()
+{
+	char playerCoins[20];
+	sprintf_s(playerCoins, 20, "coins; %d", app->scene->player->coins);
+	app->fonts->BlitText(20, 20, font1_id, playerCoins);
 }
 
-void ModuleUI::BlitPlayerYPos() {
-	char playerYPos[25];
-	sprintf_s(playerYPos, 25, "position y; %d", App->player->position.y);
-	App->font->BlitText(465, 753, font2_id, playerYPos);
+void UI::BlitPlayerXPos() 
+{
+	char playerXPos[25];
+	sprintf_s(playerXPos, 25, "position x; %d", app->scene->player->position.x);
+	app->fonts->BlitText(20, 30, font1_id, playerXPos);
 }
-*/
+
+void UI::BlitPlayerYPos() 
+{
+	char playerYPos[25];
+	sprintf_s(playerYPos, 25, "position y; %d", app->scene->player->position.y);
+	app->fonts->BlitText(20, 40, font1_id, playerYPos);
+}

@@ -60,6 +60,8 @@ public:
 
 	PhysBody* pbody;
 
+	int coins = 0;
+
 private:
 
 	// L07 TODO 5: Add physics to the player - declare a Physics body
@@ -86,7 +88,6 @@ private:
 	bool jumping = false;
 	bool longPress = false;
 
-	int coins = 0;
 };
 
 #endif // __PLAYER_H__

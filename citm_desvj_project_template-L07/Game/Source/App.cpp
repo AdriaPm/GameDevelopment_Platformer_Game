@@ -58,8 +58,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(physics, false);
 	AddModule(pathfinding, false);
 	AddModule(scene, false);
-	AddModule(fonts, false);
-	AddModule(ui, false);
+	AddModule(fonts, true);
+	AddModule(ui, true);
 	AddModule(entityManager, false);
 	AddModule(map, false);
 	AddModule(endingscreen, false);
