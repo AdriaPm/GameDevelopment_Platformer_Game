@@ -40,6 +40,9 @@ bool UI::Start()
 	char lookupTableFont1[] = { "! @,_./0123456789$;<&?abcdefghijklmnopqrstuvwxyz" };
 	font1_id = app->fonts->Load("Assets/Textures/font1.png", lookupTableFont1, 2);
 
+	char lookupTableFont2[] = { "! %&'()*+,-./0123456789:;<=>abcdfghijklmnopqrstuvwxyz" };
+	font1_id = app->fonts->Load("Assets/Textures/font2.png", lookupTableFont2, 1);
+
 	return true;
 }
 
