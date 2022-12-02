@@ -103,7 +103,7 @@ bool SlimeEnemy::Update()
 	{
 		app->pathfinding->CreatePath(origin, app->scene->player->position);
 		refreshPathTime++;
-		if(refreshPathTime >= 100)
+		if(refreshPathTime >= 200)
 			originSelected = false;
 	}
 	else
@@ -111,7 +111,7 @@ bool SlimeEnemy::Update()
 		origin.x = pbody->body->GetPosition().x;
 		origin.y = pbody->body->GetPosition().y;
 		originSelected = true;
-		app->pathfinding->ClearLastPath(); 
+		//app->pathfinding->ClearLastPath(); 
 		refreshPathTime = 0;
 	}
 
@@ -156,8 +156,14 @@ bool SlimeEnemy::CleanUp()
 	return true;
 }
 
-void MovementDirection(const iPoint& origin, const iPoint& destination) {
-	
+void SlimeEnemy::MovementDirection(const iPoint& origin, const iPoint& destination) {
+	float res = destination.x - origin.x;
+	LOG("Enemy Direction: %f", res);
+
+	if ((app->scene->player->pbody->body->GetTransform().p.x - pbody->body->GetTransform().p.x) < 0)
+		velocity.x = -2;
+	else if ((app->scene->player->pbody->body->GetTransform().p.x - pbody->body->GetTransform().p.x) > 0)
+		velocity.x = +2;
 }
 
 void SlimeEnemy::OnCollision(PhysBody* physA, PhysBody* physB) {

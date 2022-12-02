@@ -60,11 +60,12 @@ public:
 	SDL_Texture* originTex = nullptr;
 	const char* origintexturePath;
 
+	SDL_Texture* slimeTilePathTex = nullptr;
+	const char* slimeTilePath;
+
 private:
 	SDL_Texture* img;
 	iPoint startPosition;
-
-	SDL_Texture* mouseTileTex = nullptr;
 	
 	// L12: Debug pathfing
 	iPoint origin;

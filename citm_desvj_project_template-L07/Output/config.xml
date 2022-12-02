@@ -25,12 +25,13 @@
   <scene>
     <!-->player x="150" y="672" texturepath="Assets/Textures/player1.png"/-->
 	<originTexture origintexturePath = "Assets/Maps/x.png" />
+	<pathfinding  slimePathTile="Assets/Textures/Slime/path.png" />
 	<player x="224" y="530" texturepath="Assets/Textures/PlayerJones.png"/>
     <coin x="704" y="329" texturepath="Assets/Textures/bitcoin.png"/>
 	<coin x="1312" y="297" texturepath="Assets/Textures/bitcoin.png"/>
 	<coin x="2192" y="458" texturepath="Assets/Textures/bitcoin.png"/>
 	<coin x="2928" y="170" texturepath="Assets/Textures/bitcoin.png"/>
-	<slime x="400" y="530" texturepath="Assets/Textures/Slime/Slime_Spiked_Full.png" pathtexturePath ="Assets/Textures/Slime/path.png"/>
+	<slime x="400" y="530" texturepath="Assets/Textures/Slime/Slime_Spiked_Full.png"/>
   </scene>
 
   <map>

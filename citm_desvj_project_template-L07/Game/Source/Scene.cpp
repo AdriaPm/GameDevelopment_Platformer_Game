@@ -35,6 +35,7 @@ bool Scene::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	origintexturePath = config.child("originTexture").attribute("origintexturePath").as_string();
+	slimeTilePathTex = config.child("pathfinding").attribute("slimePathTile").as_string();
 
 	// iterate all objects in the scene
 	// Check https://pugixml.org/docs/quickstart.html#access
@@ -85,7 +86,7 @@ bool Scene::Start()
 	selectSFX = app->audio->LoadFx("Assets/Audio/Fx/select.wav");
 	
 	// Texture to highligh mouse position 
-	mouseTileTex = app->tex->Load("Assets/Maps/path.png");
+	slimeTilePathTex = app->tex->Load(slimeTilePath);
 	// Texture to show path origin 
 	originTex = app->tex->Load(origintexturePath);
 
@@ -174,7 +175,7 @@ bool Scene::Update(float dt)
 	if (app->physics->debug) 
 	{
 		iPoint highlightedTileWorld = app->map->MapToWorld(mouseTile.x, mouseTile.y);
-		app->render->DrawTexture(mouseTileTex, highlightedTileWorld.x, highlightedTileWorld.y);
+		app->render->DrawTexture(slimeTilePathTex, highlightedTileWorld.x, highlightedTileWorld.y);
 	}
 
 	//Test compute path function
@@ -201,7 +202,7 @@ bool Scene::Update(float dt)
 		for (uint i = 0; i < path->Count(); ++i)
 		{
 		iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-		app->render->DrawTexture(mouseTileTex, pos.x, pos.y);
+		app->render->DrawTexture(slimeTilePathTex, pos.x, pos.y);
 		}
 
 		// L12: Debug pathfinding
