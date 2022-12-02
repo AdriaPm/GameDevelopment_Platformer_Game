@@ -40,8 +40,8 @@ bool UI::Start()
 	char lookupTableFont1[] = { "! @,_./0123456789$;<&?abcdefghijklmnopqrstuvwxyz" };
 	font1_id = app->fonts->Load("Assets/Textures/font1.png", lookupTableFont1, 2);
 
-	char lookupTableFont2[] = { "! %&'()*+,-./0123456789:;<=>abcdfghijklmnopqrstuvwxyz" };
-	font1_id = app->fonts->Load("Assets/Textures/font2.png", lookupTableFont2, 1);
+	char lookupTableFont2[] = { "! %&'()*+,-./0123456789:;<=>abcdefghijklmnopqrstuvwxyz" };
+	font2_id = app->fonts->Load("Assets/Textures/font2.png", lookupTableFont2, 1);
 
 	return true;
 }
@@ -55,14 +55,12 @@ bool UI::PreUpdate()
 // Called each loop iteration
 bool UI::Update(float dt)
 {
-
 	return true;
 }
 
 // Called each loop iteration
 bool UI::PostUpdate()
 {
-
 	return true;
 }
 
@@ -81,20 +79,39 @@ bool UI::CleanUp()
 void UI::BlitCoins()
 {
 	char playerCoins[20];
-	sprintf_s(playerCoins, 20, "coins; %d", app->scene->player->coins);
-	app->fonts->BlitText(20, 20, font1_id, playerCoins);
+	sprintf_s(playerCoins, 20, "coins: %d", app->scene->player->coins);
+	app->fonts->BlitText(20, 20, font2_id, playerCoins);
 }
 
+
+/* UI DEBUG INFO WITH FONT 2 */
+void UI::BlitPlayerXPos()
+{
+	char playerXPos[25];
+	sprintf_s(playerXPos, 25, "position x: %d", app->scene->player->position.x);
+	app->fonts->BlitText(20, 40, font2_id, playerXPos);
+}
+
+void UI::BlitPlayerYPos()
+{
+	char playerYPos[25];
+	sprintf_s(playerYPos, 25, "position y: %d", app->scene->player->position.y);
+	app->fonts->BlitText(20, 60, font2_id, playerYPos);
+}
+
+/* UI DEBUG INFO WITH FONT 1 */
+/*
 void UI::BlitPlayerXPos() 
 {
 	char playerXPos[25];
 	sprintf_s(playerXPos, 25, "position x; %d", app->scene->player->position.x);
-	app->fonts->BlitText(20, 30, font1_id, playerXPos);
+	app->fonts->BlitText(20, 40, font1_id, playerXPos);
 }
 
 void UI::BlitPlayerYPos() 
 {
 	char playerYPos[25];
 	sprintf_s(playerYPos, 25, "position y; %d", app->scene->player->position.y);
-	app->fonts->BlitText(20, 40, font1_id, playerYPos);
+	app->fonts->BlitText(20, 50, font1_id, playerYPos);
 }
+*/
