@@ -211,28 +211,22 @@ bool Player::Update()
 
 		}
 
-		//Attacking function
-		if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
-		{
-			attacking = true;
-		}
-		if (attacking) {
-			currentAnim = &attackPlayer;
-
-		
-			if (attackPlayer.HasFinished()) {
-				attacking = false;
-				attackPlayer.Reset();
-				attackPlayer.ResetLoopCount();
-			}
-		}
-
-		if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN 
-			|| app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) 
+		//Reset player position input
+		if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN
+			|| app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 		{
 			ResetPlayerPos();
 			app->audio->PlayFx(selectSFX);
 		}
+
+
+
+		//Attacking animation function
+		if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
+		{
+			attacking = true;
+		}
+		Attack();
 
 
 		//Jumping Function
@@ -356,6 +350,20 @@ void Player::Jump() {
 		jumpVel = -5.0f;
 
 	jumpingTime++;
+}
+
+void Player::Attack() {
+
+	if (attacking)
+	{
+		currentAnim = &attackPlayer;
+
+		if (attackPlayer.HasFinished()) {
+			attacking = false;
+			attackPlayer.Reset();
+			attackPlayer.ResetLoopCount();
+		}
+	}
 }
 
 void Player::ResetPlayerPos() {

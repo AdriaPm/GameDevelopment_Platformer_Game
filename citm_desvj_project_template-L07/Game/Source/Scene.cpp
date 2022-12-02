@@ -35,7 +35,8 @@ bool Scene::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	origintexturePath = config.child("originTexture").attribute("origintexturePath").as_string();
-	slimeTilePathTex = config.child("pathfinding").attribute("slimePathTile").as_string();
+	slimeTilePath = config.child("pathfinding").attribute("slimePathTile").as_string();
+ 
 
 	// iterate all objects in the scene
 	// Check https://pugixml.org/docs/quickstart.html#access
