@@ -44,6 +44,7 @@ public:
 	//Set of animations
 	Animation idlePlayer;
 	Animation runPlayer;
+	Animation attackPlayer;
 	Animation jumpPlayer;
 	Animation diePlayer;
 
@@ -64,8 +65,7 @@ public:
 
 private:
 
-	// L07 TODO 5: Add physics to the player - declare a Physics body
-	
+	uint lives;
 
 	//L02: DONE 1: Declare player parameters
 	SDL_Texture* texture;
