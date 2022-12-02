@@ -42,10 +42,14 @@ bool Scene::Awake(pugi::xml_node& config)
 		coin->parameters = itemNode;
 	}
 
+	
+
 	//L02: DONE 3: Instantiate the player using the entity manager
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	player->parameters = config.child("player");
 
+	slime = (SlimeEnemy*)app->entityManager->CreateEntity(EntityType::ENEMY);
+	slime->parameters = config.child("slime");
 
 	return ret;
 }

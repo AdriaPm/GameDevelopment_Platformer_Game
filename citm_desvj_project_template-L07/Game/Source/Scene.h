@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Item.h"
 #include "Coin.h"
+#include "SlimeEnemy.h"
 
 struct SDL_Texture;
 
@@ -41,6 +42,8 @@ public:
 
 	//L02: DONE 3: Declare a Player attribute 
 	Player* player;
+
+	SlimeEnemy* slime;
 
 	Item* item;
 

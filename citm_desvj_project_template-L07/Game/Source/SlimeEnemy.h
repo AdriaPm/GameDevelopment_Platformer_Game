@@ -9,12 +9,6 @@
 
 struct SDL_Texture;
 
-enum class EnemyType {
-	NONE = -1,
-	WALKING, 
-	FLYING
-};
-
 class SlimeEnemy : public Entity
 {
 public:
@@ -50,8 +44,8 @@ public:
 	Animation dieEnemy;
 
 	//Set of SFX
-	uint jumpSFX = 0;
-	uint dieSFX = 0;
+	/*uint jumpSFX = 0;
+	uint dieSFX = 0;*/
 
 	bool onGround = false;
 	bool dead = false;

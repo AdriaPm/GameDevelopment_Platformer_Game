@@ -5,7 +5,7 @@
   </app>
 
   <renderer>
-    <vsync value="true"/>
+    <vsync value="false"/>
   </renderer>
 
   <window>
@@ -29,11 +29,13 @@
 	<coin x="1312" y="297" texturepath="Assets/Textures/bitcoin.png"/>
 	<coin x="2192" y="458" texturepath="Assets/Textures/bitcoin.png"/>
 	<coin x="2928" y="170" texturepath="Assets/Textures/bitcoin.png"/>
+	<slime x="400" y="530" texturepath="Assets/Textures/Slime/Slime_Spiked_Full.png"/>
   </scene>
 
   <map>
     <mapfolder path="Assets/Maps/"/>
     <mapfile path="Assets/Maps/Level1Map.tmx"/>
+    <mapfile2 path="Assets/Maps/Level2Map.tmx"/>
   </map>
   
 </config>

@@ -22,7 +22,6 @@ class Scene;
 class Fonts;
 class UI;
 class EntityManager;
-class Enemy;
 class Map;
 class EndingScreen;
 //L07 TODO 2: Add Physics module

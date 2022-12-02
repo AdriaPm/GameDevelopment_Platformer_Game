@@ -112,6 +112,7 @@
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\Render.cpp" />
+    <ClCompile Include="Source\SlimeEnemy.cpp" />
     <ClCompile Include="Source\Textures.cpp" />
     <ClCompile Include="Source\TitleScreen.cpp" />
     <ClCompile Include="Source\UI.cpp" />

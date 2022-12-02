@@ -28,6 +28,7 @@
     <ClCompile Include="Source\Pathfinding.cpp" />
     <ClCompile Include="Source\UI.cpp" />
     <ClCompile Include="Source\Fonts.cpp" />
+    <ClCompile Include="Source\SlimeEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
