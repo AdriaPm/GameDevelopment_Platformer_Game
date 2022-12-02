@@ -57,13 +57,15 @@ public:
 
 	bool playing = false;
 
+	SDL_Texture* originTex = nullptr;
+	const char* origintexturePath;
+
 private:
 	SDL_Texture* img;
 	iPoint startPosition;
 
 	SDL_Texture* mouseTileTex = nullptr;
-	SDL_Texture* originTex = nullptr;
-
+	
 	// L12: Debug pathfing
 	iPoint origin;
 	bool originSelected = false;

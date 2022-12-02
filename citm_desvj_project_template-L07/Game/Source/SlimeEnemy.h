@@ -29,6 +29,8 @@ public:
 
 	bool CleanUp();
 
+	void MovementDirection(const iPoint& origin, const iPoint& destination);
+
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
 public:
@@ -67,5 +69,12 @@ private:
 	int height;
 
 	bool isFliped = false;
+
+	// L12: Debug pathfing
+	SDL_Texture* pathTex = nullptr;
+	const char* pathtexturePath;
+	iPoint origin;
+	bool originSelected = false;
+	uint refreshPathTime;
 };
 #endif // __ENEMY_H__

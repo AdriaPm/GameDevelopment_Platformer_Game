@@ -9,6 +9,7 @@
 #include "Log.h"
 #include "Point.h"
 #include "Map.h"
+#include "PathFinding.h"
 #include "ModuleFadeToBlack.h"
 
 
@@ -27,7 +28,11 @@ bool SlimeEnemy::Awake() {
 	startPos.x = parameters.attribute("x").as_int();
 	startPos.y = parameters.attribute("y").as_int();
 
+	origin.x = startPos.x;
+	origin.y = startPos.y;
+
 	texturePath = parameters.attribute("texturepath").as_string();
+	pathtexturePath = parameters.attribute("pathtexturePath").as_string();
 
 	width = 32;
 	height = 32;
@@ -64,6 +69,7 @@ bool SlimeEnemy::Awake() {
 bool SlimeEnemy::Start() {
 	//initilize textures
 	texture = app->tex->Load(texturePath);
+	pathTex = app->tex->Load(pathtexturePath);
 
 	// Loading the set of SFX, BETTER HERE FOR ENABLE/DISABLE
 	/*jumpSFX = app->audio->LoadFx("Assets/Audio/Fx/jump.wav");
@@ -77,6 +83,8 @@ bool SlimeEnemy::Start() {
 
 	pbody->listener = this;
 
+	refreshPathTime = 0;
+
 	return true;
 }
 
@@ -88,9 +96,46 @@ bool SlimeEnemy::PreUpdate() {
 bool SlimeEnemy::Update()
 {
 	currentAnim = &idleEnemy;
+	velocity = { 0, -GRAVITY_Y };
+
+	//Test compute path function
+	if (originSelected == true)
+	{
+		app->pathfinding->CreatePath(origin, app->scene->player->position);
+		refreshPathTime++;
+		if(refreshPathTime >= 100)
+			originSelected = false;
+	}
+	else
+	{
+		origin.x = pbody->body->GetPosition().x;
+		origin.y = pbody->body->GetPosition().y;
+		originSelected = true;
+		app->pathfinding->ClearLastPath(); 
+		refreshPathTime = 0;
+	}
+
+	MovementDirection(origin, app->scene->player->position);
+
+	pbody->body->SetLinearVelocity(velocity);
 
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x - (width / 4));
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y - (height / 3));
+
+	if (app->physics->debug)
+	{
+		// L12: Get the latest calculated path and draw
+		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+		for (uint i = 0; i < path->Count(); ++i)
+		{
+			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+			app->render->DrawTexture(pathTex, pos.x, pos.y);
+		}
+
+		// L12: Debug pathfinding
+		iPoint originScreen = app->map->MapToWorld(origin.x, origin.y);
+		app->render->DrawTexture(app->scene->originTex, originScreen.x - 16, originScreen.y - 19);
+	}
 
 	SDL_Rect rect = currentAnim->GetCurrentFrame();
 	app->render->DrawTexture(texture, position.x, position.y, &rect, fliped);
@@ -109,6 +154,10 @@ bool SlimeEnemy::CleanUp()
 {
 
 	return true;
+}
+
+void MovementDirection(const iPoint& origin, const iPoint& destination) {
+	
 }
 
 void SlimeEnemy::OnCollision(PhysBody* physA, PhysBody* physB) {

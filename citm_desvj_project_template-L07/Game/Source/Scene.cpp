@@ -34,6 +34,8 @@ bool Scene::Awake(pugi::xml_node& config)
 	LOG("Loading Scene");
 	bool ret = true;
 
+	origintexturePath = config.child("originTexture").attribute("origintexturePath").as_string();
+
 	// iterate all objects in the scene
 	// Check https://pugixml.org/docs/quickstart.html#access
 	for (pugi::xml_node itemNode = config.child("coin"); itemNode; itemNode = itemNode.next_sibling("coin"))
@@ -41,8 +43,6 @@ bool Scene::Awake(pugi::xml_node& config)
 		coin = (Coin*)app->entityManager->CreateEntity(EntityType::COIN);
 		coin->parameters = itemNode;
 	}
-
-	
 
 	//L02: DONE 3: Instantiate the player using the entity manager
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
@@ -87,7 +87,7 @@ bool Scene::Start()
 	// Texture to highligh mouse position 
 	mouseTileTex = app->tex->Load("Assets/Maps/path.png");
 	// Texture to show path origin 
-	originTex = app->tex->Load("Assets/Maps/x.png");
+	originTex = app->tex->Load(origintexturePath);
 
 	SString title("Misco Jones Adventures by ADVENTURES JOKES STUDIO");
 
