@@ -68,6 +68,8 @@ bool Scene::Start()
 	// L03: DONE: Load map
 	app->map->Load();
 	
+
+
 	// L12 Create walkability map
 	if (app->map->Load()) {
 		int w, h;
@@ -159,6 +161,7 @@ bool Scene::Update(float dt)
 
 	//Blit UI
 	app->ui->BlitCoins();
+	app->ui->BlitLives();
 
 	if (app->physics->debug) {
 		app->ui->BlitPlayerXPos();
@@ -237,4 +240,5 @@ void Scene::ResetScene() {
 	
 	app->audio->PlayMusic("Assets/Audio/Music/song1.ogg", 1.0f);
 	player->ResetPlayerPos();
+	player->lives = 3;
 }

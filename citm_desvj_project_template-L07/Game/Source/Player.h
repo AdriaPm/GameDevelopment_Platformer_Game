@@ -33,6 +33,8 @@ public:
 
 	void Jump();
 
+	void Attack();
+
 	void ResetPlayerPos();
 
 public:
@@ -62,9 +64,9 @@ public:
 
 	int coins = 0;
 
-private:
+	uint lives = 3;
 
-	uint lives;
+private:
 
 	//L02: DONE 1: Declare player parameters
 	SDL_Texture* texture;
@@ -86,6 +88,9 @@ private:
 	float jumpVel = GRAVITY_Y;
 	bool jumping = false;
 	bool longPress = false;
+
+	//Attack Variables
+	bool attacking = false;
 
 };
 

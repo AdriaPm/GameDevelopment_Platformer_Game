@@ -76,11 +76,18 @@ bool UI::CleanUp()
 }
 
 
+void UI::BlitLives()
+{
+	char playerLives[20];
+	sprintf_s(playerLives, 20, "lives: %d", app->scene->player->lives);
+	app->fonts->BlitText(20, 15, font2_id, playerLives);
+}
+
 void UI::BlitCoins()
 {
 	char playerCoins[20];
 	sprintf_s(playerCoins, 20, "coins: %d", app->scene->player->coins);
-	app->fonts->BlitText(20, 20, font2_id, playerCoins);
+	app->fonts->BlitText(20, 35, font2_id, playerCoins);
 }
 
 
@@ -89,14 +96,14 @@ void UI::BlitPlayerXPos()
 {
 	char playerXPos[25];
 	sprintf_s(playerXPos, 25, "position x: %d", app->scene->player->position.x);
-	app->fonts->BlitText(20, 40, font2_id, playerXPos);
+	app->fonts->BlitText(20, 55, font2_id, playerXPos);
 }
 
 void UI::BlitPlayerYPos()
 {
 	char playerYPos[25];
 	sprintf_s(playerYPos, 25, "position y: %d", app->scene->player->position.y);
-	app->fonts->BlitText(20, 60, font2_id, playerYPos);
+	app->fonts->BlitText(20, 75, font2_id, playerYPos);
 }
 
 /* UI DEBUG INFO WITH FONT 1 */

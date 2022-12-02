@@ -39,6 +39,7 @@ public:
 	void BlitPlayerXPos();
 	void BlitPlayerYPos();
 	void BlitCoins();
+	void BlitLives();
 
 
 	uint font1_id = -1;

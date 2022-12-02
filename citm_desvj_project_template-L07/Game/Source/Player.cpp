@@ -54,9 +54,16 @@ bool Player::Awake() {
 	runPlayer.loop = true;
 	runPlayer.speed = 0.1f;
 
-	attackPlayer.PushBack({ 0, 0, 0, 0 });
-	attackPlayer.loop = true;
-	attackPlayer.speed = 0.1f;
+	attackPlayer.PushBack({ 11, 138, 27, 27 });
+	attackPlayer.PushBack({ 87, 139, 38, 21 });
+	attackPlayer.PushBack({ 148, 139, 44, 21 });
+	attackPlayer.PushBack({ 204, 138, 38, 22 });
+	attackPlayer.PushBack({ 268, 139, 27, 27 });
+	attackPlayer.PushBack({ 342, 138, 21, 28 });
+	attackPlayer.PushBack({ 409, 138, 22, 22 });
+	attackPlayer.PushBack({ 472, 138, 15, 22 });
+	attackPlayer.loop = false;
+	attackPlayer.speed = 0.3f;
 
 	diePlayer.PushBack({ 23, 202, 16, 22 });
 	diePlayer.PushBack({ 87, 206, 21, 18 });
@@ -203,6 +210,23 @@ bool Player::Update()
 			currentAnim = &runPlayer;
 
 		}
+
+		//Attacking function
+		if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
+		{
+			attacking = true;
+		}
+		if (attacking) {
+			currentAnim = &attackPlayer;
+
+		
+			if (attackPlayer.HasFinished()) {
+				attacking = false;
+				attackPlayer.Reset();
+				attackPlayer.ResetLoopCount();
+			}
+		}
+
 		if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN 
 			|| app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) 
 		{
@@ -279,11 +303,12 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::WATER:
 		LOG("Collision WATER");
-		if(godMode == false)
+		if (godMode == false) {
 			dead = true;
 			coins = 0;
 			app->audio->PlayFx(dieSFX);
 			app->fade->FadeToBlack((Module*)app->scene, (Module*)app->endingscreen, 60);
+		}
 		break;
 	case ColliderType::WIN_ZONE:
 		LOG("Collision WIN ZONE");
