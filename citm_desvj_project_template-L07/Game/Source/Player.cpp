@@ -54,7 +54,7 @@ bool Player::Awake() {
 	runPlayer.loop = true;
 	runPlayer.speed = 0.1f;
 
-	attackPlayer.PushBack({ 24, 42, 16, 23 });
+	attackPlayer.PushBack({ 0, 0, 0, 0 });
 	attackPlayer.loop = true;
 	attackPlayer.speed = 0.1f;
 

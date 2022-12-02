@@ -41,11 +41,10 @@ public:
 	// It will be switched depending on the player's movement direction
 	Animation* currentAnim;
 
-	//Set of animations
+	//Set of animations (JUMP ANIM DDOESN'T EXISTS)
 	Animation idlePlayer;
 	Animation runPlayer;
 	Animation attackPlayer;
-	Animation jumpPlayer;
 	Animation diePlayer;
 
 	//Set of SFX
