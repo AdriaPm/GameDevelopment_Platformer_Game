@@ -32,7 +32,6 @@ bool SlimeEnemy::Awake() {
 	origin.y = startPos.y;
 
 	texturePath = parameters.attribute("texturepath").as_string();
-	pathtexturePath = parameters.attribute("pathtexturePath").as_string();
 
 	width = 32;
 	height = 32;
@@ -69,7 +68,6 @@ bool SlimeEnemy::Awake() {
 bool SlimeEnemy::Start() {
 	//initilize textures
 	texture = app->tex->Load(texturePath);
-	pathTex = app->tex->Load(pathtexturePath);
 
 	// Loading the set of SFX, BETTER HERE FOR ENABLE/DISABLE
 	/*jumpSFX = app->audio->LoadFx("Assets/Audio/Fx/jump.wav");
@@ -98,12 +96,15 @@ bool SlimeEnemy::Update()
 	currentAnim = &idleEnemy;
 	velocity = { 0, -GRAVITY_Y };
 
+	//Takes player pos for the path destination
+	iPoint playerTile = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
+
 	//Test compute path function
 	if (originSelected == true)
 	{
-		app->pathfinding->CreatePath(origin, app->scene->player->position);
+		app->pathfinding->CreatePath(origin, playerTile);
 		refreshPathTime++;
-		if(refreshPathTime >= 200)
+		if(refreshPathTime >= 150)
 			originSelected = false;
 	}
 	else
@@ -111,11 +112,11 @@ bool SlimeEnemy::Update()
 		origin.x = pbody->body->GetPosition().x;
 		origin.y = pbody->body->GetPosition().y;
 		originSelected = true;
-		//app->pathfinding->ClearLastPath(); 
+		app->pathfinding->ClearLastPath(); 
 		refreshPathTime = 0;
 	}
 
-	MovementDirection(origin, app->scene->player->position);
+	MovementDirection(origin, playerTile);
 
 	pbody->body->SetLinearVelocity(velocity);
 
@@ -129,7 +130,7 @@ bool SlimeEnemy::Update()
 		for (uint i = 0; i < path->Count(); ++i)
 		{
 			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-			app->render->DrawTexture(pathTex, pos.x, pos.y);
+			app->render->DrawTexture(app->scene->slimeTilePathTex, pos.x, pos.y);
 		}
 
 		// L12: Debug pathfinding
@@ -158,12 +159,17 @@ bool SlimeEnemy::CleanUp()
 
 void SlimeEnemy::MovementDirection(const iPoint& origin, const iPoint& destination) {
 	float res = destination.x - origin.x;
-	LOG("Enemy Direction: %f", res);
 
-	if ((app->scene->player->pbody->body->GetTransform().p.x - pbody->body->GetTransform().p.x) < 0)
+	//Check if player is to the right or the left of the origin
+	if (res < 0) {
 		velocity.x = -2;
-	else if ((app->scene->player->pbody->body->GetTransform().p.x - pbody->body->GetTransform().p.x) > 0)
+		fliped = SDL_FLIP_NONE;
+	}
+	if (res > 0) {
 		velocity.x = +2;
+		fliped = SDL_FLIP_HORIZONTAL;
+	}
+		
 }
 
 void SlimeEnemy::OnCollision(PhysBody* physA, PhysBody* physB) {

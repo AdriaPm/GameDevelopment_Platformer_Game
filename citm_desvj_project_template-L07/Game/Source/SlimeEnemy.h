@@ -68,11 +68,7 @@ private:
 	int width;
 	int height;
 
-	bool isFliped = false;
-
 	// L12: Debug pathfing
-	SDL_Texture* pathTex = nullptr;
-	const char* pathtexturePath;
 	iPoint origin;
 	bool originSelected = false;
 	uint refreshPathTime;

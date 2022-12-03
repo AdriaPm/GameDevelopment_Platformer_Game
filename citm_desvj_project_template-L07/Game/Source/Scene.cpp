@@ -169,50 +169,50 @@ bool Scene::Update(float dt)
 		app->ui->BlitPlayerYPos();
 	}
 
-	// L08: DONE 3: Test World to map method
-	int mouseX, mouseY;
-	app->input->GetMousePosition(mouseX, mouseY);
-	iPoint mouseTile = app->map->WorldToMap(mouseX - app->render->camera.x,
-											mouseY - app->render->camera.y);
+	//// L08: DONE 3: Test World to map method
+	//int mouseX, mouseY;
+	//app->input->GetMousePosition(mouseX, mouseY);
+	//iPoint mouseTile = app->map->WorldToMap(mouseX - app->render->camera.x,
+	//										mouseY - app->render->camera.y);
 
-	//Convert again the tile coordinates to world coordinates to render the texture of the tile
-	if (app->physics->debug) 
-	{
-		iPoint highlightedTileWorld = app->map->MapToWorld(mouseTile.x, mouseTile.y);
-		app->render->DrawTexture(slimeTilePathTex, highlightedTileWorld.x, highlightedTileWorld.y);
-	}
+	////Convert again the tile coordinates to world coordinates to render the texture of the tile
+	//if (app->physics->debug) 
+	//{
+	//	iPoint highlightedTileWorld = app->map->MapToWorld(mouseTile.x, mouseTile.y);
+	//	app->render->DrawTexture(slimeTilePathTex, highlightedTileWorld.x, highlightedTileWorld.y);
+	//}
 
-	//Test compute path function
-	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
-	{
-		if (originSelected == true)
-		{
-			app->pathfinding->CreatePath(origin, mouseTile);
-			originSelected = false;
-		}
-		else
-		{
-			origin = mouseTile;
-			originSelected = true;
-			app->pathfinding->ClearLastPath();
-		}
-	}
+	////Test compute path function
+	//if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	//{
+	//	if (originSelected == true)
+	//	{
+	//		app->pathfinding->CreatePath(origin, mouseTile);
+	//		originSelected = false;
+	//	}
+	//	else
+	//	{
+	//		origin = mouseTile;
+	//		originSelected = true;
+	//		app->pathfinding->ClearLastPath();
+	//	}
+	//}
 
-	
-	if (app->physics->debug) 
-	{
-	// L12: Get the latest calculated path and draw
-		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
-		for (uint i = 0; i < path->Count(); ++i)
-		{
-		iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-		app->render->DrawTexture(slimeTilePathTex, pos.x, pos.y);
-		}
+	//
+	//if (app->physics->debug) 
+	//{
+	//// L12: Get the latest calculated path and draw
+	//	const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+	//	for (uint i = 0; i < path->Count(); ++i)
+	//	{
+	//	iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+	//	app->render->DrawTexture(slimeTilePathTex, pos.x, pos.y);
+	//	}
 
-		// L12: Debug pathfinding
-		iPoint originScreen = app->map->MapToWorld(origin.x, origin.y);
-		app->render->DrawTexture(originTex, originScreen.x - 16, originScreen.y - 19);
-	}
+	//	// L12: Debug pathfinding
+	//	iPoint originScreen = app->map->MapToWorld(origin.x, origin.y);
+	//	app->render->DrawTexture(originTex, originScreen.x - 16, originScreen.y - 19);
+	//}
 
 
 	return true;
