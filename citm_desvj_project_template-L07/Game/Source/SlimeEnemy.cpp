@@ -99,25 +99,33 @@ bool SlimeEnemy::Update()
 	//Takes player pos for the path destination
 	iPoint playerTile = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
 
-	//Test compute path function
-	if (originSelected == true)
+	if (pbody->body->GetPosition().x > app->render->camera.x - app->render->camera.w/2 && pbody->body->GetPosition().x < app->render->camera.x + app->render->camera.w/2)
 	{
-		app->pathfinding->CreatePath(origin, playerTile);
-		refreshPathTime++;
-		if(refreshPathTime >= 150)
-			originSelected = false;
+		//Test compute path function
+		if (originSelected == true)
+		{
+			app->pathfinding->CreatePath(origin, playerTile);
+			refreshPathTime++;
+			if (refreshPathTime >= 150)
+				originSelected = false;
+		}
+		else
+		{
+			origin.x = pbody->body->GetPosition().x;
+			origin.y = pbody->body->GetPosition().y;
+			originSelected = true;
+			app->pathfinding->ClearLastPath();
+			refreshPathTime = 0;
+		}
+
+		MovementDirection(origin, playerTile);
 	}
-	else
+	else 
 	{
-		origin.x = pbody->body->GetPosition().x;
-		origin.y = pbody->body->GetPosition().y;
-		originSelected = true;
-		app->pathfinding->ClearLastPath(); 
+		app->pathfinding->ClearLastPath();
 		refreshPathTime = 0;
 	}
-
-	MovementDirection(origin, playerTile);
-
+	
 	pbody->body->SetLinearVelocity(velocity);
 
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x - (width / 4));
@@ -158,6 +166,7 @@ bool SlimeEnemy::CleanUp()
 }
 
 void SlimeEnemy::MovementDirection(const iPoint& origin, const iPoint& destination) {
+	
 	float res = destination.x - origin.x;
 
 	//Check if player is to the right or the left of the origin
