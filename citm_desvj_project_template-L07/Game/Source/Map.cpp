@@ -261,45 +261,18 @@ bool Map::Load()
         ret = LoadAllLayers(mapFileXML.child("map"));
     }
     
-    //// L07 TODO 3: Create colliders
-    //// Later you can create a function here to load and create the colliders from the map
-    //// GROUND colliders
-    //PhysBody* c1 = app->physics->CreateRectangle(0+16, (32*3)+240, 32, 32*15, STATIC, ColliderType::PLATFORM);
-    //PhysBody* c2 = app->physics->CreateRectangle(32+16, (32*7)+176, 32, 32*11, STATIC, ColliderType::PLATFORM);
-    //PhysBody* c3 = app->physics->CreateRectangle((32*2)+16, (32*8)+160, 32, 32*10, STATIC, ColliderType::PLATFORM);
-    //PhysBody* c4 = app->physics->CreateRectangle((32*3)+224, (32*17)+16, 32*14, 32, STATIC, ColliderType::PLATFORM);
-    //PhysBody* c5 = app->physics->CreateRectangle((32*17)+48, (32*15)+48, 32*3, 32*3, STATIC, ColliderType::PLATFORM);
-    //PhysBody* c6 = app->physics->CreateRectangle((32*15)+32, (32*12)+16, 32*2, 32, STATIC, ColliderType::PLATFORM);
-    //PhysBody* c7 = app->physics->CreateRectangle((32*20)+80, (32*11)+32, 32*5, 32*2, STATIC, ColliderType::PLATFORM);
-    //PhysBody* c8 = app->physics->CreateRectangle((32*28)+64, (32*14)+16, 32*4, 32, STATIC, ColliderType::PLATFORM);
-    //PhysBody* c9 = app->physics->CreateRectangle((32*34)+32, (32*12)+16, 32*2, 32, STATIC, ColliderType::PLATFORM);
-    //PhysBody* c10 = app->physics->CreateRectangle((32*38)+192, (32*10)+128, 32*12, 32*8, STATIC, ColliderType::PLATFORM);
-    //PhysBody* c11 = app->physics->CreateRectangle((32*50)+64, (32*14)+64, 32*4, 32*4, STATIC, ColliderType::PLATFORM);
-    // 
+    // L07 TODO 3: Create colliders
+    // Later you can create a function here to load and create the colliders from the map
+     
      int points1[6] = { 32 * 50, 32 * 10,
                         32 * 50, 32 * 14,
                         32 * 54, 32 * 14 };
     PhysBody* c12 = app->physics->CreateChain(0, 0, points1, 6, STATIC, ColliderType::PLATFORM);
-
-    //PhysBody* c13 = app->physics->CreateRectangle((32*57)+16 , (32*13)+80 , 32, 32*5, STATIC, ColliderType::PLATFORM);
-    //PhysBody* c14 = app->physics->CreateRectangle((32*61)+48 , (32*11)+32 , 32*3, 32*2, STATIC, ColliderType::PLATFORM);
-    //PhysBody* c15 = app->physics->CreateRectangle((32*67)+48 , (32*15)+48 , 32*3, 32*3, STATIC, ColliderType::PLATFORM);
-    //PhysBody* c16 = app->physics->CreateRectangle((32*68)+48 , (32*9)+16 , 32*3, 32, STATIC, ColliderType::PLATFORM);
-    //PhysBody* c17 = app->physics->CreateRectangle((32*72)+32 , (32*12)+16 , 32*2, 32, STATIC, ColliderType::PLATFORM);
-    //PhysBody* c18 = app->physics->CreateRectangle((32*75)+32 , (32*8)+160 , 32*2, 32*10, STATIC, ColliderType::PLATFORM);
-    //PhysBody* c19 = app->physics->CreateRectangle((32*77)+16 , (32*6)+192 , 32, 32*12, STATIC, ColliderType::PLATFORM);
-    //PhysBody* c20 = app->physics->CreateRectangle((32*78)+64 , (32*5)+208 , 32*4, 32*13, STATIC, ColliderType::PLATFORM);
-    //PhysBody* c21 = app->physics->CreateRectangle((32*82)+32 , (32*13)+80 , 32*2, 32*5, STATIC, ColliderType::PLATFORM);
  
      int points2[6] = { 32 * 82, 32 * 11,
                         32 * 82, 32 * 13,
                         32 * 84, 32 * 13 };
     PhysBody* c22 = app->physics->CreateChain(0, 0, points2, 6, STATIC, ColliderType::PLATFORM);
-
-    //PhysBody* c23 = app->physics->CreateRectangle((32*85)+32, (32*4)+16, 32*2, 32, STATIC, ColliderType::PLATFORM);
-    //PhysBody* c24 = app->physics->CreateRectangle((32*90)+48, (32*6)+32, 32*3, 32*2, STATIC, ColliderType::PLATFORM);
-    //PhysBody* c25 = app->physics->CreateRectangle((32*95)+96, (32*11)+112, 32*6, 32*7, STATIC, ColliderType::PLATFORM);
-    //PhysBody* c26 = app->physics->CreateRectangle((32*101)+64, (32*15)+48, 32*4, 32*3, STATIC, ColliderType::PLATFORM);
 
      int points3[6] = {32 * 101, 32 * 11,
                        32 * 101, 32 * 15,
@@ -307,7 +280,7 @@ bool Map::Load()
      PhysBody* c27 = app->physics->CreateChain(0, 0, points3, 6, STATIC, ColliderType::PLATFORM);
 
      // WATER collider
-     PhysBody* c28 = app->physics->CreateRectangle(0+1648, 560+40, 32*103, (32*2)+16, STATIC, ColliderType::WATER);
+    PhysBody* c28 = app->physics->CreateRectangle(0+1648, 560+40, 32*103, (32*2)+16, STATIC, ColliderType::WATER);
 
      //Camera Fixed To Player Colliders (left side)
      PhysBody* c29 = app->physics->CreateRectangleSensor((32*16)+27 ,0+288 , 10, 32 * 18, STATIC, ColliderType::CAMERAFIX);
@@ -555,6 +528,35 @@ bool Map::CreateColliders()
                             break;
 
                         default: break;
+                        }
+
+                    }
+                }
+            }
+        }
+        
+        if (mapLayerItem->data->name == "ChainCollisions")
+        {
+
+            for (int x = 0; x < mapLayerItem->data->width; x++)
+            {
+                for (int y = 0; y < mapLayerItem->data->height; y++)
+                {
+                    if (mapLayerItem->data->Get(x, y) != 0)
+                    {
+                        iPoint pos = MapToWorld(x, y);
+
+
+                        int points[6];
+                        for (int i = 0; i < 6; i++)
+                        {
+                            
+                        }
+
+                        PhysBody* c1 = app->physics->CreateChain(0, 0, points, 6, STATIC, ColliderType::UNKNOWN);
+
+                        if (mapLayerItem->data->Get(x, y) == 3 || mapLayerItem->data->Get(x, y) == 4 || mapLayerItem->data->Get(x, y) == 5 ) {
+                            c1->cType = ColliderType::PLATFORM;
                         }
 
                     }
