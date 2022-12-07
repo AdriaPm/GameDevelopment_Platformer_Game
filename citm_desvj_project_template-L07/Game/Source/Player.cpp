@@ -32,44 +32,44 @@ bool Player::Awake() {
 	width = 32;
 	height = 32;
 
-	idlePlayer.PushBack({ 23, 10, 17, 23 });
-	idlePlayer.PushBack({ 87, 10, 17, 23 });
-	idlePlayer.PushBack({ 151, 10, 17, 23 });
-	idlePlayer.PushBack({ 215, 10, 17, 23 });
-	idlePlayer.PushBack({ 279, 10, 17, 23 });
-	idlePlayer.PushBack({ 343, 10, 17, 23 });
-	idlePlayer.PushBack({ 407, 10, 17, 23 });
-	idlePlayer.PushBack({ 471, 10, 17, 23 });
+	idlePlayer.PushBack({ 0, 0, 65, 33 });
+	idlePlayer.PushBack({ 64, 0, 65, 33 });
+	idlePlayer.PushBack({ 128, 0, 65, 33 });
+	idlePlayer.PushBack({ 192, 0, 65, 33 });
+	idlePlayer.PushBack({ 256, 0, 65, 33 });
+	idlePlayer.PushBack({ 319, 0, 65, 33 });
+	idlePlayer.PushBack({ 384, 0, 65, 33 });
+	idlePlayer.PushBack({ 448, 0, 65, 33 });
 	idlePlayer.loop = true;
 	idlePlayer.speed = 0.1f;
 	
-	runPlayer.PushBack({ 24, 42, 16, 23 });
-	runPlayer.PushBack({ 88, 41, 15, 21 });
-	runPlayer.PushBack({ 152, 39, 15, 21 });
-	runPlayer.PushBack({ 216, 40, 15, 22 });
-	runPlayer.PushBack({ 280, 42, 16, 23 });
-	runPlayer.PushBack({ 344, 41, 18, 21 });
-	runPlayer.PushBack({ 408, 39, 18, 22 });
-	runPlayer.PushBack({ 472, 40, 18, 22 });
+	runPlayer.PushBack({ 0, 32, 65, 33 });
+	runPlayer.PushBack({ 64, 32, 65, 33 });
+	runPlayer.PushBack({ 128, 32, 65, 33 });
+	runPlayer.PushBack({ 192, 32, 65, 33 });
+	runPlayer.PushBack({ 256, 32, 65, 33 });
+	runPlayer.PushBack({ 319, 32, 65, 33 });
+	runPlayer.PushBack({ 384, 32, 65, 33 });
+	runPlayer.PushBack({ 448, 32, 65, 33 });
 	runPlayer.loop = true;
-	runPlayer.speed = 0.1f;
+	runPlayer.speed = 0.3f;
 
-	attackPlayer.PushBack({ 11, 138, 27, 27 });
-	attackPlayer.PushBack({ 87, 139, 38, 21 });
-	attackPlayer.PushBack({ 148, 139, 44, 21 });
-	attackPlayer.PushBack({ 204, 138, 38, 22 });
-	attackPlayer.PushBack({ 268, 139, 27, 27 });
-	attackPlayer.PushBack({ 342, 138, 21, 28 });
-	attackPlayer.PushBack({ 409, 138, 22, 22 });
-	attackPlayer.PushBack({ 472, 138, 15, 22 });
+	attackPlayer.PushBack({ 0, 128, 65, 33 });
+	attackPlayer.PushBack({ 64, 128, 65, 33 });
+	attackPlayer.PushBack({ 128, 128, 65, 33 });
+	attackPlayer.PushBack({ 192, 128, 65, 33 });
+	attackPlayer.PushBack({ 256, 128, 65, 33 });
+	attackPlayer.PushBack({ 319, 128, 65, 33 });
+	attackPlayer.PushBack({ 384, 128, 65, 33 });
+	attackPlayer.PushBack({ 448, 128, 65, 33 });
 	attackPlayer.loop = false;
 	attackPlayer.speed = 0.3f;
 
-	diePlayer.PushBack({ 23, 202, 16, 22 });
-	diePlayer.PushBack({ 87, 206, 21, 18 });
-	diePlayer.PushBack({ 153, 213, 25, 11 });
-	diePlayer.PushBack({ 217, 212, 25, 12 });
-	diePlayer.PushBack({ 281, 213, 25, 11 });
+	diePlayer.PushBack({ 23, 192, 65, 33 });
+	diePlayer.PushBack({ 64, 192, 65, 33 });
+	diePlayer.PushBack({ 128, 192, 65, 33 });
+	diePlayer.PushBack({ 192, 192, 65, 33 });
+	diePlayer.PushBack({ 256, 192, 65, 33 });
 	diePlayer.loop = false;
 	diePlayer.speed = 0.1f;
 
@@ -247,8 +247,8 @@ bool Player::Update()
 		pbody->body->SetAwake(false);
 	}
 	else {
-		position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x - (width / 4));
-		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y - (height / 3));
+		position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x - (width));
+		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y - (height/1.5));
 	}
 	
 	SDL_Rect rect = currentAnim->GetCurrentFrame();
@@ -320,7 +320,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		app->scene->cameraFix = true;
 		break;
 	case ColliderType::NONCAMERAFIX:
-		LOG("Collision CameraFix");
+		LOG("Collision NONCameraFix");
 		app->scene->cameraFix = false;
 		break;
 	case ColliderType::CAMERAFIX_2:
@@ -328,7 +328,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		app->scene->cameraFix2 = true;
 		break;
 	case ColliderType::NONCAMERAFIX_2:
-		LOG("Collision CameraFix 2");
+		LOG("Collision NONCameraFix 2");
 		app->scene->cameraFix2 = false;
 		break;
 	case ColliderType::UNKNOWN:
