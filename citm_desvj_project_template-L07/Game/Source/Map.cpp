@@ -44,7 +44,7 @@ bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
     {
         MapLayer* layer = item->data;
 
-        if (!layer->properties.GetProperty("Navigation")->value)
+        if (layer->properties.GetProperty("Navigation") != NULL && !layer->properties.GetProperty("Navigation")->value)
             continue;
 
         uchar* map = new uchar[layer->width * layer->height];
@@ -61,7 +61,15 @@ bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 
                 if (tileset != NULL)
                 {
-                    map[i] = (tileId - tileset->firstgid) > 0 ? 0 : 1;
+                    //According to the mapType use the ID of the tile to set the walkability value
+                    if (mapData.type == MapTypes::MAPTYPE_ORTHOGONAL && tileId == 695) map[i] = 1;
+                    else map[i] = 0;
+
+                   map[i] = (tileId - tileset->firstgid) > 0 ? 0 : 1;
+                }
+                else {
+                    LOG("CreateWalkabilityMap: Invalid tileset found");
+                    //map[i] = 0;
                 }
             }
         }
