@@ -66,6 +66,10 @@ public:
 
 	uint lives = 3;
 
+	//Attack Variables
+	const int cooldownTime = 60;		//Cooldown time --> 60 ticks = 1 seconds (if fps=60)
+	int timeToAttack = 60;				//Starts equal to cooldownTime, so player can attack immediately when the scene starts
+
 private:
 
 	//L02: DONE 1: Declare player parameters
@@ -91,7 +95,7 @@ private:
 
 	//Attack Variables
 	bool attacking = false;
-
+	
 };
 
 #endif // __PLAYER_H__

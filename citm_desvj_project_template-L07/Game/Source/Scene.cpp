@@ -163,6 +163,7 @@ bool Scene::Update(float dt)
 	//Blit UI
 	app->ui->BlitCoins();
 	app->ui->BlitLives();
+	app->ui->BlitFPS();
 
 	if (app->physics->debug) {
 		app->ui->BlitPlayerXPos();

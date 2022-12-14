@@ -224,10 +224,14 @@ bool Player::Update()
 		//Attacking animation function
 		if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
 		{
-			attacking = true;
+			if (timeToAttack >= cooldownTime) 
+			{
+				attacking = true;
+			}
+
 		}
 		Attack();
-
+		timeToAttack++;
 
 		//Jumping Function
 		if (jumping == true && jumpingTime <= 12) {
@@ -362,6 +366,7 @@ void Player::Attack() {
 			attacking = false;
 			attackPlayer.Reset();
 			attackPlayer.ResetLoopCount();
+			timeToAttack = 0;
 		}
 	}
 }

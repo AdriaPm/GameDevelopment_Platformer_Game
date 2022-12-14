@@ -13,6 +13,8 @@
 
 #include <stdlib.h>
 
+#define FPS (60);
+
 enum MainState
 {
 	CREATE = 1,
@@ -83,8 +85,11 @@ int main(int argc, char* args[])
 			case LOOP:
 			if(app->Update() == false)
 				state = CLEAN;
-			if (app->render->limitFPS == false && ((SDL_GetTicks() - start) < (1000 / 60))) {
-				SDL_Delay((1000 / 60) - (SDL_GetTicks() - start));
+			if (app->render->limitFPS == false && ((SDL_GetTicks() - start) < (1000 / app->maxFPS))) 
+			{
+				//app->currentFPS = (SDL_GetTicks() - start) + (1000 / app->maxFPS) * 3.75;
+				//LOG("FPS= %d", app->currentFPS);
+				SDL_Delay((1000 / app->maxFPS) - (SDL_GetTicks() - start));
 			}
 			break;
 

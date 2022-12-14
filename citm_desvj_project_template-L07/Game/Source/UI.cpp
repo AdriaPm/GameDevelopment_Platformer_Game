@@ -106,6 +106,13 @@ void UI::BlitPlayerYPos()
 	app->fonts->BlitText(20, 75, font2_id, playerYPos);
 }
 
+void UI::BlitFPS()
+{
+	char fps[25];
+	sprintf_s(fps, 25, "fps: %d", app->currentFPS);
+	app->fonts->BlitText(900, 15, font2_id, fps);
+}
+
 /* UI DEBUG INFO WITH FONT 1 */
 /*
 void UI::BlitPlayerXPos() 
