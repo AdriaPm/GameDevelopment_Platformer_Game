@@ -292,7 +292,7 @@ bool Map::Load()
      PhysBody* c27 = app->physics->CreateChain(0, 0, points3, 6, STATIC, ColliderType::PLATFORM);
 
      // WATER collider
-    PhysBody* c28 = app->physics->CreateRectangle(0+1648, 560+40, 32*103, (32*2)+16, STATIC, ColliderType::WATER);
+    //PhysBody* c28 = app->physics->CreateRectangle(0+1648, 560+40, 32*103, (32*2)+16, STATIC, ColliderType::WATER);
 
      //Camera Fixed To Player Colliders (left side)
      PhysBody* c29 = app->physics->CreateRectangleSensor((32*16)+27 ,0+288 , 10, 32 * 18, STATIC, ColliderType::CAMERAFIX);
@@ -537,6 +537,9 @@ bool Map::CreateColliders()
                             break;
                         case 696:
                             c1->cType = ColliderType::WALL;
+                            break;
+                        case 697:
+                            c1->cType = ColliderType::WATER;
                             break;
 
                         default: break;
