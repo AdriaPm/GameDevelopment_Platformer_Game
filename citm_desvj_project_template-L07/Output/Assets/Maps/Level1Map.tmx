@@ -18,6 +18,9 @@
  <tileset firstgid="695" name="MapMetadata" tilewidth="32" tileheight="32" spacing="1" margin="1" tilecount="2" columns="2">
   <image source="MapMetadata.png" width="67" height="34"/>
  </tileset>
+ <tileset firstgid="697" name="Water_Metadata" tilewidth="32" tileheight="32" tilecount="1" columns="1">
+  <image source="waterMetadata.png" width="32" height="32"/>
+ </tileset>
  <layer id="4" name="Sky" width="105" height="20">
   <properties>
    <property name="Draw" type="bool" value="true"/>
@@ -10381,6 +10384,24 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
    <tile/>
    <tile/>
    <tile/>
@@ -10397,10 +10418,27 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
    <tile/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
    <tile/>
    <tile/>
    <tile/>
@@ -10410,52 +10448,17 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
+   <tile gid="697"/>
    <tile/>
    <tile/>
    <tile/>
@@ -10573,7 +10576,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="11" name="NavMesh" width="105" height="20">
+ <layer id="11" name="NavMesh" width="105" height="20" visible="0">
   <properties>
    <property name="Draw" type="bool" value="false"/>
    <property name="Navigation" type="bool" value="true"/>
