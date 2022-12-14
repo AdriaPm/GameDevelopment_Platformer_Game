@@ -240,6 +240,28 @@ bool Map::CleanUp()
         layerItem = layerItem->next;
     }
 
+    //Chain Collider Points clean up
+    /*ListItem<ObjectGroup*>* ObjectGroupItem;
+    ObjectGroupItem = mapData.mapObjectGroups.start;
+
+    while (ObjectGroupItem != NULL)
+    {
+        ListItem<Object*>* ObjectItem;
+        ObjectItem = ObjectGroupItem->data->objects.start;
+
+        while (ObjectItem != NULL)
+        {
+            RELEASE(ObjectGroupItem->data);
+            ObjectItem = ObjectItem->next;
+        }
+        ObjectGroupItem->data->objects.Clear();
+
+        RELEASE(ObjectGroupItem->data);
+        ObjectGroupItem = ObjectGroupItem->next;
+    }
+    mapData.mapObjectGroups.Clear();*/
+
+
     return true;
 }
 
@@ -272,6 +294,12 @@ bool Map::Load()
     {
         ret = LoadAllLayers(mapFileXML.child("map"));
     }
+    
+   /* if (ret == true)
+    {
+        ret = LoadAllObjectGroups(mapFileXML.child("map"));
+    }*/
+
     
     // L07 TODO 3: Create colliders
     // Later you can create a function here to load and create the colliders from the map
@@ -474,6 +502,133 @@ bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 
     return ret;
 }
+
+
+//bool Map::LoadObject(pugi::xml_node& node, Object* object)
+//{
+//    bool ret = true;
+//    int arrLenght = 0;
+//
+//    object->id = node.attribute("id").as_int();
+//    object->x = node.attribute("x").as_int();
+//    object->y = node.attribute("y").as_int();
+//
+//    SString polygonString;
+//    polygonString= node.child("polygon").attribute("points").as_string();
+//
+//    for (int i = 0; i < polygonString.Length(); i++, arrLenght++)
+//    {
+//        if ((polygonString.GetTerm(i) != ' ') && (polygonString.GetTerm(i) != ','))
+//        {
+//            arrLenght--;
+//        }
+//    }
+//
+//    object->chainPoints = new int[arrLenght];
+//    memset(object->chainPoints, 0, arrLenght);
+//
+//    char* temp;
+//    int arr[100];
+//    int count = 0;
+//    int j = 0;
+//    bool negative = false;
+//
+//    LOG("Number %s", polygonString.GetString());
+//    for (uint i = 0; i < polygonString.Length(); i++, j++)
+//    {
+//        if ((polygonString.GetTerm(i) != ' ') && (polygonString.GetTerm(i) != ','))
+//        {
+//            if (polygonString.GetTerm(i) == '-') 
+//            {
+//                negative = true;
+//            }
+//            else
+//            {
+//                arr[count] = ((int)polygonString.GetTerm(i)) - 48;
+//                LOG("%i", arr[count]);
+//
+//                if(negative == true)
+//                {
+//                    arr[count] *= -1;
+//                    negative = false;
+//                }
+//                
+//                count++;
+//            }
+//
+//            j++;
+//        }
+//        else
+//        {
+//            count--;
+//            int aux = 0;
+//            
+//            for (int i = 0; count >= 0; i++, count--)
+//            {
+//                if (aux < 0) 
+//                {
+//                    aux -= arr[i] * (pow(10, count));
+//                }
+//                else
+//                {
+//                    aux += arr[i] * (pow(10, count));
+//                }
+//            }
+//
+//            object->chainPoints[j] = aux;
+//            LOG("Aux Number: %i", object->chainPoints[j]);
+//            count = 0;
+//        }
+//    }
+//    count--;
+//
+//    int aux = 0;
+//    for (int i = 0; count >= 0; i++, count--)
+//    {
+//        aux += arr[i] * (pow(10, count));
+//    }
+//
+//    object->chainPoints[j] = aux;
+//    object->size = arrLenght + 1;
+//    LOG("Aux Number: %i", object->chainPoints[j]);
+//
+//    polygonString.Clear();
+//
+//    return ret;
+//}
+//
+//bool Map::LoadObjectGroup(pugi::xml_node& node, ObjectGroup* objectGroup)
+//{
+//    bool ret = true;
+//
+//    objectGroup->id = node.attribute("id").as_int();
+//    objectGroup->name = node.attribute("name").as_string();
+//
+//    for (pugi::xml_node objectNode = node.child("object"); objectNode && ret; objectNode = objectNode.next_sibling("object"))
+//    {
+//        Object* mapObject = new Object();
+//        ret = LoadObject(objectNode, mapObject);
+//
+//        objectGroup->objects.Add(mapObject);
+//    }
+//
+//    return ret;
+//}
+//
+//bool Map::LoadAllObjectGroups(pugi::xml_node mapNode)
+//{
+//    bool ret = true;
+//
+//    for (pugi::xml_node objectGroupNode = mapNode.child("objectgroup"); objectGroupNode && ret; objectGroupNode = objectGroupNode.next_sibling("objectgroup"))
+//    {
+//        ObjectGroup* mapObjectGroup = new ObjectGroup();
+//        ret = LoadObjectGroup(objectGroupNode, mapObjectGroup);
+//
+//        mapData.mapObjectGroups.Add(mapObjectGroup);
+//    }
+//
+//    return ret;
+//}
 
 
 // L06: DONE 7: Ask for the value of a custom property

@@ -95,6 +95,36 @@ struct MapLayer
 	}
 };
 
+
+struct Object
+{
+	int id;
+	int x, y;
+	int* chainPoints;
+	int size;
+
+	inline int Get(int x) const 
+	{	
+		return chainPoints[x];
+	}
+
+	Object() : chainPoints(NULL){}
+
+	~Object() 
+	{
+		RELEASE(chainPoints);
+	}
+};
+
+struct ObjectGroup
+{
+	SString name;
+	int id;
+
+	List<Object*> objects;
+};
+
+
 // L04: DONE 1: Create a struct needed to hold the information to Map node
 struct MapData
 {
@@ -107,6 +137,8 @@ struct MapData
 
 	// L05: DONE 2: Add a list/array of layers to the map
 	List<MapLayer*> maplayers;
+
+	List<ObjectGroup*> mapObjectGroups;
 };
 
 class Map : public Module
@@ -155,6 +187,10 @@ private:
 
 	// L06: DONE 6: Load a group of properties 
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
+
+	bool LoadObject(pugi::xml_node& node, Object* object);
+	bool LoadObjectGroup(pugi::xml_node& node, ObjectGroup* objectGroup);
+	bool LoadAllObjectGroups(pugi::xml_node mapNode);
 
 	bool Parallax(TileSet* tileset_, iPoint pos, SDL_Rect r, float x);
 
