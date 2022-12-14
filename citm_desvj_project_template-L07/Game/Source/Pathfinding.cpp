@@ -177,7 +177,10 @@ int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 {
 	int ret = -1;
 	int iterations = 0;
-
+	
+	//LOG("Is Walkable: %d", app->pathfinding->IsWalkable(destination));
+	//LOG("Is Walkable: %d On Dest: %d, %d", app->pathfinding->GetTileAt(destination), destination.x, destination.y);
+	
 	// L12: TODO 1: if origin or destination are not walkable, return -1
 	if (IsWalkable(origin) && IsWalkable(destination))
 	{

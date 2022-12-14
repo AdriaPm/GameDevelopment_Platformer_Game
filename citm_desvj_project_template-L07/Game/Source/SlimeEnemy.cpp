@@ -136,6 +136,7 @@ bool SlimeEnemy::Update()
 	{
 		// L12: Get the latest calculated path and draw
 		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+		//LOG("Path Count: %d", path->Count());
 		for (uint i = 0; i < path->Count(); ++i)
 		{
 			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
@@ -169,16 +170,22 @@ bool SlimeEnemy::CleanUp()
 void SlimeEnemy::MovementDirection(const iPoint& origin, const iPoint& destination) {
 	
 	float res = destination.x - origin.x;
-
-	//Check if player is to the right or the left of the origin
-	if (res < 0) {
-		velocity.x = -2;
-		fliped = SDL_FLIP_NONE;
+	iPoint playerTile = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
+	if (app->pathfinding->IsWalkable(playerTile) != 0) {
+		//Check if player is to the right or the left of the origin
+		if (res < 0) {
+			velocity.x = -2;
+			fliped = SDL_FLIP_NONE;
+		}
+		if (res > 0) {
+			velocity.x = +2;
+			fliped = SDL_FLIP_HORIZONTAL;
+		}
 	}
-	if (res > 0) {
-		velocity.x = +2;
-		fliped = SDL_FLIP_HORIZONTAL;
+	else {
+		velocity.x = 0;
 	}
+	
 		
 }
 
