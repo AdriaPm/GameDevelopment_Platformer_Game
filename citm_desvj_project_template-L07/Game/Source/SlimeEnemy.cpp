@@ -107,8 +107,9 @@ bool SlimeEnemy::Update()
 		{
 			app->pathfinding->CreatePath(origin, playerTile);
 			refreshPathTime++;
-			if (refreshPathTime >= 150)
-				originSelected = false;
+			originSelected = false;
+			/*if (refreshPathTime >= 150)
+				originSelected = false;*/
 		}
 		else
 		{
