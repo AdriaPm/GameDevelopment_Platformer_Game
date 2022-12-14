@@ -242,4 +242,6 @@ void Scene::ResetScene() {
 	app->audio->PlayMusic("Assets/Audio/Music/song1.ogg", 1.0f);
 	player->ResetPlayerPos();
 	player->lives = 3;
+	
+	//coin->ResetCoin();
 }

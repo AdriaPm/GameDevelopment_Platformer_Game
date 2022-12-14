@@ -8,6 +8,7 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
+#include "EntityManager.h"
 
 Item::Item() : Entity(EntityType::ITEM)
 {
@@ -87,6 +88,7 @@ void Item::OnCollision(PhysBody* physA, PhysBody* physB) {
 		LOG("Collision PLAYER");
 		pbody->body->SetActive(false);
 		this->Disable();
+		
 		break;
 	}
 
