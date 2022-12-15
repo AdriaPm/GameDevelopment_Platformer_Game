@@ -225,7 +225,7 @@ public:
 	/// Apply an angular impulse.
 	/// @param impulse the angular impulse in units of kg*m*m/s
 	/// @param wake also wake up the body
-	void ApplyAngularImpulse(float32 impulse, bool wake);
+	void ApplyAngularImpulse(const b2Vec2& impulse, const b2Vec2& point, bool wake);
 
 	/// Get the total mass of the body.
 	/// @return the mass, usually in kilograms (kg).
@@ -812,7 +812,7 @@ inline void b2Body::ApplyLinearImpulse(const b2Vec2& impulse, const b2Vec2& poin
 	}
 }
 
-inline void b2Body::ApplyAngularImpulse(float32 impulse, bool wake)
+inline void b2Body::ApplyAngularImpulse(const b2Vec2& impulse, const b2Vec2& point, bool wake)
 {
 	if (m_type != b2_dynamicBody)
 	{
@@ -827,7 +827,8 @@ inline void b2Body::ApplyAngularImpulse(float32 impulse, bool wake)
 	// Don't accumulate velocity if the body is sleeping
 	if (m_flags & e_awakeFlag)
 	{
-		m_angularVelocity += m_invI * impulse;
+		m_linearVelocity += m_invMass * impulse;
+		m_angularVelocity += m_invI * b2Cross(point - m_sweep.c, impulse);
 	}
 }
 

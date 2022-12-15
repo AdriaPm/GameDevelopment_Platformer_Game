@@ -150,6 +150,8 @@ bool SlimeEnemy::Update()
 		app->entityManager->DestroyEntity(app->scene->slime);
 		app->physics->world->DestroyBody(pbody->body);
 		app->physics->world->DestroyBody(hitbox->body);
+		app->audio->PlayFx(powerUpSFX);
+		dead = false;
 	}
 
 	if (app->physics->debug)

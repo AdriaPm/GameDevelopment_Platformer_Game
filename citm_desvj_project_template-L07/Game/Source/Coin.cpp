@@ -8,6 +8,7 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
+#include "EntityManager.h"
 
 Coin::Coin() : Entity(EntityType::ITEM)
 {
@@ -64,6 +65,12 @@ bool Coin::Update()
 
 	if (isPicked == false)
 		app->render->DrawTexture(texture, position.x, position.y);
+
+	if (isPicked == true) 
+	{
+		app->entityManager->DestroyEntity(app->scene->coin);
+		//app->physics->world->DestroyBody(pbody->body);
+	}
 
 	return true;
 }

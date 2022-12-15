@@ -55,6 +55,7 @@ public:
 	uint pickCoinSFX = 0;
 	uint levelCompletedSFX = 0;
 	uint selectSFX = 0;
+	uint shortRangeAttackSFX = 0;
 
 	bool onGround = false;
 	bool dead = false;

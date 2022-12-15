@@ -86,6 +86,7 @@ bool Player::Start() {
 	pickCoinSFX = app->audio->LoadFx("Assets/Audio/Fx/pick_coin.wav");
 	levelCompletedSFX = app->audio->LoadFx("Assets/Audio/Fx/level_completed.wav");
 	selectSFX = app->audio->LoadFx("Assets/Audio/Fx/select.wav");
+	shortRangeAttackSFX = app->audio->LoadFx("Assets/Audio/Fx/whip_attack.wav");
 
 	currentAnim = &idlePlayer;
 	dead = false;
@@ -227,6 +228,7 @@ bool Player::Update()
 			if (timeToAttack >= cooldownTime) 
 			{
 				attacking = true;
+				app->audio->PlayFx(shortRangeAttackSFX);
 			}
 
 		}
@@ -321,7 +323,8 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		app->scene->slime->lives--;
 		if (app->scene->slime->lives <= 0) {
 			app->scene->slime->dead = true;
-		}	
+		}
+		app->audio->PlayFx(app->scene->slime->stompSFX);
 		break;
 	case ColliderType::WALL:
 		LOG("Collision WALL");
