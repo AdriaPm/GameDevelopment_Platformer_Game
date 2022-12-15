@@ -54,6 +54,9 @@ public:
 
 	PhysBody* pbody;
 
+	PhysBody* hitbox;
+	b2Vec2 hitboxPos;
+
 private:
 
 	//L02: DONE 1: Declare player parameters

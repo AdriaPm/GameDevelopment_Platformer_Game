@@ -81,6 +81,8 @@ bool SlimeEnemy::Start() {
 
 	pbody->listener = this;
 
+	hitbox = app->physics->CreateRectangleSensor(METERS_TO_PIXELS(pbody->body->GetTransform().p.x), METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15, 5, 2, bodyType::STATIC, ColliderType::SLIME_HITBOX);
+
 	refreshPathTime = 0;
 
 	return true;
@@ -97,7 +99,7 @@ bool SlimeEnemy::Update()
 	velocity = { 0, -GRAVITY_Y };
 
 	//Takes player pos for the path destination
-	iPoint playerTile = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
+	iPoint playerTile = app->map->WorldToMap(app->scene->player->position.x + 32, app->scene->player->position.y);
 
 	//Check if the enemy is visible on camera, if not, don't create path and don't move
 	if (pbody->body->GetPosition().x > app->render->camera.x - app->render->camera.w/2 && pbody->body->GetPosition().x < app->render->camera.x + app->render->camera.w/2)
@@ -132,6 +134,11 @@ bool SlimeEnemy::Update()
 
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x - (width / 4));
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y - (height / 3));
+
+	//hitbox->body->SetGravityScale(0);
+	hitboxPos.x = pbody->body->GetTransform().p.x;
+	hitboxPos.y = pbody->body->GetTransform().p.y - PIXEL_TO_METERS(10);
+	hitbox->body->SetTransform({ hitboxPos.x, hitboxPos.y }, 0);
 
 	if (app->physics->debug)
 	{
