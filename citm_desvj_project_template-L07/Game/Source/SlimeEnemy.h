@@ -33,6 +33,8 @@ public:
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
+	void ResetSlime();
+
 public:
 
 	// The pointer to the current player animation
@@ -46,8 +48,8 @@ public:
 	Animation dieEnemy;
 
 	//Set of SFX
-	/*uint jumpSFX = 0;
-	uint dieSFX = 0;*/
+	uint stompSFX = 0;
+	uint powerUpSFX = 0;
 
 	bool onGround = false;
 	bool dead = false;
@@ -57,7 +59,7 @@ public:
 	PhysBody* hitbox;
 	b2Vec2 hitboxPos;
 
-	uint lives = 2;
+	int lives = 2;
 
 private:
 

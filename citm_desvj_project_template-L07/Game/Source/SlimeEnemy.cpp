@@ -11,6 +11,7 @@
 #include "Map.h"
 #include "PathFinding.h"
 #include "ModuleFadeToBlack.h"
+#include "EntityManager.h"
 
 
 SlimeEnemy::SlimeEnemy() : Entity(EntityType::ENEMY)
@@ -54,11 +55,12 @@ bool SlimeEnemy::Awake() {
 	runEnemy.loop = true;
 	runEnemy.speed = 0.1f;
 
-	dieEnemy.PushBack({ 23, 202, 16, 22 });
-	dieEnemy.PushBack({ 87, 206, 21, 18 });
-	dieEnemy.PushBack({ 153, 213, 25, 11 });
-	dieEnemy.PushBack({ 217, 212, 25, 12 });
-	dieEnemy.PushBack({ 281, 213, 25, 11 });
+	dieEnemy.PushBack({ 142, 218, 31, 22 });
+	dieEnemy.PushBack({ 206, 218, 31, 22 });
+	dieEnemy.PushBack({ 271, 222, 31, 22 });
+	dieEnemy.PushBack({ 16, 282, 31, 22 });
+	dieEnemy.PushBack({ 81, 282, 31, 22 });
+	dieEnemy.PushBack({ 145, 282, 31, 22 });
 	dieEnemy.loop = false;
 	dieEnemy.speed = 0.1f;
 
@@ -70,8 +72,8 @@ bool SlimeEnemy::Start() {
 	texture = app->tex->Load(texturePath);
 
 	// Loading the set of SFX, BETTER HERE FOR ENABLE/DISABLE
-	/*jumpSFX = app->audio->LoadFx("Assets/Audio/Fx/jump.wav");
-	dieSFX = app->audio->LoadFx("Assets/Audio/Fx/death.wav");*/
+	stompSFX = app->audio->LoadFx("Assets/Audio/Fx/stomp.wav");
+	powerUpSFX = app->audio->LoadFx("Assets/Audio/Fx/powerUp.wav");
 
 	currentAnim = &idleEnemy;
 	dead = false;
@@ -140,6 +142,16 @@ bool SlimeEnemy::Update()
 	hitboxPos.y = pbody->body->GetTransform().p.y - PIXEL_TO_METERS(10);
 	hitbox->body->SetTransform({ hitboxPos.x, hitboxPos.y }, 0);
 
+	if(dead == true)
+	{
+		currentAnim = &dieEnemy;
+		
+		//Destroy entity
+		app->entityManager->DestroyEntity(app->scene->slime);
+		app->physics->world->DestroyBody(pbody->body);
+		app->physics->world->DestroyBody(hitbox->body);
+	}
+
 	if (app->physics->debug)
 	{
 		// L12: Get the latest calculated path and draw
@@ -154,14 +166,6 @@ bool SlimeEnemy::Update()
 		// L12: Debug pathfinding
 		iPoint originScreen = app->map->MapToWorld(origin.x, origin.y);
 		app->render->DrawTexture(app->scene->originTex, originScreen.x - 16, originScreen.y - 19);
-	}
-
-	if (lives == 0) 
-	{
-		app->scene->slime->dead = true;
-		
-		//Destroy entity
-
 	}
 
 	SDL_Rect rect = currentAnim->GetCurrentFrame();
@@ -227,5 +231,12 @@ void SlimeEnemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 		LOG("Collision UNKNOWN");
 		break;
 	}
+
+}
+
+void SlimeEnemy::ResetSlime() {
+
+	pbody->body->SetSleepingAllowed(false);
+
 
 }
