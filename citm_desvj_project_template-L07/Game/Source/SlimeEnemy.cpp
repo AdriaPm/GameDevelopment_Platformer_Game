@@ -156,6 +156,14 @@ bool SlimeEnemy::Update()
 		app->render->DrawTexture(app->scene->originTex, originScreen.x - 16, originScreen.y - 19);
 	}
 
+	if (lives == 0) 
+	{
+		app->scene->slime->dead = true;
+		
+		//Destroy entity
+
+	}
+
 	SDL_Rect rect = currentAnim->GetCurrentFrame();
 	app->render->DrawTexture(texture, position.x, position.y, &rect, fliped);
 	currentAnim->Update();

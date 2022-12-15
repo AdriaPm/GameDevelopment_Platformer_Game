@@ -57,6 +57,8 @@ public:
 	PhysBody* hitbox;
 	b2Vec2 hitboxPos;
 
+	uint lives = 2;
+
 private:
 
 	//L02: DONE 1: Declare player parameters

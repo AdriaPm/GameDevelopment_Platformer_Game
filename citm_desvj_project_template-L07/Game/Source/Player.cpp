@@ -316,6 +316,11 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::ENEMY:
 		LOG("Collision ENEMY");
 		break;
+	case ColliderType::SLIME_HITBOX:
+		LOG("Collison SLIME HEAD HITBOX");
+		app->scene->slime->lives--;
+
+		break;
 	case ColliderType::WALL:
 		LOG("Collision WALL");
 		break;
