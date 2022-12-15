@@ -50,6 +50,7 @@ public:
 	//Set of SFX
 	uint stompSFX = 0;
 	uint powerUpSFX = 0;
+	uint slimeHitSFX = 0;
 
 	bool onGround = false;
 	bool dead = false;

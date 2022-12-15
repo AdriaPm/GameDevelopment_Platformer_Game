@@ -377,8 +377,26 @@ void Player::Attack() {
 			attackPlayer.Reset();
 			attackPlayer.ResetLoopCount();
 			timeToAttack = 0;
+			attackTime = 1;
+
+			app->physics->world->DestroyBody(hitbox->body);
 		}
+
+		
+		if (attackTime > 0)
+		{
+			if (fliped == false) 
+				hitbox = app->physics->CreateRectangleSensor(METERS_TO_PIXELS(pbody->body->GetTransform().p.x) + 15, METERS_TO_PIXELS(pbody->body->GetTransform().p.y), 35, 2, bodyType::STATIC, ColliderType::PLAYER_ATTACK_HITBOX);
+		
+			if (fliped == true) 
+				hitbox = app->physics->CreateRectangleSensor(METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 15, METERS_TO_PIXELS(pbody->body->GetTransform().p.y), 35, 2, bodyType::STATIC, ColliderType::PLAYER_ATTACK_HITBOX);
+
+		}
+		
+		
+		attackTime--;
 	}
+
 }
 
 void Player::ResetPlayerPos() {

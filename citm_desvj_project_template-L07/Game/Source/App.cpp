@@ -378,3 +378,20 @@ bool App::SaveToFile()
 
 	return ret;
 }
+
+pugi::xml_node App::LoadConfigFileToVar()
+{
+	pugi::xml_node ret;
+	// L01: DONE 3: Load config.xml file using load_file() method from the xml_document class
+	pugi::xml_parse_result parseResult = configFile.load_file("config.xml");
+
+	// L01: DONE 3: Check result for loading errors
+	if (parseResult) {
+		ret = configFile.child("config");
+	}
+	else {
+		LOG("Error in App::LoadConfig(): %s", parseResult.description());
+	}
+
+	return ret;
+}

@@ -63,6 +63,9 @@ public:
 
 	PhysBody* pbody;
 
+	PhysBody* hitbox;
+	b2Vec2 hitboxPos;
+
 	int coins = 0;
 
 	uint lives = 3;
@@ -96,7 +99,7 @@ private:
 
 	//Attack Variables
 	bool attacking = false;
-	
+	int attackTime = 1;
 };
 
 #endif // __PLAYER_H__

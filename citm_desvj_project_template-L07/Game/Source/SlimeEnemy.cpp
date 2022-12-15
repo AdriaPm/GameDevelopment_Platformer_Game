@@ -74,6 +74,7 @@ bool SlimeEnemy::Start() {
 	// Loading the set of SFX, BETTER HERE FOR ENABLE/DISABLE
 	stompSFX = app->audio->LoadFx("Assets/Audio/Fx/stomp.wav");
 	powerUpSFX = app->audio->LoadFx("Assets/Audio/Fx/powerUp.wav");
+	slimeHitSFX = app->audio->LoadFx("Assets/Audio/Fx/slime_hit.wav");
 
 	currentAnim = &idleEnemy;
 	dead = false;
@@ -225,6 +226,14 @@ void SlimeEnemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::ENEMY:
 		LOG("Collision ENEMY");
+		break;
+	case ColliderType::PLAYER_ATTACK_HITBOX:
+		LOG("Collision PLAYER ATTACK HITBOX");
+		lives--;
+		if (lives <= 0) {
+			dead = true;
+		}
+		app->audio->PlayFx(slimeHitSFX);
 		break;
 	case ColliderType::WALL:
 		LOG("Collision WALL");

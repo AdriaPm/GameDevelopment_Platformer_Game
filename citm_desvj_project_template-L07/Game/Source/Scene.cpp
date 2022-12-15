@@ -235,6 +235,15 @@ bool Scene::CleanUp()
 {
 	LOG("Freeing GAME SCENE");
 
+	/*app->entityManager->Disable();
+	app->pathfinding->Disable();
+	app->physics->Disable();
+	app->map->CleanUp();*/
+
+
+	app->render->camera.x = 0;
+	app->render->camera.y = 0;
+
 	return true;
 }
 

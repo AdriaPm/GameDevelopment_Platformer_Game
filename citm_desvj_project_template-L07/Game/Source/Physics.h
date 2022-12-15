@@ -28,6 +28,7 @@ enum bodyType {
 
 enum class ColliderType {
 	PLAYER,
+	PLAYER_ATTACK_HITBOX,
 	ITEM,
 	COIN,
 	ENEMY,
