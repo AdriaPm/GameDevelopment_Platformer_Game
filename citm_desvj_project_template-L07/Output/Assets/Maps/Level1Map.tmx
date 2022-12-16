@@ -12686,7 +12686,7 @@
   </object>
  </objectgroup>
  <objectgroup id="16" name="CameraFixColliders">
-  <object id="40" x="499.5" y="0.874837">
+  <object id="40" x="514.5" y="0.874837">
    <polygon points="0,0 9.75,-0.124837 9.75,287.438 9.75,575 0.375,575.125 0.1875,287.563"/>
   </object>
   <object id="41" x="534.125" y="0.999783">
