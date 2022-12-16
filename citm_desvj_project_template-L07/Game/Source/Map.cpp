@@ -267,7 +267,7 @@ bool Map::CleanUp()
             RELEASE(ObjectGroupItem->data);
             ObjectItem = ObjectItem->next;
         }
-        ObjectGroupItem->data->objects.Clear();
+        //ObjectGroupItem->data->objects.Clear();
 
         RELEASE(ObjectGroupItem->data);
         ObjectGroupItem = ObjectGroupItem->next;
@@ -315,43 +315,26 @@ bool Map::Load()
 
     
     // L07 TODO 3: Create colliders
-    // Later you can create a function here to load and create the colliders from the map
-     
-     /*int points1[6] = { 32 * 50, 32 * 10,
-                        32 * 50, 32 * 14,
-                        32 * 54, 32 * 14 };
-    PhysBody* c12 = app->physics->CreateChain(0, 0, points1, 6, STATIC, ColliderType::PLATFORM);
- 
-     int points2[6] = { 32 * 82, 32 * 11,
-                        32 * 82, 32 * 13,
-                        32 * 84, 32 * 13 };
-    PhysBody* c22 = app->physics->CreateChain(0, 0, points2, 6, STATIC, ColliderType::PLATFORM);
-
-     int points3[6] = {32 * 101, 32 * 11,
-                       32 * 101, 32 * 15,
-                       32 * 105, 32 *  15};
-     PhysBody* c27 = app->physics->CreateChain(0, 0, points3, 6, STATIC, ColliderType::PLATFORM);*/
-
      // WATER collider
     //PhysBody* c28 = app->physics->CreateRectangle(0+1648, 560+40, 32*103, (32*2)+16, STATIC, ColliderType::WATER);
 
      //Camera Fixed To Player Colliders (left side)
-     PhysBody* c29 = app->physics->CreateRectangleSensor((32*16)+27 ,0+288 , 10, 32 * 18, STATIC, ColliderType::CAMERAFIX);
-     mapColliders.Add(c29);
+     //PhysBody* c29 = app->physics->CreateRectangleSensor((32*16)+27 ,0+288 , 10, 32 * 18, STATIC, ColliderType::CAMERAFIX);
+     //mapColliders.Add(c29);
 
-     PhysBody* c30 = app->physics->CreateRectangleSensor((32*16)-8 ,0+288 , 10, 32 * 18, STATIC, ColliderType::NONCAMERAFIX);
-     mapColliders.Add(c30);
+     //PhysBody* c30 = app->physics->CreateRectangleSensor((32*16)-8 ,0+288 , 10, 32 * 18, STATIC, ColliderType::NONCAMERAFIX);
+     //mapColliders.Add(c30);
 
-     //Camera Fixed To Player Colliders (right side)
-     PhysBody* c31 = app->physics->CreateRectangleSensor((2858)-24, 0+288, 10, 32 * 18, STATIC, ColliderType::NONCAMERAFIX_2);
-     mapColliders.Add(c31);
+     ////Camera Fixed To Player Colliders (right side)
+     //PhysBody* c31 = app->physics->CreateRectangleSensor((2858)-24, 0+288, 10, 32 * 18, STATIC, ColliderType::NONCAMERAFIX_2);
+     //mapColliders.Add(c31);
 
-     PhysBody* c32 = app->physics->CreateRectangleSensor((2858)+8, 0+288, 10, 32 * 18, STATIC, ColliderType::CAMERAFIX_2);
-     mapColliders.Add(c32);
+     //PhysBody* c32 = app->physics->CreateRectangleSensor((2858)+8, 0+288, 10, 32 * 18, STATIC, ColliderType::CAMERAFIX_2);
+     //mapColliders.Add(c32);
 
-     // WIN collider (if player touches it, player wins)
-     PhysBody* c33 = app->physics->CreateRectangleSensor((32 * 105) + 16, (32 * 9) + 96, 32, 32 * 6, STATIC, ColliderType::WIN_ZONE);
-     mapColliders.Add(c33);
+     //// WIN collider (if player touches it, player wins)
+     //PhysBody* c33 = app->physics->CreateRectangleSensor((32 * 105) + 16, (32 * 9) + 96, 32, 32 * 6, STATIC, ColliderType::WIN_ZONE);
+     //mapColliders.Add(c33);
 
      CreateColliders();
 
@@ -727,7 +710,7 @@ bool Map::CreateColliders()
 
                         default: break;
                         }
-                        //mapColliders.Add(c1);
+                        mapColliders.Add(c1);
                     }
                 }
             }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="105" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="15" nextobjectid="22">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="105" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="17" nextobjectid="44">
  <tileset firstgid="1" name="Tileset_Platformer_GameDev" tilewidth="32" tileheight="32" tilecount="180" columns="18">
   <image source="Tileset.png" width="576" height="320"/>
   <wangsets>
@@ -8453,7 +8453,7 @@
    <tile gid="112"/>
   </data>
  </layer>
- <layer id="9" name="Collisions" width="105" height="20" visible="0">
+ <layer id="9" name="Collisions" width="105" height="20">
   <properties>
    <property name="Draw" type="bool" value="false"/>
    <property name="Navigation" type="bool" value="false"/>
@@ -10369,24 +10369,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
    <tile/>
    <tile/>
    <tile/>
@@ -10403,27 +10385,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
    <tile/>
    <tile/>
    <tile/>
@@ -10433,17 +10394,56 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
-   <tile gid="697"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -12669,6 +12669,11 @@
    <tile gid="695"/>
   </data>
  </layer>
+ <objectgroup id="15" name="WaterCollider">
+  <object id="36" x="0" y="559">
+   <polygon points="0,0 3359.67,0 3359.67,17 0,17"/>
+  </object>
+ </objectgroup>
  <objectgroup id="14" name="ChainColliders">
   <object id="19" x="1600" y="320">
    <polygon points="0,0 128,128 0,128"/>
@@ -12678,6 +12683,20 @@
   </object>
   <object id="21" x="3232" y="352">
    <polygon points="0,0 128,128 0,128"/>
+  </object>
+ </objectgroup>
+ <objectgroup id="16" name="CameraFixColliders">
+  <object id="40" x="509.25" y="575.875">
+   <polygon points="0,0 -9.75,0.125 -9.75,-575.75 -0.375,-575.875"/>
+  </object>
+  <object id="41" x="534.125" y="575.875">
+   <polygon points="0,0 0,-576 9.875,-575.875 9.875,0.125"/>
+  </object>
+  <object id="42" x="2872.13" y="575.875">
+   <polygon points="0,0 -12.75,0.125 -13,-575.875 -0.125,-575.875"/>
+  </object>
+  <object id="43" x="2839.88" y="576">
+   <polygon points="0,0 -12.625,0 -12.625,-576 -0.125,-576.125"/>
   </object>
  </objectgroup>
 </map>
