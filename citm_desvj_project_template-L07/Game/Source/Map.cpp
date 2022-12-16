@@ -754,10 +754,10 @@ bool Map::CreateColliders()
                 case 41:
                     c1->cType = ColliderType::CAMERAFIX;
                     break;
-                case 43:
+                case 42:
                     c1->cType = ColliderType::CAMERAFIX_2;
                     break;
-                case 42:
+                case 43:
                     c1->cType = ColliderType::NONCAMERAFIX_2;
                     break;
 

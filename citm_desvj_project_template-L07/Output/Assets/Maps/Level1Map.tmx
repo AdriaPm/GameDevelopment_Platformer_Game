@@ -10561,7 +10561,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="11" name="NavMesh" width="105" height="20" visible="0">
+ <layer id="11" name="NavMesh" width="105" height="20">
   <properties>
    <property name="Draw" type="bool" value="false"/>
    <property name="Navigation" type="bool" value="true"/>
@@ -12669,12 +12669,12 @@
    <tile gid="695"/>
   </data>
  </layer>
- <objectgroup id="15" name="WaterCollider" visible="0">
+ <objectgroup id="15" name="WaterCollider">
   <object id="36" x="0" y="559">
    <polygon points="0,0 3359.67,0 3359.67,17 0,17"/>
   </object>
  </objectgroup>
- <objectgroup id="14" name="ChainColliders" visible="0">
+ <objectgroup id="14" name="ChainColliders">
   <object id="19" x="1600" y="320">
    <polygon points="0,0 128,128 0,128"/>
   </object>
@@ -12695,7 +12695,7 @@
   <object id="42" x="2859.13" y="1.37473">
    <polygon points="0,0 12.75,-0.124729 13,574.625 0.125,574.625"/>
   </object>
-  <object id="43" x="2827.25" y="0.875">
+  <object id="43" x="2840.25" y="0.875">
    <polygon points="0,0 12.625,0 12.625,287.5 12.625,575 0.125,575.125 0.0625,287.563"/>
   </object>
  </objectgroup>
