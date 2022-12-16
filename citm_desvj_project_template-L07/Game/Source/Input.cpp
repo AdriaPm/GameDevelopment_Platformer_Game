@@ -37,13 +37,6 @@ bool Input::Awake(pugi::xml_node& config)
 		ret = false;
 	}
 
-	
-	return ret;
-}
-
-// Called before the first frame
-bool Input::Start()
-{
 	// Initialize Controller
 	num_controllers = SDL_NumJoysticks();
 	for (int i = 0; i < num_controllers; ++i)
@@ -54,6 +47,12 @@ bool Input::Start()
 	// We will pass data to our own array of controllers
 
 
+	return ret;
+}
+
+// Called before the first frame
+bool Input::Start()
+{
 	SDL_StopTextInput();
 	return true;
 }

@@ -49,12 +49,6 @@ bool ModuleController::Start()
 
 bool ModuleController::PreUpdate() 
 {
-
-	return true;
-}
-
-bool ModuleController::Update()
-{
 	//Controller inputs
 
 	for (int i = 0; i < SDL_NumJoysticks(); ++i)
@@ -298,6 +292,12 @@ bool ModuleController::Update()
 		app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT;
 	}
 
+	return true;
+}
+
+bool ModuleController::Update()
+{
+	
 	return true;
 }
 

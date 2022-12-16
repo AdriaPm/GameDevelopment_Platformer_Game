@@ -8,7 +8,7 @@
 //#define NUM_KEYS 352
 #define NUM_MOUSE_BUTTONS 5
 //#define LAST_KEYS_PRESSED_BUFFER 50
-#define MAX_CONTROLLERS 1
+#define MAX_CONTROLLERS 2
 
 struct SDL_Rect;
 
@@ -88,7 +88,7 @@ private:
 	int mouseY;
 
 	SDL_GameController *sdl_controllers[MAX_CONTROLLERS];
-	int num_controllers = 1;
+	int num_controllers;
 };
 
 #endif // __INPUT_H__
