@@ -42,6 +42,10 @@ public:
 	void BlitLives();
 	void BlitSlimeLives();
 	void BlitFPS();
+	void BlitAverageFPS();
+	void BlitDT();
+	void BlitTimeSinceStart();
+	void BlitFrameCount();
 
 	uint font1_id = -1;
 	uint font2_id = -1;

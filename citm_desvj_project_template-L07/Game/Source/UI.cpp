@@ -116,8 +116,36 @@ void UI::BlitSlimeLives()
 void UI::BlitFPS()
 {
 	char fps[25];
-	sprintf_s(fps, 25, "fps: %d", app->currentFPS);
-	app->fonts->BlitText(900, 15, font2_id, fps);
+	sprintf_s(fps, 25, "fps: %d", app->GetFPS());
+	app->fonts->BlitText(825, 15, font2_id, fps);
+}
+
+void UI::BlitAverageFPS()
+{
+	char averageFps[25];
+	sprintf_s(averageFps, 25, "average fps; %.2f", app->GetAverageFPS());
+	app->fonts->BlitText(825, 40, font1_id, averageFps);
+}
+
+void UI::BlitDT()
+{
+	char dt[25];
+	sprintf_s(dt, 25, "delta time; %.2f ms", app->GetDT());
+	app->fonts->BlitText(825, 50, font1_id, dt);
+}
+
+void UI::BlitTimeSinceStart()
+{
+	char timeSinceStart[25];
+	sprintf_s(timeSinceStart, 25, "time since start; %.2f", app->GetTimesSinceStart());
+	app->fonts->BlitText(825, 60, font1_id, timeSinceStart);
+}
+
+void UI::BlitFrameCount()
+{
+	char frameCount[25];
+	sprintf_s(frameCount, 25, "frame count; %d", app->GetFrameCount());
+	app->fonts->BlitText(825, 70, font1_id, frameCount);
 }
 
 /* UI DEBUG INFO WITH FONT 1 */

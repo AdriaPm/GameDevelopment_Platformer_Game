@@ -94,6 +94,9 @@ void App::AddModule(Module* module, bool activate)
 // Called before render is available
 bool App::Awake()
 {
+	// L13: TODO 3: Measure the amount of ms that takes to execute the Awake and LOG the result
+	timer = Timer();
+
 	bool ret = false;
 
 	// L01: DONE 3: Load config from XML
@@ -102,6 +105,9 @@ bool App::Awake()
 	if (ret == true)
 	{
 		title = configNode.child("app").child("title").child_value(); // L01: DONE 4: Read the title from the config file
+
+		// L14: TODO 1: Read from config file your framerate cap
+		maxFrameDuration = configNode.child("app").child("frcap").attribute("value").as_int();
 
 		ListItem<Module*>* item;
 		item = modules.start;
@@ -118,12 +124,19 @@ bool App::Awake()
 		}
 	}
 
+	LOG("---------------- Time Awake: %f/n", timer.ReadMSec());
+
 	return ret;
 }
 
 // Called before the first frame
 bool App::Start()
 {
+	// L13: TODO 3: Measure the amount of ms that takes to execute the App Start() and LOG the result
+	timer.Start();
+	startupTime.Start();
+	lastSecFrameTime.Start();
+
 	bool ret = true;
 	ListItem<Module*>* item;
 	item = modules.start;
@@ -139,6 +152,8 @@ bool App::Start()
 
 		ret = item->data->Start();
 	}
+
+	LOG("----------------- Time Start(): %f", timer.ReadMSec());
 
 	return ret;
 }
@@ -188,6 +203,7 @@ bool App::LoadConfig()
 // ---------------------------------------------
 void App::PrepareUpdate()
 {
+	frameTime.Start();
 }
 
 // ---------------------------------------------
@@ -196,6 +212,47 @@ void App::FinishUpdate()
 	// L03: DONE 1: This is a good place to call Load / Save methods
 	if (loadGameRequested == true) LoadFromFile();
 	if (saveGameRequested == true) SaveToFile();
+
+	// L13: TODO 4: Now calculate:
+	// Amount of frames since startup
+	frameCount++;
+	// Amount of time since game start (use a low resolution timer)
+	secondsSinceStartup = startupTime.ReadSec();
+	// Amount of ms took the last update
+	dt = frameTime.ReadMSec();
+	// Amount of frames during the last second
+	lastSecFrameCount++;
+
+	if (lastSecFrameTime.ReadMSec() > 1000) {
+		lastSecFrameTime.Start();
+		framesPerSecond = lastSecFrameCount;
+		lastSecFrameCount = 0;
+		// Average FPS for the whole game life
+		averageFps = (averageFps + framesPerSecond) / 2;
+	}
+
+	// L14: TODO 2: Use SDL_Delay to make sure you get your capped framerate
+	// L14: TODO 3: Measure accurately the amount of time SDL_Delay() actually waits compared to what was expected
+
+	float delay = float(maxFrameDuration) - dt;
+
+	PerfTimer delayTimer = PerfTimer();
+	delayTimer.Start();
+	if (maxFrameDuration > 0 && delay > 0) {
+		SDL_Delay(delay);
+		LOG("We waited for %f milliseconds and the real delay is % f", delay, delayTimer.ReadMs());
+		dt = maxFrameDuration;
+	}
+	else {
+		//LOG("No wait");
+	}
+
+	// Shows the time measurements in the window title
+	static char title[256];
+	sprintf_s(title, 256, "Av.FPS: %.2f Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %I64u ",
+		averageFps, framesPerSecond, dt, secondsSinceStartup, frameCount);
+
+
 }
 
 // Call modules before each loop iteration
@@ -306,6 +363,37 @@ const char* App::GetOrganization() const
 {
 	return organization.GetString();
 }
+
+// ---------------------------------------
+uint App::GetFPS() 
+{
+	return framesPerSecond;
+}
+
+// ---------------------------------------
+float App::GetAverageFPS()
+{
+	return averageFps;
+}
+
+// ---------------------------------------
+float App::GetDT()
+{
+	return dt;
+}
+
+// ---------------------------------------
+float App::GetTimesSinceStart()
+{
+	return secondsSinceStartup;
+}
+
+// ---------------------------------------
+uint App::GetFrameCount()
+{
+	return frameCount;
+}
+
 
 // L02: DONE 1: Implement methods to request load / save and methods 
 // for the real execution of load / save (to be implemented in TODO 5 and 7)

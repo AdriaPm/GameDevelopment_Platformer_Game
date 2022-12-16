@@ -2,6 +2,7 @@
   <app>
     <title>Misco Jones Adventures by ADVENTURES JOKES STUDIO</title>
     <organization>UPC</organization>
+	<frcap value = "16"/>
   </app>
 
   <renderer>

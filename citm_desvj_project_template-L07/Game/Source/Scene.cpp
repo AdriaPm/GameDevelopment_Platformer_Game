@@ -170,6 +170,10 @@ bool Scene::Update(float dt)
 		app->ui->BlitPlayerXPos();
 		app->ui->BlitPlayerYPos();
 		app->ui->BlitSlimeLives();
+		app->ui->BlitAverageFPS();
+		app->ui->BlitDT();
+		app->ui->BlitTimeSinceStart();
+		app->ui->BlitFrameCount();
 	}
 
 	//// L08: DONE 3: Test World to map method
