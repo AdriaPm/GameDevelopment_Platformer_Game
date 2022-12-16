@@ -90,6 +90,7 @@ bool Player::Start() {
 
 	currentAnim = &idlePlayer;
 	dead = false;
+	lives = 3;
 
 	//Add physics to the player - initialize physics body
 	pbody = app->physics->CreateCircle(position.x, position.y, width / 3, bodyType::DYNAMIC, ColliderType::PLAYER);
@@ -316,7 +317,15 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		app->fade->FadeToBlack((Module*)app->scene, (Module*)app->titlescreen, 90);
 		break;
 	case ColliderType::ENEMY:
-		LOG("Collision ENEMY");
+		LOG("Collision ENEMY SLIME");
+		lives--;
+		if (lives <= 0) {
+			dead = true;
+			app->fade->FadeToBlack((Module*)app->scene, (Module*)app->endingscreen, 60);
+		}
+		else {
+			app->scene->player->ResetPlayerPos();
+		}
 		break;
 	case ColliderType::SLIME_HITBOX:
 		LOG("Collison SLIME HEAD HITBOX");

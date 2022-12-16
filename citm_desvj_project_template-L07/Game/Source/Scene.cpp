@@ -65,6 +65,7 @@ bool Scene::Start()
 	app->map->Enable();
 	LOG("--STARTS GAME SCENE--");
 	app->physics->debug = false;
+	app->scene->slime->lives = 2;
 
 	// L03: DONE: Load map
 	app->map->Load();
@@ -168,6 +169,7 @@ bool Scene::Update(float dt)
 	if (app->physics->debug) {
 		app->ui->BlitPlayerXPos();
 		app->ui->BlitPlayerYPos();
+		app->ui->BlitSlimeLives();
 	}
 
 	//// L08: DONE 3: Test World to map method
@@ -235,7 +237,7 @@ bool Scene::CleanUp()
 {
 	LOG("Freeing GAME SCENE");
 
-	/*app->entityManager->Disable();
+	/* app->entityManager->Disable();
 	app->pathfinding->Disable();
 	app->physics->Disable();
 	app->map->CleanUp();*/

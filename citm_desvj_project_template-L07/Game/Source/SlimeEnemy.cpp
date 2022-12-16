@@ -78,6 +78,7 @@ bool SlimeEnemy::Start() {
 
 	currentAnim = &idleEnemy;
 	dead = false;
+	lives = 2;
 
 	//Add physics to the player - initialize physics body
 	pbody = app->physics->CreateCircle(startPos.x, startPos.y, width / 4.5, bodyType::DYNAMIC, ColliderType::ENEMY);

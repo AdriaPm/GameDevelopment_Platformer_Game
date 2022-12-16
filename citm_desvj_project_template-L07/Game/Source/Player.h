@@ -68,7 +68,7 @@ public:
 
 	int coins = 0;
 
-	uint lives = 3;
+	int lives = 3;
 
 	//Attack Variables
 	const int cooldownTime = 60;		//Cooldown time --> 60 ticks = 1 seconds (if fps=60)

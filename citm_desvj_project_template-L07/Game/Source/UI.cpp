@@ -106,6 +106,13 @@ void UI::BlitPlayerYPos()
 	app->fonts->BlitText(20, 75, font2_id, playerYPos);
 }
 
+void UI::BlitSlimeLives()
+{
+	char slimeLives[25];
+	sprintf_s(slimeLives, 20, "slime lives: %d", app->scene->slime->lives);
+	app->fonts->BlitText(20, 95, font2_id, slimeLives);
+}
+
 void UI::BlitFPS()
 {
 	char fps[25];
