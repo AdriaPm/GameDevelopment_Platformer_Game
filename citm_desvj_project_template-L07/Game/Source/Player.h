@@ -52,6 +52,7 @@ public:
 	//Set of SFX
 	uint jumpSFX = 0;
 	uint dieSFX = 0;
+	uint hurtSFX = 0;
 	uint pickCoinSFX = 0;
 	uint levelCompletedSFX = 0;
 	uint selectSFX = 0;

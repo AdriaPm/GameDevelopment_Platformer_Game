@@ -15,6 +15,7 @@
 #include "EndingScreen.h"
 #include "UI.h"
 #include "Fonts.h"
+#include "ModuleController.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -32,6 +33,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	render = new Render();
 	tex = new Textures();
 	audio = new Audio();
+	controller = new ModuleController();
 	fade = new ModuleFadeToBlack();
 	logoscreen = new LogoScreen();
 	titlescreen = new TitleScreen();
@@ -51,6 +53,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win, true);
 	AddModule(tex, true);
 	AddModule(audio, true);
+	AddModule(controller, true);
 	AddModule(fade, true);
 	AddModule(logoscreen, true);
 	AddModule(titlescreen, false);

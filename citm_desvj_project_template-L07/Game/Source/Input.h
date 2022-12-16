@@ -2,10 +2,13 @@
 #define __INPUT_H__
 
 #include "Module.h"
+#include "SDL/include/SDL_scancode.h"
+#include "SDL/include/SDL_gamecontroller.h"
 
 //#define NUM_KEYS 352
 #define NUM_MOUSE_BUTTONS 5
 //#define LAST_KEYS_PRESSED_BUFFER 50
+#define MAX_CONTROLLERS 1
 
 struct SDL_Rect;
 
@@ -23,6 +26,14 @@ enum KeyState
 	KEY_DOWN,
 	KEY_REPEAT,
 	KEY_UP
+};
+
+// GAMEPAD: Example simple structure to hold info of a controller
+// Can be way better and more complex, specially if you add controllers
+// that would require *custom mapping* - aka Not Recognized controllers
+struct GameController {
+	float j1_x, j1_y, j2_x, j2_y, LT, RT;
+	KeyState buttons[SDL_CONTROLLER_BUTTON_MAX];
 };
 
 class Input : public Module
@@ -65,6 +76,8 @@ public:
 	void GetMousePosition(int &x, int &y);
 	void GetMouseMotion(int& x, int& y);
 
+	GameController controllers[MAX_CONTROLLERS];
+
 private:
 	bool windowEvents[WE_COUNT];
 	KeyState*	keyboard;
@@ -73,6 +86,9 @@ private:
 	int mouseMotionY;
 	int mouseX;
 	int mouseY;
+
+	SDL_GameController *sdl_controllers[MAX_CONTROLLERS];
+	int num_controllers = 1;
 };
 
 #endif // __INPUT_H__

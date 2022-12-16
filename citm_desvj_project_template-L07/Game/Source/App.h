@@ -18,6 +18,7 @@ class Input;
 class Render;
 class Textures;
 class Audio;
+class ModuleController;
 class ModuleFadeToBlack;
 class LogoScreen;
 class TitleScreen;
@@ -103,6 +104,7 @@ public:
 	Render* render;
 	Textures* tex;
 	Audio* audio;
+	ModuleController* controller;
 	ModuleFadeToBlack* fade;
 	LogoScreen* logoscreen;
 	TitleScreen* titlescreen;

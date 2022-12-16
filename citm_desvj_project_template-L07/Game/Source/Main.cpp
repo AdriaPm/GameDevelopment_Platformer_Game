@@ -13,8 +13,6 @@
 
 #include <stdlib.h>
 
-#define FPS (60);
-
 enum MainState
 {
 	CREATE = 1,

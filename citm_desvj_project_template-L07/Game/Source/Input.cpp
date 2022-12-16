@@ -37,12 +37,23 @@ bool Input::Awake(pugi::xml_node& config)
 		ret = false;
 	}
 
+	
 	return ret;
 }
 
 // Called before the first frame
 bool Input::Start()
 {
+	// Initialize Controller
+	num_controllers = SDL_NumJoysticks();
+	for (int i = 0; i < num_controllers; ++i)
+		if (SDL_IsGameController(i))
+			sdl_controllers[i] = SDL_GameControllerOpen(i);
+	// Here we don't really have access to the controller
+	// SDL_GameController* is obfuscated, it is to know they are there.
+	// We will pass data to our own array of controllers
+
+
 	SDL_StopTextInput();
 	return true;
 }
@@ -79,6 +90,26 @@ bool Input::PreUpdate()
 
 		if(mouseButtons[i] == KEY_UP)
 			mouseButtons[i] = KEY_IDLE;
+	}
+
+	// Parse Controller button stats
+	SDL_GameControllerUpdate();
+	for (int i = 0; i < num_controllers; ++i)
+	{
+		for (int j = 0; j < SDL_CONTROLLER_BUTTON_MAX; ++j)
+		{
+			if (SDL_GameControllerGetButton(sdl_controllers[i], (SDL_GameControllerButton)j))
+				controllers[i].buttons[j] = (controllers[i].buttons[j] == KEY_IDLE) ? KEY_DOWN : KEY_REPEAT;
+			else
+				controllers[i].buttons[j] = (controllers[i].buttons[j] == KEY_REPEAT || controllers[i].buttons[j] == KEY_DOWN) ? KEY_UP : KEY_IDLE;
+		}
+
+		controllers[i].j1_x = SDL_GameControllerGetAxis(sdl_controllers[i], SDL_CONTROLLER_AXIS_LEFTX);
+		controllers[i].j1_y = SDL_GameControllerGetAxis(sdl_controllers[i], SDL_CONTROLLER_AXIS_LEFTY);
+		controllers[i].j2_x = SDL_GameControllerGetAxis(sdl_controllers[i], SDL_CONTROLLER_AXIS_RIGHTX);
+		controllers[i].j2_y = SDL_GameControllerGetAxis(sdl_controllers[i], SDL_CONTROLLER_AXIS_RIGHTY);
+		controllers[i].RT = SDL_GameControllerGetAxis(sdl_controllers[i], SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
+		controllers[i].LT = SDL_GameControllerGetAxis(sdl_controllers[i], SDL_CONTROLLER_AXIS_TRIGGERLEFT);
 	}
 
 	while(SDL_PollEvent(&event) != 0)

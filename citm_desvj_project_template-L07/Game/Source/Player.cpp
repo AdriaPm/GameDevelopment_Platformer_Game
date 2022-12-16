@@ -83,6 +83,7 @@ bool Player::Start() {
 	// Loading the set of SFX, BETTER HERE FOR ENABLE/DISABLE
 	jumpSFX = app->audio->LoadFx("Assets/Audio/Fx/jump.wav");
 	dieSFX = app->audio->LoadFx("Assets/Audio/Fx/death.wav");
+	hurtSFX = app->audio->LoadFx("Assets/Audio/Fx/hurt.wav");
 	pickCoinSFX = app->audio->LoadFx("Assets/Audio/Fx/pick_coin.wav");
 	levelCompletedSFX = app->audio->LoadFx("Assets/Audio/Fx/level_completed.wav");
 	selectSFX = app->audio->LoadFx("Assets/Audio/Fx/select.wav");
@@ -321,10 +322,13 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		lives--;
 		if (lives <= 0) {
 			dead = true;
+			coins = 0;
+			app->audio->PlayFx(dieSFX);
 			app->fade->FadeToBlack((Module*)app->scene, (Module*)app->endingscreen, 60);
 		}
 		else {
 			app->scene->player->ResetPlayerPos();
+			app->audio->PlayFx(hurtSFX);
 		}
 		break;
 	case ColliderType::SLIME_HITBOX:
