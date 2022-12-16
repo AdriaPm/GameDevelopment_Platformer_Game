@@ -80,6 +80,7 @@ public:
 	PhysBody* CreateCircle(int x, int y, int radious, bodyType type, ColliderType ctype);
 	PhysBody* CreateRectangleSensor(int x, int y, int width, int height, bodyType type, ColliderType ctype);
 	PhysBody* CreateChain(int x, int y, int* points, int size, bodyType type, ColliderType ctype);
+	PhysBody* CreateSensorChain(int x, int y, int* points, int size, bodyType type, ColliderType ctype);
 	b2RevoluteJoint* CreateRevoluteJoint(PhysBody* A, b2Vec2 anchorA, PhysBody* B, b2Vec2 anchorB, float angle, bool collideConnected, bool enableLimit);
 	b2PrismaticJoint* CreatePrismaticJoint(PhysBody* A, b2Vec2 anchorA, PhysBody* B, b2Vec2 anchorB, b2Vec2 axys, float maxHeight, bool collideConnected, bool enableLimit);
 	b2WeldJoint* CreateWeldJoint(PhysBody* A, b2Vec2 anchorA, PhysBody* B, b2Vec2 anchorB, float angle, bool collideConnected, bool enableLimit);

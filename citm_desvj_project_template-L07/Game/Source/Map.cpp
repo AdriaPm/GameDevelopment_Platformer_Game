@@ -10,6 +10,7 @@
 #include "Log.h"
 
 #include <math.h>
+#include <cmath>
 #include "SDL_image/include/SDL_image.h"
 
 Map::Map() : Module(), mapLoaded(false)
@@ -239,9 +240,21 @@ bool Map::CleanUp()
         RELEASE(layerItem->data);
         layerItem = layerItem->next;
     }
+    mapData.maplayers.Clear();
+
+    ListItem<PhysBody*>* collisionsItem;
+    collisionsItem = mapColliders.start;
+
+    while (collisionsItem != NULL)
+    {
+        collisionsItem->data->body->DestroyFixture(collisionsItem->data->body->GetFixtureList());
+        RELEASE(collisionsItem->data);
+        collisionsItem = collisionsItem->next;
+    }
+    mapColliders.Clear();
 
     //Chain Collider Points clean up
-    /*ListItem<ObjectGroup*>* ObjectGroupItem;
+    ListItem<ObjectGroup*>* ObjectGroupItem;
     ObjectGroupItem = mapData.mapObjectGroups.start;
 
     while (ObjectGroupItem != NULL)
@@ -259,7 +272,7 @@ bool Map::CleanUp()
         RELEASE(ObjectGroupItem->data);
         ObjectGroupItem = ObjectGroupItem->next;
     }
-    mapData.mapObjectGroups.Clear();*/
+    mapData.mapObjectGroups.Clear();
 
 
     return true;
@@ -295,16 +308,16 @@ bool Map::Load()
         ret = LoadAllLayers(mapFileXML.child("map"));
     }
     
-   /* if (ret == true)
+    if (ret == true)
     {
         ret = LoadAllObjectGroups(mapFileXML.child("map"));
-    }*/
+    }
 
     
     // L07 TODO 3: Create colliders
     // Later you can create a function here to load and create the colliders from the map
      
-     int points1[6] = { 32 * 50, 32 * 10,
+     /*int points1[6] = { 32 * 50, 32 * 10,
                         32 * 50, 32 * 14,
                         32 * 54, 32 * 14 };
     PhysBody* c12 = app->physics->CreateChain(0, 0, points1, 6, STATIC, ColliderType::PLATFORM);
@@ -317,24 +330,30 @@ bool Map::Load()
      int points3[6] = {32 * 101, 32 * 11,
                        32 * 101, 32 * 15,
                        32 * 105, 32 *  15};
-     PhysBody* c27 = app->physics->CreateChain(0, 0, points3, 6, STATIC, ColliderType::PLATFORM);
+     PhysBody* c27 = app->physics->CreateChain(0, 0, points3, 6, STATIC, ColliderType::PLATFORM);*/
 
      // WATER collider
     //PhysBody* c28 = app->physics->CreateRectangle(0+1648, 560+40, 32*103, (32*2)+16, STATIC, ColliderType::WATER);
 
      //Camera Fixed To Player Colliders (left side)
      PhysBody* c29 = app->physics->CreateRectangleSensor((32*16)+27 ,0+288 , 10, 32 * 18, STATIC, ColliderType::CAMERAFIX);
+     mapColliders.Add(c29);
+
      PhysBody* c30 = app->physics->CreateRectangleSensor((32*16)-8 ,0+288 , 10, 32 * 18, STATIC, ColliderType::NONCAMERAFIX);
+     mapColliders.Add(c30);
 
      //Camera Fixed To Player Colliders (right side)
      PhysBody* c31 = app->physics->CreateRectangleSensor((2858)-24, 0+288, 10, 32 * 18, STATIC, ColliderType::NONCAMERAFIX_2);
+     mapColliders.Add(c31);
+
      PhysBody* c32 = app->physics->CreateRectangleSensor((2858)+8, 0+288, 10, 32 * 18, STATIC, ColliderType::CAMERAFIX_2);
+     mapColliders.Add(c32);
 
      // WIN collider (if player touches it, player wins)
      PhysBody* c33 = app->physics->CreateRectangleSensor((32 * 105) + 16, (32 * 9) + 96, 32, 32 * 6, STATIC, ColliderType::WIN_ZONE);
-    
+     mapColliders.Add(c33);
 
-    CreateColliders();
+     CreateColliders();
 
     if(ret == true)
     {
@@ -486,6 +505,143 @@ bool Map::LoadAllLayers(pugi::xml_node mapNode) {
     return ret;
 }
 
+bool Map::LoadObject(pugi::xml_node& node, Object* object)
+{
+    bool ret = true;
+    int arrLenght = 0;
+    //Load the attributes
+    object->id = node.attribute("id").as_int();
+    object->x = node.attribute("x").as_int();
+    object->y = node.attribute("y").as_int();
+
+    //L06: DONE 6 Call Load Propoerties
+    SString polygonString;
+    polygonString = node.child("polygon").attribute("points").as_string();
+
+    //Reserve the memory for the data 
+    for (int a = 0; a < polygonString.Length(); a++, arrLenght++)
+    {
+        if ((polygonString.GetTerm(a) != ' ') && (polygonString.GetTerm(a) != ','))
+        {
+            arrLenght--;
+        }
+    }
+
+    object->chainPoints = new int[arrLenght];
+    memset(object->chainPoints, 0, arrLenght);
+
+
+    //char* temp = strtok(polygonString.GetCharString(), " ");
+    char* temp;
+    int arr[100];
+    int count = 0;
+    int j = 0;
+    bool negative = false;
+    /*SString clearString;
+    while (temp != NULL)
+    {
+        clearString += temp;
+    }*/
+    LOG("number %s", polygonString.GetString());
+    for (uint i = 0; i < polygonString.Length(); i++, j++)
+    {
+        //LOG("number %s", polygonString.GetTerm(i));
+        if ((polygonString.GetTerm(i) != ' ') && (polygonString.GetTerm(i) != ','))
+        {
+            if (polygonString.GetTerm(i) == '-')
+            {
+                negative = true;
+            }
+            else
+            {
+
+                arr[count] = ((int)polygonString.GetTerm(i)) - 48;
+                LOG("%i", arr[count]);
+                if (negative == true)
+                {
+                    arr[count] *= -1;
+                    negative = false;
+                }
+                count++;
+            }
+
+            j--;
+        }
+        else
+        {
+            count--;
+            int aux = 0;
+            for (int a = 0; count >= 0; a++, count--)
+            {
+                if (aux < 0)
+                {
+                    aux -= arr[a] * (pow(10, count));
+                }
+                else
+                {
+                    aux += arr[a] * (pow(10, count));
+                }
+
+            }
+            object->chainPoints[j] = aux;
+            LOG("AUX NUMBER %i", object->chainPoints[j]);
+            count = 0;
+        }
+    }
+    count--;
+    int aux = 0;
+    for (int a = 0; count >= 0; a++, count--)
+    {
+        aux += arr[a] * (pow(10, count));
+    }
+    object->chainPoints[j] = aux;
+    object->size = arrLenght + 1;
+    LOG("AUX NUMBER %i", object->chainPoints[j]);
+    LOG("Chain Size %d", object->size);
+
+    polygonString.Clear();
+
+    return ret;
+}
+
+bool Map::LoadObjectGroup(pugi::xml_node& node, ObjectGroup* objectGroup)
+{
+    bool ret = true;
+    //Load the attributes
+    objectGroup->id = node.attribute("id").as_int();
+    objectGroup->name = node.attribute("name").as_string();
+
+
+    for (pugi::xml_node objectNode = node.child("object"); objectNode && ret; objectNode = objectNode.next_sibling("object"))
+    {
+        //Load the object
+        Object* mapObject = new Object();
+        ret = LoadObject(objectNode, mapObject);
+
+        //add the object to the map
+        objectGroup->objects.Add(mapObject);
+    }
+
+    return ret;
+}
+
+bool Map::LoadAllObjectGroups(pugi::xml_node mapNode)
+{
+    bool ret = true;
+
+    for (pugi::xml_node objectGroupNode = mapNode.child("objectgroup"); objectGroupNode && ret; objectGroupNode = objectGroupNode.next_sibling("objectgroup"))
+    {
+        //Load the objectGroup
+        ObjectGroup* mapObjectGroup = new ObjectGroup();
+        ret = LoadObjectGroup(objectGroupNode, mapObjectGroup);
+
+        //add the objectGroup to the map
+        mapData.mapObjectGroups.Add(mapObjectGroup);
+    }
+
+    return ret;
+}
+
 // L06: DONE 6: Load a group of properties from a node and fill a list with it
 bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 {
@@ -502,134 +658,6 @@ bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 
     return ret;
 }
-
-
-//bool Map::LoadObject(pugi::xml_node& node, Object* object)
-//{
-//    bool ret = true;
-//    int arrLenght = 0;
-//
-//    object->id = node.attribute("id").as_int();
-//    object->x = node.attribute("x").as_int();
-//    object->y = node.attribute("y").as_int();
-//
-//    SString polygonString;
-//    polygonString= node.child("polygon").attribute("points").as_string();
-//
-//    for (int i = 0; i < polygonString.Length(); i++, arrLenght++)
-//    {
-//        if ((polygonString.GetTerm(i) != ' ') && (polygonString.GetTerm(i) != ','))
-//        {
-//            arrLenght--;
-//        }
-//    }
-//
-//    object->chainPoints = new int[arrLenght];
-//    memset(object->chainPoints, 0, arrLenght);
-//
-//    char* temp;
-//    int arr[100];
-//    int count = 0;
-//    int j = 0;
-//    bool negative = false;
-//
-//    LOG("Number %s", polygonString.GetString());
-//    for (uint i = 0; i < polygonString.Length(); i++, j++)
-//    {
-//        if ((polygonString.GetTerm(i) != ' ') && (polygonString.GetTerm(i) != ','))
-//        {
-//            if (polygonString.GetTerm(i) == '-') 
-//            {
-//                negative = true;
-//            }
-//            else
-//            {
-//                arr[count] = ((int)polygonString.GetTerm(i)) - 48;
-//                LOG("%i", arr[count]);
-//
-//                if(negative == true)
-//                {
-//                    arr[count] *= -1;
-//                    negative = false;
-//                }
-//                
-//                count++;
-//            }
-//
-//            j++;
-//        }
-//        else
-//        {
-//            count--;
-//            int aux = 0;
-//            
-//            for (int i = 0; count >= 0; i++, count--)
-//            {
-//                if (aux < 0) 
-//                {
-//                    aux -= arr[i] * (pow(10, count));
-//                }
-//                else
-//                {
-//                    aux += arr[i] * (pow(10, count));
-//                }
-//            }
-//
-//            object->chainPoints[j] = aux;
-//            LOG("Aux Number: %i", object->chainPoints[j]);
-//            count = 0;
-//        }
-//    }
-//    count--;
-//
-//    int aux = 0;
-//    for (int i = 0; count >= 0; i++, count--)
-//    {
-//        aux += arr[i] * (pow(10, count));
-//    }
-//
-//    object->chainPoints[j] = aux;
-//    object->size = arrLenght + 1;
-//    LOG("Aux Number: %i", object->chainPoints[j]);
-//
-//    polygonString.Clear();
-//
-//    return ret;
-//}
-//
-//bool Map::LoadObjectGroup(pugi::xml_node& node, ObjectGroup* objectGroup)
-//{
-//    bool ret = true;
-//
-//    objectGroup->id = node.attribute("id").as_int();
-//    objectGroup->name = node.attribute("name").as_string();
-//
-//    for (pugi::xml_node objectNode = node.child("object"); objectNode && ret; objectNode = objectNode.next_sibling("object"))
-//    {
-//        Object* mapObject = new Object();
-//        ret = LoadObject(objectNode, mapObject);
-//
-//        objectGroup->objects.Add(mapObject);
-//    }
-//
-//    return ret;
-//}
-//
-//bool Map::LoadAllObjectGroups(pugi::xml_node mapNode)
-//{
-//    bool ret = true;
-//
-//    for (pugi::xml_node objectGroupNode = mapNode.child("objectgroup"); objectGroupNode && ret; objectGroupNode = objectGroupNode.next_sibling("objectgroup"))
-//    {
-//        ObjectGroup* mapObjectGroup = new ObjectGroup();
-//        ret = LoadObjectGroup(objectGroupNode, mapObjectGroup);
-//
-//        mapData.mapObjectGroups.Add(mapObjectGroup);
-//    }
-//
-//    return ret;
-//}
-
 
 // L06: DONE 7: Ask for the value of a custom property
 Properties::Property* Properties::GetProperty(const char* name)
@@ -685,7 +713,7 @@ bool Map::CreateColliders()
                     {
                         iPoint pos = MapToWorld(x, y);
                         PhysBody* c1 = app->physics->CreateRectangle(pos.x + halfTileHeight, pos.y + halfTileWidth, mapData.tileWidth, mapData.tileHeight, STATIC, ColliderType::UNKNOWN);
-
+                        
                         switch (mapLayerItem->data->Get(x, y)) {
                         case 695:
                             c1->cType = ColliderType::PLATFORM;
@@ -699,43 +727,38 @@ bool Map::CreateColliders()
 
                         default: break;
                         }
-
+                        //mapColliders.Add(c1);
                     }
                 }
             }
-        }
-        
-        if (mapLayerItem->data->name == "ChainCollisions")
-        {
-
-            for (int x = 0; x < mapLayerItem->data->width; x++)
-            {
-                for (int y = 0; y < mapLayerItem->data->height; y++)
-                {
-                    if (mapLayerItem->data->Get(x, y) != 0)
-                    {
-                        iPoint pos = MapToWorld(x, y);
-
-
-                        int points[6];
-                        for (int i = 0; i < 6; i++)
-                        {
-                            
-                        }
-
-                        PhysBody* c1 = app->physics->CreateChain(0, 0, points, 6, STATIC, ColliderType::UNKNOWN);
-
-                        if (mapLayerItem->data->Get(x, y) == 3 || mapLayerItem->data->Get(x, y) == 4 || mapLayerItem->data->Get(x, y) == 5 ) {
-                            c1->cType = ColliderType::PLATFORM;
-                        }
-
-                    }
-                }
-            }
+            
         }
 
         mapLayerItem = mapLayerItem->next;
     }
+
+    //CREATE GAMEOBJECT COLLIDERS
+    ListItem<ObjectGroup*>* mapObjectGroupItem;
+    mapObjectGroupItem = mapData.mapObjectGroups.start;
+
+    while (mapObjectGroupItem != NULL)
+    {
+        if (mapObjectGroupItem->data->name == "ChainColliders")
+        {
+            ListItem<Object*>* mapObjectItem;
+            mapObjectItem = mapObjectGroupItem->data->objects.start;
+            while (mapObjectItem != NULL)
+            {
+                PhysBody* c1 = app->physics->CreateChain(mapObjectItem->data->x, mapObjectItem->data->y, mapObjectItem->data->chainPoints, mapObjectItem->data->size, STATIC, ColliderType::PLATFORM);;
+                mapColliders.Add(c1);
+
+                mapObjectItem = mapObjectItem->next;
+            }
+        }
+
+        mapObjectGroupItem = mapObjectGroupItem->next;
+    }
+
     return ret;
 }
 

@@ -198,6 +198,46 @@ PhysBody* Physics::CreateChain(int x, int y, int* points, int size, bodyType typ
 	return pbody;
 }
 
+PhysBody* Physics::CreateSensorChain(int x, int y, int* points, int size, bodyType type, ColliderType ctype)
+{
+	b2BodyDef body;
+
+	if (type == DYNAMIC) body.type = b2_dynamicBody;
+	if (type == STATIC) body.type = b2_staticBody;
+	if (type == KINEMATIC) body.type = b2_kinematicBody;
+
+	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
+
+	b2Body* b = world->CreateBody(&body);
+
+	b2ChainShape shape;
+	b2Vec2* p = new b2Vec2[size / 2];
+
+	for (uint i = 0; i < size / 2; ++i)
+	{
+		p[i].x = PIXEL_TO_METERS(points[i * 2 + 0]);
+		p[i].y = PIXEL_TO_METERS(points[i * 2 + 1]);
+	}
+
+	shape.CreateLoop(p, size / 2);
+
+	b2FixtureDef fixture;
+	fixture.shape = &shape;
+	fixture.isSensor = true;
+
+	b->CreateFixture(&fixture);
+
+	delete p;
+
+	PhysBody* pbody = new PhysBody();
+	pbody->body = b;
+	b->SetUserData(pbody);
+	pbody->width = pbody->height = 0;
+	pbody->cType = ctype;
+
+	return pbody;
+}
+
 // 
 bool Physics::PostUpdate()
 {
