@@ -319,8 +319,8 @@ bool Map::Load()
     //PhysBody* c28 = app->physics->CreateRectangle(0+1648, 560+40, 32*103, (32*2)+16, STATIC, ColliderType::WATER);
 
      //Camera Fixed To Player Colliders (left side)
-     //PhysBody* c29 = app->physics->CreateRectangleSensor((32*16)+27 ,0+288 , 10, 32 * 18, STATIC, ColliderType::CAMERAFIX);
-     //mapColliders.Add(c29);
+     /*PhysBody* c29 = app->physics->CreateRectangleSensor((32*16)+27 ,0+288 , 10, 32 * 18, STATIC, ColliderType::CAMERAFIX);
+     mapColliders.Add(c29);*/
 
      //PhysBody* c30 = app->physics->CreateRectangleSensor((32*16)-8 ,0+288 , 10, 32 * 18, STATIC, ColliderType::NONCAMERAFIX);
      //mapColliders.Add(c30);
@@ -733,6 +733,47 @@ bool Map::CreateColliders()
             while (mapObjectItem != NULL)
             {
                 PhysBody* c1 = app->physics->CreateChain(mapObjectItem->data->x, mapObjectItem->data->y, mapObjectItem->data->chainPoints, mapObjectItem->data->size, STATIC, ColliderType::PLATFORM);;
+                mapColliders.Add(c1);
+
+                mapObjectItem = mapObjectItem->next;
+            }
+        }
+        if (mapObjectGroupItem->data->name == "CameraFixColliders")
+        {
+            ListItem<Object*>* mapObjectItem;
+            mapObjectItem = mapObjectGroupItem->data->objects.start;
+            while (mapObjectItem != NULL)
+            {
+                
+                PhysBody* c1 = app->physics->CreateSensorChain(mapObjectItem->data->x, mapObjectItem->data->y, mapObjectItem->data->chainPoints, mapObjectItem->data->size, STATIC, ColliderType::UNKNOWN);;
+
+                switch (mapObjectItem->data->id) {
+                case 40:
+                    c1->cType = ColliderType::NONCAMERAFIX;
+                    break;
+                case 41:
+                    c1->cType = ColliderType::CAMERAFIX;
+                    break;
+                case 43:
+                    c1->cType = ColliderType::CAMERAFIX_2;
+                    break;
+                case 42:
+                    c1->cType = ColliderType::NONCAMERAFIX_2;
+                    break;
+
+                default: break;
+                }
+                mapColliders.Add(c1);
+                mapObjectItem = mapObjectItem->next;
+            }
+        }
+        if (mapObjectGroupItem->data->name == "WaterCollider")
+        {
+            ListItem<Object*>* mapObjectItem;
+            mapObjectItem = mapObjectGroupItem->data->objects.start;
+            while (mapObjectItem != NULL)
+            {
+                PhysBody* c1 = app->physics->CreateChain(mapObjectItem->data->x, mapObjectItem->data->y, mapObjectItem->data->chainPoints, mapObjectItem->data->size, STATIC, ColliderType::WATER);;
                 mapColliders.Add(c1);
 
                 mapObjectItem = mapObjectItem->next;
