@@ -704,18 +704,49 @@ bool Map::CreateColliders()
                         case 696:
                             c1->cType = ColliderType::WALL;
                             break;
-                        case 697:
+                        case 693:
                             c1->cType = ColliderType::WATER;
                             break;
-
+                       
                         default: break;
                         }
+
                         mapColliders.Add(c1);
                     }
                 }
             }
             
         }
+
+        if (mapLayerItem->data->name == "WinZone")
+        {
+            int halfTileHeight = mapData.tileHeight / 2;
+            int halfTileWidth = mapData.tileWidth / 2;
+
+            for (int x = 0; x < mapLayerItem->data->width; x++)
+            {
+                for (int y = 0; y < mapLayerItem->data->height; y++)
+                {
+                    if (mapLayerItem->data->Get(x, y) != 0)
+                    {
+                        iPoint pos = MapToWorld(x, y);
+                        PhysBody* c1 = app->physics->CreateRectangleSensor(pos.x + halfTileHeight, pos.y + halfTileWidth, mapData.tileWidth, mapData.tileHeight, STATIC, ColliderType::UNKNOWN);
+
+                        switch (mapLayerItem->data->Get(x, y)) {
+                        case 694:
+                            c1->cType = ColliderType::WIN_ZONE;
+                            break;
+
+                        default: break;
+                        }
+
+                        mapColliders.Add(c1);
+                    }
+                }
+            }
+
+        }
+
 
         mapLayerItem = mapLayerItem->next;
     }
@@ -767,19 +798,7 @@ bool Map::CreateColliders()
                 mapObjectItem = mapObjectItem->next;
             }
         }
-        if (mapObjectGroupItem->data->name == "WaterCollider")
-        {
-            ListItem<Object*>* mapObjectItem;
-            mapObjectItem = mapObjectGroupItem->data->objects.start;
-            while (mapObjectItem != NULL)
-            {
-                PhysBody* c1 = app->physics->CreateChain(mapObjectItem->data->x, mapObjectItem->data->y, mapObjectItem->data->chainPoints, mapObjectItem->data->size, STATIC, ColliderType::WATER);;
-                mapColliders.Add(c1);
-
-                mapObjectItem = mapObjectItem->next;
-            }
-        }
-
+       
         mapObjectGroupItem = mapObjectGroupItem->next;
     }
 
