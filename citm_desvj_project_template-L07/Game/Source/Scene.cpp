@@ -273,9 +273,20 @@ bool Scene::LoadState(pugi::xml_node& data)
 	b2Vec2 playerPos = { data.child("playerPosition").attribute("x").as_float(), data.child("playerPosition").attribute("y").as_float() };
 	app->scene->player->pbody->body->SetTransform(playerPos, 0);
 	
+	// Load previous saved cameraFix & cameraFix2 parameters
+	app->scene->cameraFix = data.child("cameraIsFix").attribute("value").as_bool();
+	app->scene->cameraFix2 = data.child("cameraIsFix2").attribute("value").as_bool();
+
+	//Load previous saved player number of lives
+	app->scene->player->lives = data.child("playerLives").attribute("playerLives").as_int();
+
+
 	// Load previous saved slime position
 	b2Vec2 slimePos = { data.child("slimePosition").attribute("x").as_float(), data.child("slimePosition").attribute("y").as_float() };
 	app->scene->slime->pbody->body->SetTransform(slimePos, 0);
+
+	//Load previous saved slime number of lives
+	app->scene->slime->lives = data.child("slimeLives").attribute("slimeLives").as_int();
 
 	return true;
 }
@@ -287,10 +298,27 @@ bool Scene::SaveState(pugi::xml_node& data)
 	playerPos.append_attribute("x") = app->scene->player->pbody->body->GetTransform().p.x;
 	playerPos.append_attribute("y") = app->scene->player->pbody->body->GetTransform().p.y;
 
-	// Load current slime position
+	// Save cameraFix parameter
+	pugi::xml_node cameraIsFix = data.append_child("cameraIsFix");
+	cameraIsFix.append_attribute("value") = app->scene->cameraFix;
+
+	// Save cameraFix2 parameter
+	pugi::xml_node cameraIsFix2 = data.append_child("cameraIsFix2");
+	cameraIsFix2.append_attribute("value") = app->scene->cameraFix2;
+
+	// Save current player number of lives
+	pugi::xml_node playerLives = data.append_child("playerLives");
+	playerLives.append_attribute("playerLives") = app->scene->player->lives;
+
+
+	// Save current slime position
 	pugi::xml_node slimePos = data.append_child("slimePosition");
 	slimePos.append_attribute("x") = app->scene->slime->pbody->body->GetTransform().p.x;
 	slimePos.append_attribute("y") = app->scene->slime->pbody->body->GetTransform().p.y;
+
+	// Save current slime number of lives
+	pugi::xml_node slimeLives = data.append_child("slimeLives");
+	slimeLives.append_attribute("slimeLives") = app->scene->slime->lives;
 
 	return true;
 }

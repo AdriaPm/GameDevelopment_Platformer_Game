@@ -11,8 +11,12 @@
 	<:anonymous />
 	<pathfinding />
 	<scene>
-		<playerPosition x="0" y="0" />
-		<slimePosition x="0" y="0" />
+		<playerPosition x="7" y="16.6825008" />
+		<cameraIsFix value="false" />
+		<cameraIsFix2 value="false" />
+		<playerLives playerLives="3" />
+		<slimePosition x="11.3468895" y="16.7742004" />
+		<slimeLives slimeLives="2" />
 	</scene>
 	<Fonts_Module />
 	<UI_Module />
