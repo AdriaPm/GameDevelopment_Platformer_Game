@@ -118,6 +118,11 @@ public:
 	Physics* physics;
 	PathFinding* pathfinding;
 
+	// L01: DONE 2: Create new variables from pugui namespace:
+	// xml_document to store the config file and
+	// xml_node(s) to read specific branches of the xml
+	pugi::xml_document configFile;
+	pugi::xml_node configNode;
 
 private:
 
@@ -127,12 +132,6 @@ private:
 	SString organization;
 
 	List<Module*> modules;
-
-	// L01: DONE 2: Create new variables from pugui namespace:
-	// xml_document to store the config file and
-	// xml_node(s) to read specific branches of the xml
-	pugi::xml_document configFile;
-	pugi::xml_node configNode;
 
 	uint frames;
 	float dt;

@@ -34,9 +34,8 @@ bool Scene::Awake(pugi::xml_node& config)
 	LOG("Loading Scene");
 	bool ret = true;
 
-	origintexturePath = config.child("originTexture").attribute("origintexturePath").as_string();
+	//origintexturePath = config.child("originTexture").attribute("origintexturePath").as_string();
 	slimeTilePath = config.child("pathfinding").attribute("slimePathTile").as_string();
- 
 
 	// iterate all objects in the scene
 	// Check https://pugixml.org/docs/quickstart.html#access
@@ -82,6 +81,8 @@ bool Scene::Start()
 
 		RELEASE_ARRAY(data);
 	}
+
+	origintexturePath = app->configNode.child("scene").child("originTexture").attribute("origintexturePath").as_string();
 
 	// Play level music
 	app->audio->PlayMusic("Assets/Audio/Music/song1.ogg", 1.0f);
