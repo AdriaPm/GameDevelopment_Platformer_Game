@@ -266,3 +266,31 @@ void Scene::ResetScene() {
 	
 	//coin->ResetCoin();
 }
+
+bool Scene::LoadState(pugi::xml_node& data)
+{
+	// Load previous saved player position
+	b2Vec2 playerPos = { data.child("playerPosition").attribute("x").as_float(), data.child("playerPosition").attribute("y").as_float() };
+	app->scene->player->pbody->body->SetTransform(playerPos, 0);
+	
+	// Load previous saved slime position
+	b2Vec2 slimePos = { data.child("slimePosition").attribute("x").as_float(), data.child("slimePosition").attribute("y").as_float() };
+	app->scene->slime->pbody->body->SetTransform(slimePos, 0);
+
+	return true;
+}
+
+bool Scene::SaveState(pugi::xml_node& data)
+{
+	// Save current player position
+	pugi::xml_node playerPos = data.append_child("playerPosition");
+	playerPos.append_attribute("x") = app->scene->player->pbody->body->GetTransform().p.x;
+	playerPos.append_attribute("y") = app->scene->player->pbody->body->GetTransform().p.y;
+
+	// Load current slime position
+	pugi::xml_node slimePos = data.append_child("slimePosition");
+	slimePos.append_attribute("x") = app->scene->slime->pbody->body->GetTransform().p.x;
+	slimePos.append_attribute("y") = app->scene->slime->pbody->body->GetTransform().p.y;
+
+	return true;
+}

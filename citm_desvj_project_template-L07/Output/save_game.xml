@@ -4,12 +4,18 @@
 	<window />
 	<textures />
 	<audio />
+	<Controller_Module />
 	<fade />
 	<LogoScreen />
 	<TitleScreen />
 	<:anonymous />
 	<pathfinding />
-	<scene />
+	<scene>
+		<playerPosition x="0" y="0" />
+		<slimePosition x="0" y="0" />
+	</scene>
+	<Fonts_Module />
+	<UI_Module />
 	<entitymanager />
 	<map />
 	<EndingScreen />
