@@ -2,11 +2,11 @@
   <app>
     <title>Misco Jones Adventures by ADVENTURES JOKES STUDIO</title>
     <organization>UPC</organization>
-	<frcap value = "16"/>
+	<frcap value ="16" value2 ="33"/>
   </app>
 
   <renderer>
-    <vsync value="true"/>
+    <vsync value ="true"/>
   </renderer>
 
   <window>

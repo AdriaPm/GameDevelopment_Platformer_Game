@@ -110,8 +110,9 @@ bool App::Awake()
 		title = configNode.child("app").child("title").child_value(); // L01: DONE 4: Read the title from the config file
 
 		// L14: TODO 1: Read from config file your framerate cap
-		maxFrameDuration = configNode.child("app").child("frcap").attribute("value").as_int();
-
+		
+			maxFrameDuration = configNode.child("app").child("frcap").attribute("value").as_int();
+	
 		ListItem<Module*>* item;
 		item = modules.start;
 
@@ -166,6 +167,11 @@ bool App::Update()
 {
 	bool ret = true;
 	PrepareUpdate();
+
+	if (app->scene->capTo30fps == false)
+		maxFrameDuration = configNode.child("app").child("frcap").attribute("value").as_int();
+	else if (app->scene->capTo30fps == true)
+		maxFrameDuration = configNode.child("app").child("frcap").attribute("value2").as_int();
 
 	if (input->GetWindowEvent(WE_QUIT) == true)
 		ret = false;

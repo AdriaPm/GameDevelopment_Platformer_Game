@@ -57,6 +57,8 @@ public:
 
 	bool playing = false;
 
+	bool capTo30fps = false;
+
 	SDL_Texture* originTex = nullptr;
 	const char* origintexturePath;
 
