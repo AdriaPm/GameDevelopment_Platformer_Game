@@ -8,16 +8,17 @@
 
  - {F1/F2} - Start from the first/second level
  - {F3} - Start from the beginning of the current level
- - {F5} - Save current game state
- - {F6} - Load the previous game state
+ - {F5} - Save current game state (player & enemies)
+ - {F6} - Load the previous game state (player & enemies)
  - {F9} - View colliders/logic/paths
  - {F10} - God Mode
+ - {F11} - Enable/Disable FPS cap to 30
  
 ## Optional Features
 
 - {Audio Feedback} - Music and SFX for player interactions.
 - {Short range attack Cooldown} - Basic player attack has 1 second cooldown time.
-- {UI} - Display of player's lives, player's coins, etc.
+- {UI} - Display of player's lives, player's coins, current FPS, etc.
 - {DEBUG KEYS} - If key 'P' is pressed during Logo Screen, Map Screen will be loaded directly. 
 
 ## Controls

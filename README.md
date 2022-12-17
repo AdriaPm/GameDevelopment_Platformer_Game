@@ -8,8 +8,8 @@
 
  - {F1/F2} - Start from the first/second level
  - {F3} - Start from the beginning of the current level
- - {F5} - Save current game state
- - {F6} - Load the previous game state
+ - {F5} - Save current game state (player & enemies)
+ - {F6} - Load the previous game state (player & enemies)
  - {F9} - View colliders/logic/paths
  - {F10} - God Mode
  - {F11} - Enable/Disable FPS cap to 30
