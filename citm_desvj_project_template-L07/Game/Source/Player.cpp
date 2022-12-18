@@ -320,14 +320,16 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::ENEMY:
 		LOG("Collision ENEMY SLIME");
-		lives--;
-		if (lives <= 0) {
+		if (godMode == false)
+			lives--;
+	
+		if (lives <= 0 && godMode == false) {
 			dead = true;
 			coins = 0;
 			app->audio->PlayFx(dieSFX);
 			app->fade->FadeToBlack((Module*)app->scene, (Module*)app->endingscreen, 60);
 		}
-		else {
+		else if(godMode == false) {
 			app->scene->player->ResetPlayerPos();
 			app->audio->PlayFx(hurtSFX);
 		}
