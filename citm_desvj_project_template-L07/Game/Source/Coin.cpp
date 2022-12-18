@@ -35,7 +35,7 @@ bool Coin::Start() {
 	texture = app->tex->Load(texturePath);
 	
 	// L07 TODO 4: Add a physics to an item - initialize the physics body
-	pbody = app->physics->CreateCircle(position.x, position.y, width/3, bodyType::KINEMATIC, ColliderType::COIN);
+	pbody = app->physics->CreateCircleSensor(position.x, position.y, width/3, bodyType::KINEMATIC, ColliderType::COIN);
 
 	pbody->listener = this;
 
@@ -68,8 +68,8 @@ bool Coin::Update()
 
 	if (isPicked == true) 
 	{
-		app->entityManager->DestroyEntity(app->scene->coin);
-		//app->physics->world->DestroyBody(pbody->body);
+		app->entityManager->DestroyEntity(this);
+		app->physics->world->DestroyBody(pbody->body);
 	}
 
 	return true;
