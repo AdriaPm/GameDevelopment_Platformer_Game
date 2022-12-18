@@ -19,17 +19,17 @@ Coin::~Coin() {}
 
 bool Coin::Awake() {
 
+	return true;
+}
+
+bool Coin::Start() {
+
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
 	texturePath = parameters.attribute("texturepath").as_string();
 
 	width = 32;
 	height = 32;
-
-	return true;
-}
-
-bool Coin::Start() {
 
 	//initilize textures
 	texture = app->tex->Load(texturePath);

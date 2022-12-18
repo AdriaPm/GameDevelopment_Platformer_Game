@@ -23,6 +23,11 @@ Player::~Player() {
 
 bool Player::Awake() {
 
+	return true;
+}
+
+bool Player::Start() {
+
 	//L02: DONE 1: Initialize Player parameters
 	startPos.x = parameters.attribute("x").as_int();
 	startPos.y = parameters.attribute("y").as_int();
@@ -42,7 +47,7 @@ bool Player::Awake() {
 	idlePlayer.PushBack({ 448, 0, 65, 33 });
 	idlePlayer.loop = true;
 	idlePlayer.speed = 0.1f;
-	
+
 	runPlayer.PushBack({ 0, 32, 65, 33 });
 	runPlayer.PushBack({ 64, 32, 65, 33 });
 	runPlayer.PushBack({ 128, 32, 65, 33 });
@@ -73,10 +78,6 @@ bool Player::Awake() {
 	diePlayer.loop = false;
 	diePlayer.speed = 0.1f;
 
-	return true;
-}
-
-bool Player::Start() {
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 
@@ -410,7 +411,7 @@ void Player::Attack() {
 
 void Player::ResetPlayerPos() {
 
-	pbody->body->SetSleepingAllowed(false);
+	pbody->body->SetAwake(true);
 	velocity = { 0, 0 };
 	pbody->body->SetTransform(PIXEL_TO_METERS(startPos), 0.0f);
 	app->scene->cameraFix2 = false;

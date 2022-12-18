@@ -42,12 +42,20 @@ bool EndingScreen::Awake(pugi::xml_node& config)
 bool EndingScreen::Start()
 {
 	LOG("--STARTS ENDING SCENE--");
+
+	app->map->Disable();
+
+	/*Initialize*/
+	imgPath = app->configNode.child("ending").child("backgroundimage").attribute("texturepath").as_string();
+	musicPath = app->configNode.child("ending").child("music").attribute("musicPath").as_string();
+	startSFXPath = app->configNode.child("ending").child("endingsfx").attribute("startSFXPath").as_string();
 	
-	img = app->tex->Load("Assets/Textures/EndingScreen.png");
-	app->scene->player->dead = false;
-	app->scene->player->ResetPlayerPos();
-	startSFX = app->audio->LoadFx("Assets/Audio/Fx/start_game.wav");
-	app->audio->PlayMusic("Assets/Audio/Music/gameOver.ogg");
+	/*Load*/
+	img = app->tex->Load(imgPath);
+	/*app->scene->player->dead = false;
+	app->scene->player->ResetPlayerPos();*/
+	startSFX = app->audio->LoadFx(startSFXPath);
+	app->audio->PlayMusic(musicPath);
 
 	return true;
 }

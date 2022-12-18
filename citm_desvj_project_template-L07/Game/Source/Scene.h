@@ -75,6 +75,9 @@ private:
 	// L12: Debug pathfing
 	iPoint origin;
 	bool originSelected = false;
+
+	const char* musicPath;
+	const char* selectSFXPath;
 };
 
 #endif // __SCENE_H__

@@ -39,6 +39,9 @@ private:
 	SDL_Texture* img = nullptr;
 	int time = 0;
 
+	const char* imgPath;
+	const char* musicPath;
+
 	// A frame count system to handle the fade time and ratio
 	Uint32 frameCount = 250;
 	Uint32 maxFadeFrames = 250;

@@ -36,12 +36,17 @@ bool UI::Start()
 {
 	LOG("--STARTS UI MODULE--");
 	
+	/*Initialize*/
+	font1Path = app->configNode.child("ui").child("font1").attribute("texturepath").as_string();
+	font2Path = app->configNode.child("ui").child("font2").attribute("texturepath").as_string();
+	
+
 	//Loading font 1
 	char lookupTableFont1[] = { "! @,_./0123456789$;<&?abcdefghijklmnopqrstuvwxyz" };
-	font1_id = app->fonts->Load("Assets/Textures/font1.png", lookupTableFont1, 2);
+	font1_id = app->fonts->Load(font1Path, lookupTableFont1, 2);
 
 	char lookupTableFont2[] = { "! %&'()*+,-./0123456789:;<=>abcdefghijklmnopqrstuvwxyz" };
-	font2_id = app->fonts->Load("Assets/Textures/font2.png", lookupTableFont2, 1);
+	font2_id = app->fonts->Load(font2Path, lookupTableFont2, 1);
 
 	return true;
 }

@@ -43,13 +43,15 @@ bool TitleScreen::Start()
 
 	LOG("--STARTS TITLE SCENE--");
 
-	img = app->tex->Load("Assets/Textures/TitleScreen.png");
-	
-	// Music
-	app->audio->PlayMusic("Assets/Audio/Music/title_screen.ogg");
+	/*Initialize*/
+	imgPath = app->configNode.child("title").child("backgroundimage").attribute("texturepath").as_string();
+	musicPath = app->configNode.child("title").child("music").attribute("musicPath").as_string();
+	startSFXPath = app->configNode.child("title").child("startsfx").attribute("startSFXPath").as_string();
 
-	// Load SFXs
-	startSFX = app->audio->LoadFx("Assets/Audio/Fx/start_game.wav");
+	/*Load*/
+	img = app->tex->Load(imgPath);
+	app->audio->PlayMusic(musicPath);
+	startSFX = app->audio->LoadFx(startSFXPath);
 
 	app->physics->debug = false;
 

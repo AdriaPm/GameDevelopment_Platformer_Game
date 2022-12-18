@@ -34,12 +34,21 @@ bool Scene::Awake(pugi::xml_node& config)
 	LOG("Loading Scene");
 	bool ret = true;
 
-	//origintexturePath = config.child("originTexture").attribute("origintexturePath").as_string();
-	slimeTilePath = config.child("pathfinding").attribute("slimePathTile").as_string();
+	return ret;
+}
 
-	// iterate all objects in the scene
+// Called before the first frame
+bool Scene::Start()
+{	
+	/*STORE INFO FROM XML*/
+	origintexturePath = app->configNode.child("scene").child("originTexture").attribute("origintexturePath").as_string();
+	slimeTilePath = app->configNode.child("scene").child("pathfinding").attribute("slimePathTile").as_string();
+	musicPath = app->configNode.child("scene").child("music").attribute("musicPath").as_string();
+	selectSFXPath = app->configNode.child("scene").child("scenesfx").attribute("selectSFXPath").as_string();
+
+	// Iterate all objects in the scene
 	// Check https://pugixml.org/docs/quickstart.html#access
-	for (pugi::xml_node itemNode = config.child("coin"); itemNode; itemNode = itemNode.next_sibling("coin"))
+	for (pugi::xml_node itemNode = app->configNode.child("scene").child("coin"); itemNode; itemNode = itemNode.next_sibling("coin"))
 	{
 		coin = (Coin*)app->entityManager->CreateEntity(EntityType::COIN);
 		coin->parameters = itemNode;
@@ -47,30 +56,27 @@ bool Scene::Awake(pugi::xml_node& config)
 
 	//L02: DONE 3: Instantiate the player using the entity manager
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
-	player->parameters = config.child("player");
+	player->parameters = app->configNode.child("scene").child("player");
 
-	slime = (SlimeEnemy*)app->entityManager->CreateEntity(EntityType::ENEMY);
-	slime->parameters = config.child("slime");
+	for (pugi::xml_node itemNode = app->configNode.child("scene").child("slime"); itemNode; itemNode = itemNode.next_sibling("slime"))
+	{
+		slime = (SlimeEnemy*)app->entityManager->CreateEntity(EntityType::ENEMY);
+		slime->parameters = itemNode;
+		//slime->lives = 2;
+	}
 
-	return ret;
-}
-
-// Called before the first frame
-bool Scene::Start()
-{	
+	/*INITIALIZE NECESSARY MODULES*/
 	app->physics->Enable();
 	app->pathfinding->Enable();
 	app->entityManager->Enable();
 	app->map->Enable();
 	LOG("--STARTS GAME SCENE--");
 	app->physics->debug = false;
-	app->scene->slime->lives = 2;
+	
 
 	// L03: DONE: Load map
 	app->map->Load();
 	
-
-
 	// L12 Create walkability map
 	if (app->map->Load()) {
 		int w, h;
@@ -82,32 +88,20 @@ bool Scene::Start()
 		RELEASE_ARRAY(data);
 	}
 
-	origintexturePath = app->configNode.child("scene").child("originTexture").attribute("origintexturePath").as_string();
-
 	// Play level music
-	app->audio->PlayMusic("Assets/Audio/Music/song1.ogg", 1.0f);
+	app->audio->PlayMusic(musicPath, 1.0f);
 
 	// Loading set of SFX
-	selectSFX = app->audio->LoadFx("Assets/Audio/Fx/select.wav");
+	selectSFX = app->audio->LoadFx(selectSFXPath);
 	
 	// Texture to highligh mouse position 
 	slimeTilePathTex = app->tex->Load(slimeTilePath);
 	// Texture to show path origin 
 	originTex = app->tex->Load(origintexturePath);
 
-	SString title("Misco Jones Adventures by ADVENTURES JOKES STUDIO");
+	/*SString title("Misco Jones Adventures by ADVENTURES JOKES STUDIO");
 
-	/*
-	// L04: DONE 7: Set the window title with map/tileset info
-	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
-		app->map->mapData.width,
-		app->map->mapData.height,
-		app->map->mapData.tileWidth,
-		app->map->mapData.tileHeight,
-		app->map->mapData.tilesets.Count());
-	*/
-
-	app->win->SetTitle(title.GetString());
+	app->win->SetTitle(title.GetString());*/
 
 	ResetScene();
 
@@ -246,10 +240,10 @@ bool Scene::CleanUp()
 {
 	LOG("Freeing GAME SCENE");
 
-	/* app->entityManager->Disable();
+	app->entityManager->Disable();
 	app->pathfinding->Disable();
 	app->physics->Disable();
-	app->map->CleanUp();*/
+	//app->map->Disable();
 
 
 	app->render->camera.x = 0;

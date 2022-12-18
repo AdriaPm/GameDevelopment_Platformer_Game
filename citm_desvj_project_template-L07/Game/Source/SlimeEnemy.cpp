@@ -25,6 +25,11 @@ SlimeEnemy::~SlimeEnemy() {
 
 bool SlimeEnemy::Awake() {
 
+	return true;
+}
+
+bool SlimeEnemy::Start() {
+
 	//L02: DONE 1: Initialize Player parameters
 	startPos.x = parameters.attribute("x").as_int();
 	startPos.y = parameters.attribute("y").as_int();
@@ -33,6 +38,7 @@ bool SlimeEnemy::Awake() {
 	origin.y = startPos.y;
 
 	texturePath = parameters.attribute("texturepath").as_string();
+
 
 	width = 32;
 	height = 32;
@@ -64,17 +70,18 @@ bool SlimeEnemy::Awake() {
 	dieEnemy.loop = false;
 	dieEnemy.speed = 0.1f;
 
-	return true;
-}
-
-bool SlimeEnemy::Start() {
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 
+	//Initialize SFX
+	stompSFXPath = app->configNode.child("scene").child("slimesfx").attribute("stompSFXPath").as_string();
+	powerUpSFXPath = app->configNode.child("scene").child("slimesfx").attribute("powerUpSFXPath").as_string();
+	slimeHitSFXPath = app->configNode.child("scene").child("slimesfx").attribute("slimeHitSFXPath").as_string();
+
 	// Loading the set of SFX, BETTER HERE FOR ENABLE/DISABLE
-	stompSFX = app->audio->LoadFx("Assets/Audio/Fx/stomp.wav");
-	powerUpSFX = app->audio->LoadFx("Assets/Audio/Fx/powerUp.wav");
-	slimeHitSFX = app->audio->LoadFx("Assets/Audio/Fx/slime_hit.wav");
+	stompSFX = app->audio->LoadFx(stompSFXPath);
+	powerUpSFX = app->audio->LoadFx(powerUpSFXPath);
+	slimeHitSFX = app->audio->LoadFx(slimeHitSFXPath);
 
 	currentAnim = &idleEnemy;
 	dead = false;

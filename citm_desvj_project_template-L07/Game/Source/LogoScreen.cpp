@@ -38,8 +38,14 @@ bool LogoScreen::Awake(pugi::xml_node& config)
 bool LogoScreen::Start()
 {
 	LOG("--STARTS LOGO SCENE--");
-	img = app->tex->Load("Assets/Textures/LogoScreen.png");
-	app->audio->PlayMusic("Assets/Audio/Music/logoedit.ogg");
+
+	/*Initialize*/
+	imgPath = app->configNode.child("logo").child("backgroundimage").attribute("texturepath").as_string();
+	musicPath = app->configNode.child("logo").child("music").attribute("musicPath").as_string();
+
+	/*Load*/
+	img = app->tex->Load(imgPath);
+	app->audio->PlayMusic(musicPath);
 
 	return true;
 }

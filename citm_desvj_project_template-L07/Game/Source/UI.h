@@ -52,6 +52,9 @@ public:
 
 private:
 
+	const char* font1Path;
+	const char* font2Path;
+
 };
 
 #endif // __UI_H__

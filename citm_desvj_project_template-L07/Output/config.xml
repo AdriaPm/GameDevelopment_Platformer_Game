@@ -22,11 +22,30 @@
     <fx volume="128"/>
   </audio>
 
+  <ui>
+  	<font1 texturepath="Assets/Textures/font1.png"/>
+  	<font2 texturepath="Assets/Textures/font2.png"/>
+  </ui>
+	
+  <logo>
+  	<backgroundimage texturepath="Assets/Textures/LogoScreen.png"/>
+  	<music musicPath="Assets/Audio/Music/logoedit.ogg"/>
+  </logo>
+
+  <title>
+  	<backgroundimage texturepath="Assets/Textures/TitleScreen.png"/>
+  	<music musicPath="Assets/Audio/Music/title_screen.ogg"/>
+  	<startsfx startSFXPath="Assets/Audio/Fx/start_game.wav"/>
+  </title>
+	
   <!-- L02: DONE: Add an element for the entity manager and add the player parameters -->
   <scene>
     <!-->player x="150" y="672" texturepath="Assets/Textures/player1.png"/-->
 	<originTexture origintexturePath = "Assets/Maps/x.png" />
 	<pathfinding  slimePathTile="Assets/Textures/Slime/path.png" />
+	<music musicPath="Assets/Audio/Music/song1.ogg" />
+	<scenesfx selectSFXPath="Assets/Audio/Fx/select.wav" />
+	<slimesfx stompSFXPath="Assets/Audio/Fx/stomp.wav" powerUpSFXPath="Assets/Audio/Fx/powerUp.wav" slimeHitSFXPath="Assets/Audio/Fx/slime_hit.wav" />
 	<player x="224" y="530" texturepath="Assets/Textures/PlayerJones.png"/>
     <coin x="704" y="329" texturepath="Assets/Textures/bitcoin.png"/>
 	<coin x="1312" y="297" texturepath="Assets/Textures/bitcoin.png"/>
@@ -35,6 +54,12 @@
 	<slime x="400" y="530" texturepath="Assets/Textures/Slime/Slime_Spiked_Full.png"/>
   </scene>
 
+  <ending>
+	 <backgroundimage texturepath="Assets/Textures/EndingScreen.png"/>
+	 <music musicPath="Assets/Audio/Music/gameOver.ogg"/>
+	 <endingsfx startSFXPath="Assets/Audio/Fx/start_game.wav"/>
+  </ending>
+	
   <map>
     <mapfolder path="Assets/Maps/"/>
     <mapfile path="Assets/Maps/Level1Map.tmx"/>

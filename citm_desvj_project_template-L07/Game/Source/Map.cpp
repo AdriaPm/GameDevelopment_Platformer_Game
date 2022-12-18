@@ -28,8 +28,16 @@ bool Map::Awake(pugi::xml_node& config)
     LOG("Loading Map Parser");
     bool ret = true;
 
-    mapFileName = config.child("mapfile").attribute("path").as_string();
-    mapFolder = config.child("mapfolder").attribute("path").as_string();
+    return ret;
+}
+
+bool Map::Start()
+{
+    LOG("Loading Map Parser");
+    bool ret = true;
+
+    mapFileName = app->configNode.child("map").child("mapfile").attribute("path").as_string();
+    mapFolder = app->configNode.child("map").child("mapfolder").attribute("path").as_string();
 
     return ret;
 }
@@ -242,7 +250,7 @@ bool Map::CleanUp()
     }
     mapData.maplayers.Clear();
 
-    ListItem<PhysBody*>* collisionsItem;
+   /* ListItem<PhysBody*>* collisionsItem;
     collisionsItem = mapColliders.start;
 
     while (collisionsItem != NULL)
@@ -251,7 +259,7 @@ bool Map::CleanUp()
         RELEASE(collisionsItem->data);
         collisionsItem = collisionsItem->next;
     }
-    mapColliders.Clear();
+    mapColliders.Clear();*/
 
     //Chain Collider Points clean up
     ListItem<ObjectGroup*>* ObjectGroupItem;

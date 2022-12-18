@@ -49,8 +49,11 @@ public:
 
 	//Set of SFX
 	uint stompSFX = 0;
+	const char* stompSFXPath;
 	uint powerUpSFX = 0;
+	const char* powerUpSFXPath;
 	uint slimeHitSFX = 0;
+	const char* slimeHitSFXPath;
 
 	bool onGround = false;
 	bool dead = false;
