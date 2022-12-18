@@ -105,7 +105,7 @@ bool BatEnemy::PreUpdate() {
 bool BatEnemy::Update()
 {
 	currentAnim = &flyingEnemy;
-	velocity = { 0, 0 };
+	//velocity = { 0, 0 };
 	pbody->body->SetGravityScale(0);
 
 	// Being hit anim if player attacks the bat
@@ -124,8 +124,11 @@ bool BatEnemy::Update()
 	//Check if the enemy is visible on camera, if not, don't create path and don't move
 	if (pbody->body->GetPosition().x > app->render->camera.x - app->render->camera.w / 2 && pbody->body->GetPosition().x < app->render->camera.x + app->render->camera.w / 2)
 	{
+		//Calculates distance between bat and player for detection range
+		float distance = playerTile.x - origin.x;
+
 		//Test compute path function
-		if (originSelected == true)
+		if (originSelected == true && distance <= 10 && distance >= -10)
 		{
 			app->pathfinding->CreatePath(origin, playerTile);
 			refreshPathTime++;
@@ -216,18 +219,18 @@ void BatEnemy::MovementDirection(const iPoint& origin, const iPoint& destination
 	if (app->pathfinding->IsWalkable(playerTile) != 0) {
 		//Check if player is to the right or the left of the origin
 		if (resX < 0) {
-			velocity.x = -4;
+			velocity.x = -2;
 			fliped = SDL_FLIP_HORIZONTAL;
 		}
 		if (resX > 0) {
-			velocity.x = +4;
+			velocity.x = +2;
 			fliped = SDL_FLIP_NONE;
 		}
 		if (resY < 0) {
-			velocity.y = -4;
+			velocity.y = -2;
 		}
 		if (resY > 0) {
-			velocity.y = +4;
+			velocity.y = +2;
 		}
 	}
 	else {
