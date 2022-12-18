@@ -15,8 +15,10 @@
 		<cameraIsFix value="false" />
 		<cameraIsFix2 value="false" />
 		<playerLives playerLives="3" />
-		<slimePosition x="11.3468895" y="16.7742004" />
+		<slimePosition x="11.0663166" y="16.7762547" />
 		<slimeLives slimeLives="2" />
+		<batPosition x="14.3583345" y="16.0249996" />
+		<batLives batLives="2" />
 	</scene>
 	<Fonts_Module />
 	<UI_Module />

@@ -290,6 +290,14 @@ bool Scene::LoadState(pugi::xml_node& data)
 	//Load previous saved slime number of lives
 	app->scene->slime->lives = data.child("slimeLives").attribute("slimeLives").as_int();
 
+
+	// Load previous saved bat position
+	b2Vec2 batPos = { data.child("batPosition").attribute("x").as_float(), data.child("batPosition").attribute("y").as_float() };
+	app->scene->bat->pbody->body->SetTransform(batPos, 0);
+
+	//Load previous saved bat number of lives
+	app->scene->bat->lives = data.child("batLives").attribute("batLives").as_int();
+
 	return true;
 }
 
@@ -321,6 +329,16 @@ bool Scene::SaveState(pugi::xml_node& data)
 	// Save current slime number of lives
 	pugi::xml_node slimeLives = data.append_child("slimeLives");
 	slimeLives.append_attribute("slimeLives") = app->scene->slime->lives;
+
+
+	// Save current bat position
+	pugi::xml_node batPos = data.append_child("batPosition");
+	batPos.append_attribute("x") = app->scene->bat->pbody->body->GetTransform().p.x;
+	batPos.append_attribute("y") = app->scene->bat->pbody->body->GetTransform().p.y;
+
+	// Save current bat number of lives
+	pugi::xml_node batLives = data.append_child("batLives");
+	batLives.append_attribute("batLives") = app->scene->bat->lives;
 
 	return true;
 }
