@@ -41,6 +41,8 @@ bool TitleScreen::Start()
 {
 	app->render->camera.x = 0;
 
+	app->map->Disable();
+
 	LOG("--STARTS TITLE SCENE--");
 
 	/*Initialize*/
