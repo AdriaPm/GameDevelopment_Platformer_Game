@@ -160,7 +160,7 @@ bool BatEnemy::Update()
 		currentAnim = &dieEnemy;
 
 		//Destroy entity
-		app->entityManager->DestroyEntity(app->scene->bat);
+		app->entityManager->DestroyEntity(this);
 		app->physics->world->DestroyBody(pbody->body);
 		app->physics->world->DestroyBody(hitbox->body);
 		app->audio->PlayFx(powerUpSFX);
