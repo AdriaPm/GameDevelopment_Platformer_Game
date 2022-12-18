@@ -70,11 +70,11 @@ bool Player::Start() {
 	attackPlayer.loop = false;
 	attackPlayer.speed = 0.3f;
 
-	diePlayer.PushBack({ 23, 192, 65, 33 });
+	diePlayer.PushBack({ 0, 192, 65, 33 });
 	diePlayer.PushBack({ 64, 192, 65, 33 });
-	diePlayer.PushBack({ 128, 192, 65, 33 });
-	diePlayer.PushBack({ 192, 192, 65, 33 });
-	diePlayer.PushBack({ 256, 192, 65, 33 });
+	diePlayer.PushBack({ 134, 192, 65, 33 });
+	diePlayer.PushBack({ 197, 192, 65, 33 });
+	diePlayer.PushBack({ 262, 192, 65, 33 });
 	diePlayer.loop = false;
 	diePlayer.speed = 0.1f;
 
@@ -273,7 +273,7 @@ bool Player::Update()
 	// Link player's texture with pbody when moving, if player's dies then stop motion
 	if (dead == true) {
 		currentAnim = &diePlayer;
-		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
+		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 20;
 		pbody->body->SetAwake(false);
 	}
 	else {

@@ -90,7 +90,7 @@ bool BatEnemy::Start() {
 
 	pbody->listener = this;
 
-	hitbox = app->physics->CreateRectangle(METERS_TO_PIXELS(pbody->body->GetTransform().p.x), METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15, 8, 2, bodyType::STATIC, ColliderType::BAT_HITBOX);
+	hitbox = app->physics->CreateRectangle(METERS_TO_PIXELS(pbody->body->GetTransform().p.x), METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15, 8, 2, bodyType::DYNAMIC, ColliderType::BAT_HITBOX);
 
 	refreshPathTime = 0;
 
