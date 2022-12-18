@@ -117,6 +117,15 @@ bool Player::PreUpdate() {
 
 bool Player::Update()
 {
+	/*float speedMultiplier = app->GetAverageFPS() / 60; //Calculates the multiplier for changing speed by framerate
+
+	LOG("PLAYER SPEED = %f", currentAnim->speed);
+
+	if (app->scene->capTo30fps == true) {
+
+		currentAnim->speed = currentAnim->speed *2;
+	}*/
+
 	currentAnim = &idlePlayer;
 
 	//Enable/Disable Debug
