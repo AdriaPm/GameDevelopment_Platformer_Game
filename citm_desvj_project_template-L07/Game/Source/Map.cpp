@@ -250,6 +250,7 @@ bool Map::CleanUp()
     }
     mapData.maplayers.Clear();
 
+    /*This goes to Physics.cpp*/
    /* ListItem<PhysBody*>* collisionsItem;
     collisionsItem = mapColliders.start;
 
