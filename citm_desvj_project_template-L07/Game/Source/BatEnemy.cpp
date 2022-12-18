@@ -117,7 +117,7 @@ bool BatEnemy::Update()
 			hitEnemy.Reset();
 		}
 	}
-		
+	
 	//Takes player pos for the path destination
 	iPoint playerTile = app->map->WorldToMap(app->scene->player->position.x + 32, app->scene->player->position.y);
 

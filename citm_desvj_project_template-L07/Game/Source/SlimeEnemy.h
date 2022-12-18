@@ -48,6 +48,7 @@ public:
 	Animation runEnemy;
 	Animation jumpEnemy;
 	Animation dieEnemy;
+	Animation hitEnemy;
 
 	//Set of SFX
 	uint stompSFX = 0;
@@ -59,6 +60,7 @@ public:
 
 	bool onGround = false;
 	bool dead = false;
+	bool onCollision = false;
 
 	PhysBody* pbody;
 

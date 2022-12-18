@@ -81,6 +81,10 @@ bool SlimeEnemy::Start() {
 	dieEnemy.loop = false;
 	dieEnemy.speed = 0.1f;
 
+	hitEnemy.PushBack({213, 286, 18, 19 });
+	hitEnemy.loop = false;
+	hitEnemy.speed = 0.1f;
+
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 
@@ -122,6 +126,16 @@ bool SlimeEnemy::Update()
 {
 	currentAnim = &idleEnemy;
 	velocity.y = -GRAVITY_Y;
+
+	// Being hit anim if player attacks the slime
+	if (onCollision) {
+		currentAnim = &hitEnemy;
+
+		if (hitEnemy.HasFinished()) {
+			onCollision = false;
+			hitEnemy.Reset();
+		}
+	}
 
 	//Takes player pos for the path destination
 	iPoint playerTile = app->map->WorldToMap(app->scene->player->position.x + 32, app->scene->player->position.y);
@@ -309,6 +323,7 @@ void SlimeEnemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 		if (lives <= 0) {
 			dead = true;
 		}
+		onCollision = true;
 		app->audio->PlayFx(slimeHitSFX);
 		break;
 	case ColliderType::WALL:
