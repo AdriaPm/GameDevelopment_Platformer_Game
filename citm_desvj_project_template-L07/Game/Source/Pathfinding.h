@@ -36,6 +36,9 @@ public:
 
 	// To request all tiles involved in the last generated path
 	const DynArray<iPoint>* GetLastPath() const;
+	
+	// To request all tiles involved in the last generated path
+	const int GetNextTileY(unsigned int index) const;
 
 	// To request all tiles involved in the last generated path
 	void ClearLastPath();

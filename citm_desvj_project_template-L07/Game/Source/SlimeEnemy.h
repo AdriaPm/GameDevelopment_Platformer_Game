@@ -31,6 +31,8 @@ public:
 
 	void MovementDirection(const iPoint& origin, const iPoint& destination);
 
+	void Attack(const iPoint& origin, const iPoint& destination);
+
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
 	void ResetSlime();
@@ -75,6 +77,10 @@ private:
 
 	b2Vec2 velocity;
 	b2Vec2 startPos;
+
+	bool jump = false;
+	bool ableAttack = true;
+	uint attackCooldown = 0;
 
 	int width;
 	int height;

@@ -60,6 +60,17 @@ bool SlimeEnemy::Start() {
 	runEnemy.PushBack({ 472, 40, 18, 22 });
 	runEnemy.loop = true;
 	runEnemy.speed = 0.1f;
+	
+	jumpEnemy.PushBack({ 146, 102, 28, 11 });
+	jumpEnemy.PushBack({ 210, 100, 26, 13 });
+	jumpEnemy.PushBack({ 280, 89, 14, 24 });
+	jumpEnemy.PushBack({ 342, 87, 19, 14 });
+	jumpEnemy.PushBack({ 23, 149, 19, 14 });
+	jumpEnemy.PushBack({ 88, 150, 14, 22 });
+	jumpEnemy.PushBack({ 210, 166, 27, 11 });
+	jumpEnemy.PushBack({ 278, 158, 20, 19 });
+	jumpEnemy.loop = false;
+	jumpEnemy.speed = 0.09f;
 
 	dieEnemy.PushBack({ 142, 218, 31, 22 });
 	dieEnemy.PushBack({ 206, 218, 31, 22 });
@@ -96,6 +107,9 @@ bool SlimeEnemy::Start() {
 
 	refreshPathTime = 0;
 
+	jump = false;
+	ableAttack = true;
+
 	return true;
 }
 
@@ -107,7 +121,7 @@ bool SlimeEnemy::PreUpdate() {
 bool SlimeEnemy::Update()
 {
 	currentAnim = &idleEnemy;
-	velocity = { 0, -GRAVITY_Y };
+	velocity.y = -GRAVITY_Y;
 
 	//Takes player pos for the path destination
 	iPoint playerTile = app->map->WorldToMap(app->scene->player->position.x + 32, app->scene->player->position.y);
@@ -115,14 +129,18 @@ bool SlimeEnemy::Update()
 	//Check if the enemy is visible on camera, if not, don't create path and don't move
 	if (pbody->body->GetPosition().x > app->render->camera.x - app->render->camera.w/2 && pbody->body->GetPosition().x < app->render->camera.x + app->render->camera.w/2)
 	{
+		//Calculates distance between slime and player for detection range
+		float distance = playerTile.x - origin.x;
+
 		//Test compute path function
-		if (originSelected == true)
+		if (originSelected == true && distance <= 10 && distance >= -10)
 		{
 			app->pathfinding->CreatePath(origin, playerTile);
 			refreshPathTime++;
 			originSelected = false;
-			/*if (refreshPathTime >= 150)
-				originSelected = false;*/
+			
+			MovementDirection(origin, playerTile);
+			Attack(origin, playerTile);
 		}
 		else
 		{
@@ -133,7 +151,7 @@ bool SlimeEnemy::Update()
 			refreshPathTime = 0;
 		}
 
-		MovementDirection(origin, playerTile);
+		//MovementDirection(origin, playerTile);
 	}
 	else 
 	{
@@ -141,7 +159,16 @@ bool SlimeEnemy::Update()
 		refreshPathTime = 0;
 	}
 	
-	pbody->body->SetLinearVelocity(velocity);
+	if(jump == false)
+		pbody->body->SetLinearVelocity(velocity);
+	else if(jump == true)
+		currentAnim = &jumpEnemy;
+
+	if (ableAttack == false) {
+		attackCooldown++;
+		if (attackCooldown >= 50)
+			ableAttack = true;
+	}	
 
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x - (width / 4));
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y - (height / 3));
@@ -200,23 +227,61 @@ bool SlimeEnemy::CleanUp()
 
 void SlimeEnemy::MovementDirection(const iPoint& origin, const iPoint& destination) {
 	
-	float res = destination.x - origin.x;
-	iPoint playerTile = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
-	if (app->pathfinding->IsWalkable(playerTile) != 0) {
+	float resX = destination.x - origin.x;
+	float resY = destination.y - origin.y;
+
+	if (app->pathfinding->IsWalkable(destination) != 0) {
+
 		//Check if player is to the right or the left of the origin
-		if (res < 0) {
+		if (resX < 0) {
 			velocity.x = -2;
 			fliped = SDL_FLIP_NONE;
 		}
-		if (res > 0) {
+		if (resX > 0) {
 			velocity.x = +2;
 			fliped = SDL_FLIP_HORIZONTAL;
 		}
+
+		/*ENEMY JUMP FOR 2 TILES HEIGHT, 15 iS The Lowest Platform Tile Height*/
+		if (resY < 0 && jump == false && app->pathfinding->GetNextTileY(2) < 15 && app->pathfinding->GetNextTileY(2) > 13) {
+			jumpEnemy.Reset();
+			jump = true;
+			pbody->body->ApplyLinearImpulse({ 0, -1.2 }, pbody->body->GetWorldCenter(), true);
+		}
+		/*ENEMY JUMP FOR 4 TILES HEIGHT, 15 iS The Lowest Platform Tile Height*/
+		if (resY < 0 && jump == false && app->pathfinding->GetNextTileY(2) < 14 && app->pathfinding->GetNextTileY(2) > 12) {
+			jumpEnemy.Reset();
+			jump = true;
+			pbody->body->ApplyLinearImpulse({ 0, -1.5 }, pbody->body->GetWorldCenter(), true);
+		}
+		
 	}
 	else {
 		velocity.x = 0;
 	}
 	
+		
+}
+
+void SlimeEnemy::Attack(const iPoint& origin, const iPoint& destination) {
+	
+	float resX = destination.x - origin.x;
+
+	/*Slime Attack Left*/
+	if (resX < -2 && resX > -7 && jump == false && ableAttack == true) {
+		ableAttack = false;
+		attackCooldown = 0;
+		pbody->body->ApplyLinearImpulse({ -25, 0 }, pbody->body->GetLocalCenter(), true); //Hace un dash hacia el player-->En este caso a la izquierda
+	}
+		
+
+	/*Slime Attack Right*/
+	if (resX > 2 && resX < 7 && jump == false && ableAttack == true) {
+		ableAttack = false;
+		attackCooldown = 0;
+		pbody->body->ApplyLinearImpulse({ 25, 0 }, pbody->body->GetLocalCenter(), true); //Hace un dash hacia el player-->En este caso a la derecha
+	}
+		
 		
 }
 
@@ -228,9 +293,12 @@ void SlimeEnemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
+		if(jump == true)
+			jump = false;
 		break;
 	case ColliderType::WATER:
 		LOG("Collision WATER");
+		dead = true;
 		break;
 	case ColliderType::ENEMY:
 		LOG("Collision ENEMY");
