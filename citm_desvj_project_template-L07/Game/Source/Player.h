@@ -48,6 +48,7 @@ public:
 	Animation runPlayer;
 	Animation attackPlayer;
 	Animation diePlayer;
+	Animation hitPlayer;
 
 	//Set of SFX
 	uint jumpSFX = 0;
@@ -61,6 +62,7 @@ public:
 	bool onGround = false;
 	bool dead = false;
 	bool godMode = false;
+	bool onCollision = false;
 
 	PhysBody* pbody;
 

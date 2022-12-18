@@ -78,6 +78,10 @@ bool Player::Start() {
 	diePlayer.loop = false;
 	diePlayer.speed = 0.1f;
 
+	hitPlayer.PushBack({ 450, 64, 65, 33 });
+	hitPlayer.loop = false;
+	hitPlayer.speed = 0.1f;
+
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 
@@ -223,7 +227,15 @@ bool Player::Update()
 			app->audio->PlayFx(selectSFX);
 		}
 
+		// Being hit anim if slime or bat attacks the player
+		if (onCollision) {
+			currentAnim = &hitPlayer;
 
+			if (hitPlayer.HasFinished()) {
+				onCollision = false;
+				hitPlayer.Reset();
+			}
+		}
 
 		//Attacking animation function
 		if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
@@ -320,8 +332,10 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::ENEMY:
 		LOG("Collision ENEMY SLIME");
-		if (godMode == false)
+		if (godMode == false) {
 			lives--;
+			onCollision = true;
+		}
 	
 		if (lives <= 0 && godMode == false) {
 			dead = true;
@@ -335,8 +349,10 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::FLYING_ENEMY:
 		LOG("Collision FLYING ENEMY BAT");
-		if (godMode == false)
+		if (godMode == false) {
 			lives--;
+			onCollision = true;
+		}
 
 		if (lives <= 0 && godMode == false) {
 			dead = true;
