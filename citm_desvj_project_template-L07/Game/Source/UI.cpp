@@ -118,6 +118,13 @@ void UI::BlitSlimeLives()
 	app->fonts->BlitText(20, 95, font2_id, slimeLives);
 }
 
+void UI::BlitBatLives()
+{
+	char batLives[25];
+	sprintf_s(batLives, 20, "bat lives: %d", app->scene->bat->lives);
+	app->fonts->BlitText(20, 115, font2_id, batLives);
+}
+
 void UI::BlitFPS()
 {
 	char fps[25];

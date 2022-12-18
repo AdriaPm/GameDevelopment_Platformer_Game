@@ -176,6 +176,7 @@ bool Scene::Update(float dt)
 		app->ui->BlitPlayerXPos();
 		app->ui->BlitPlayerYPos();
 		app->ui->BlitSlimeLives();
+		app->ui->BlitBatLives();
 		app->ui->BlitAverageFPS();
 		app->ui->BlitDT();
 		app->ui->BlitTimeSinceStart();

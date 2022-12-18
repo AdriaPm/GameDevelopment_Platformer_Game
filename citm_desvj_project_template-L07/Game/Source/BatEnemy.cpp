@@ -72,14 +72,14 @@ bool BatEnemy::Start() {
 	texture = app->tex->Load(texturePath);
 
 	//Initialize SFX
-	/*stompSFXPath = app->configNode.child("scene").child("slimesfx").attribute("stompSFXPath").as_string();
-	powerUpSFXPath = app->configNode.child("scene").child("slimesfx").attribute("powerUpSFXPath").as_string();
-	slimeHitSFXPath = app->configNode.child("scene").child("slimesfx").attribute("slimeHitSFXPath").as_string();*/
+	stompSFXPath = app->configNode.child("scene").child("slimesfx").attribute("stompSFXPath").as_string();		// same as slime
+	powerUpSFXPath = app->configNode.child("scene").child("slimesfx").attribute("powerUpSFXPath").as_string();	// same as slime
+	batHitSFXPath = app->configNode.child("scene").child("batsfx").attribute("batHitSFXPath").as_string();
 
 	// Loading the set of SFX, BETTER HERE FOR ENABLE/DISABLE
-	/*stompSFX = app->audio->LoadFx(stompSFXPath);
+	stompSFX = app->audio->LoadFx(stompSFXPath);
 	powerUpSFX = app->audio->LoadFx(powerUpSFXPath);
-	slimeHitSFX = app->audio->LoadFx(slimeHitSFXPath);*/
+	batHitSFX = app->audio->LoadFx(batHitSFXPath);
 
 	currentAnim = &flyingEnemy;
 	dead = false;
@@ -90,7 +90,7 @@ bool BatEnemy::Start() {
 
 	pbody->listener = this;
 
-	//hitbox = app->physics->CreateRectangleSensor(METERS_TO_PIXELS(pbody->body->GetTransform().p.x), METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15, 5, 2, bodyType::STATIC, ColliderType::SLIME_HITBOX);
+	hitbox = app->physics->CreateRectangle(METERS_TO_PIXELS(pbody->body->GetTransform().p.x), METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15, 8, 2, bodyType::STATIC, ColliderType::BAT_HITBOX);
 
 	refreshPathTime = 0;
 
@@ -156,9 +156,9 @@ bool BatEnemy::Update()
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y - (height / 3));
 
 	//hitbox->body->SetGravityScale(0);
-	/*hitboxPos.x = pbody->body->GetTransform().p.x;
+	hitboxPos.x = pbody->body->GetTransform().p.x;
 	hitboxPos.y = pbody->body->GetTransform().p.y - PIXEL_TO_METERS(10);
-	hitbox->body->SetTransform({ hitboxPos.x, hitboxPos.y }, 0);*/
+	hitbox->body->SetTransform({ hitboxPos.x, hitboxPos.y }, 0);
 
 	if (dead == true)
 	{
@@ -167,7 +167,7 @@ bool BatEnemy::Update()
 		//Destroy entity
 		app->entityManager->DestroyEntity(app->scene->bat);
 		app->physics->world->DestroyBody(pbody->body);
-		//app->physics->world->DestroyBody(hitbox->body);
+		app->physics->world->DestroyBody(hitbox->body);
 		app->audio->PlayFx(powerUpSFX);
 		dead = false;
 	}
@@ -216,18 +216,18 @@ void BatEnemy::MovementDirection(const iPoint& origin, const iPoint& destination
 	if (app->pathfinding->IsWalkable(playerTile) != 0) {
 		//Check if player is to the right or the left of the origin
 		if (resX < 0) {
-			velocity.x = -2;
+			velocity.x = -4;
 			fliped = SDL_FLIP_HORIZONTAL;
 		}
 		if (resX > 0) {
-			velocity.x = +2;
+			velocity.x = +4;
 			fliped = SDL_FLIP_NONE;
 		}
 		if (resY < 0) {
-			velocity.y = -2;
+			velocity.y = -4;
 		}
 		if (resY > 0) {
-			velocity.y = +2;
+			velocity.y = +4;
 		}
 	}
 	else {
@@ -261,7 +261,7 @@ void BatEnemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 			dead = true;
 		}
 		onCollision = true;
-		app->audio->PlayFx(slimeHitSFX);
+		app->audio->PlayFx(batHitSFX);
 		break;
 	case ColliderType::WALL:
 		LOG("Collision WALL");

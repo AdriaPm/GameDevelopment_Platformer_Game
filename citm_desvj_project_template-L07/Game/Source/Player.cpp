@@ -367,10 +367,20 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::SLIME_HITBOX:
 		LOG("Collison SLIME HEAD HITBOX");
 		app->scene->slime->lives--;
+		app->scene->slime->onCollision = true;
 		if (app->scene->slime->lives <= 0) {
 			app->scene->slime->dead = true;
 		}
 		app->audio->PlayFx(app->scene->slime->stompSFX);
+		break;
+	case ColliderType::BAT_HITBOX:
+		LOG("Collison BAT HEAD HITBOX");
+		app->scene->bat->lives--;
+		app->scene->bat->onCollision = true;
+		if (app->scene->bat->lives <= 0) {
+			app->scene->bat->dead = true;
+		}
+		app->audio->PlayFx(app->scene->bat->stompSFX);
 		break;
 	case ColliderType::WALL:
 		LOG("Collision WALL");

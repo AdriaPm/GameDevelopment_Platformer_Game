@@ -46,6 +46,7 @@
 	<music musicPath="Assets/Audio/Music/song1.ogg" />
 	<scenesfx selectSFXPath="Assets/Audio/Fx/select.wav" />
 	<slimesfx stompSFXPath="Assets/Audio/Fx/stomp.wav" powerUpSFXPath="Assets/Audio/Fx/powerUp.wav" slimeHitSFXPath="Assets/Audio/Fx/slime_hit.wav" />
+	<batsfx batHitSFXPath="Assets/Audio/Fx/bat_hit.wav"/>
 	<player x="224" y="530" texturepath="Assets/Textures/PlayerJones.png"/>
     <coin x="704" y="329" texturepath="Assets/Textures/bitcoin.png"/>
 	<coin x="1312" y="297" texturepath="Assets/Textures/bitcoin.png"/>

@@ -51,8 +51,8 @@ public:
 	const char* stompSFXPath;
 	uint powerUpSFX = 0;
 	const char* powerUpSFXPath;
-	uint slimeHitSFX = 0;
-	const char* slimeHitSFXPath;
+	uint batHitSFX = 0;
+	const char* batHitSFXPath;
 
 	bool onGround = false;
 	bool dead = false;
