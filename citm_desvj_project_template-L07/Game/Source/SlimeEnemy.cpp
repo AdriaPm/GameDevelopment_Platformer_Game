@@ -107,7 +107,7 @@ bool SlimeEnemy::Start() {
 
 	pbody->listener = this;
 
-	hitbox = app->physics->CreateRectangle(METERS_TO_PIXELS(pbody->body->GetTransform().p.x), METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15, 8, 2, bodyType::STATIC, ColliderType::SLIME_HITBOX);
+	hitbox = app->physics->CreateRectangle(METERS_TO_PIXELS(pbody->body->GetTransform().p.x), METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15, 8, 2, bodyType::DYNAMIC, ColliderType::SLIME_HITBOX);
 
 	refreshPathTime = 0;
 
