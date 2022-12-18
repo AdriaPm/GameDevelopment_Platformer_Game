@@ -65,6 +65,13 @@ bool Scene::Start()
 		//slime->lives = 2;
 	}
 
+	for (pugi::xml_node itemNode = app->configNode.child("scene").child("bat"); itemNode; itemNode = itemNode.next_sibling("bat"))
+	{
+		bat = (BatEnemy*)app->entityManager->CreateEntity(EntityType::FLYING_ENEMY);
+		bat->parameters = itemNode;
+		//bat->lives = 2;
+	}
+
 	/*INITIALIZE NECESSARY MODULES*/
 	app->physics->Enable();
 	app->pathfinding->Enable();

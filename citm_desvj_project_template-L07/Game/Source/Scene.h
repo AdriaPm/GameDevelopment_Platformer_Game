@@ -6,6 +6,7 @@
 #include "Item.h"
 #include "Coin.h"
 #include "SlimeEnemy.h"
+#include "BatEnemy.h"
 
 struct SDL_Texture;
 
@@ -47,6 +48,8 @@ public:
 	Player* player;
 
 	SlimeEnemy* slime;
+
+	BatEnemy* bat;
 
 	Item* item;
 

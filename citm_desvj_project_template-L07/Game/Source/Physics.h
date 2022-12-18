@@ -33,6 +33,7 @@ enum class ColliderType {
 	COIN,
 	ENEMY,
 	SLIME_HITBOX,
+	FLYING_ENEMY,
 	PLATFORM,
 	WALL,
 	WATER,

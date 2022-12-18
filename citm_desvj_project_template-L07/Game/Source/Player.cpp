@@ -330,7 +330,21 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			app->fade->FadeToBlack((Module*)app->scene, (Module*)app->endingscreen, 60);
 		}
 		else if(godMode == false) {
-			app->scene->player->ResetPlayerPos();
+			app->audio->PlayFx(hurtSFX);
+		}
+		break;
+	case ColliderType::FLYING_ENEMY:
+		LOG("Collision FLYING ENEMY BAT");
+		if (godMode == false)
+			lives--;
+
+		if (lives <= 0 && godMode == false) {
+			dead = true;
+			coins = 0;
+			app->audio->PlayFx(dieSFX);
+			app->fade->FadeToBlack((Module*)app->scene, (Module*)app->endingscreen, 60);
+		}
+		else if (godMode == false) {
 			app->audio->PlayFx(hurtSFX);
 		}
 		break;
@@ -391,10 +405,10 @@ void Player::Attack() {
 		if (attackTime > 0)
 		{
 			if (fliped == false)
-				hitbox = app->physics->CreateRectangleSensor(METERS_TO_PIXELS(pbody->body->GetTransform().p.x) + 15, METERS_TO_PIXELS(pbody->body->GetTransform().p.y), 35, 2, bodyType::STATIC, ColliderType::PLAYER_ATTACK_HITBOX);
+				hitbox = app->physics->CreateRectangleSensor(METERS_TO_PIXELS(pbody->body->GetTransform().p.x) + 15, METERS_TO_PIXELS(pbody->body->GetTransform().p.y), 35, 10, bodyType::STATIC, ColliderType::PLAYER_ATTACK_HITBOX);
 
 			if (fliped == true)
-				hitbox = app->physics->CreateRectangleSensor(METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 15, METERS_TO_PIXELS(pbody->body->GetTransform().p.y), 35, 2, bodyType::STATIC, ColliderType::PLAYER_ATTACK_HITBOX);
+				hitbox = app->physics->CreateRectangleSensor(METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 15, METERS_TO_PIXELS(pbody->body->GetTransform().p.y), 35, 10, bodyType::STATIC, ColliderType::PLAYER_ATTACK_HITBOX);
 
 		}
 		attackTime--;

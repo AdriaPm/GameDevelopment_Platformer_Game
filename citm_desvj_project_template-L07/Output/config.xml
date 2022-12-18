@@ -52,6 +52,7 @@
 	<coin x="2192" y="458" texturepath="Assets/Textures/bitcoin.png"/>
 	<coin x="2928" y="170" texturepath="Assets/Textures/bitcoin.png"/>
 	<slime x="400" y="530" texturepath="Assets/Textures/Slime/Slime_Spiked_Full.png"/>
+	<bat x="500" y="500" texturepath="Assets/Textures/Bat/Bat_Full.png"/>
   </scene>
 
   <ending>
