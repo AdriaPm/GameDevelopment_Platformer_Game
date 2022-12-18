@@ -121,34 +121,26 @@ bool BatEnemy::Update()
 	//Takes player pos for the path destination
 	iPoint playerTile = app->map->WorldToMap(app->scene->player->position.x + 32, app->scene->player->position.y);
 
-	//Check if the enemy is visible on camera, if not, don't create path and don't move
-	if (pbody->body->GetPosition().x > app->render->camera.x - app->render->camera.w / 2 && pbody->body->GetPosition().x < app->render->camera.x + app->render->camera.w / 2)
+	
+	//Calculates distance between bat and player for detection range
+	float distance = playerTile.x - origin.x;
+
+	//Test compute path function
+	if (originSelected == true && distance <= 10 && distance >= -10)
 	{
-		//Calculates distance between bat and player for detection range
-		float distance = playerTile.x - origin.x;
-
-		//Test compute path function
-		if (originSelected == true && distance <= 10 && distance >= -10)
-		{
-			app->pathfinding->CreatePath(origin, playerTile);
-			refreshPathTime++;
-			originSelected = false;
-			/*if (refreshPathTime >= 150)
-				originSelected = false;*/
-			MovementDirection(origin, playerTile);
-		}
-		else
-		{
-			origin.x = pbody->body->GetPosition().x;
-			origin.y = pbody->body->GetPosition().y;
-			originSelected = true;
-			app->pathfinding->ClearLastPath();
-			refreshPathTime = 0;
-		}
-
+		app->pathfinding->CreatePath(origin, playerTile);
+		refreshPathTime++;
+		originSelected = false;
+		/*if (refreshPathTime >= 150)
+			originSelected = false;*/
+		MovementDirection(origin, playerTile);
 	}
 	else
 	{
+		velocity = { 0, 0 };
+		origin.x = pbody->body->GetPosition().x;
+		origin.y = pbody->body->GetPosition().y;
+		originSelected = true;
 		app->pathfinding->ClearLastPath();
 		refreshPathTime = 0;
 	}
@@ -250,6 +242,7 @@ void BatEnemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::WATER:
 		LOG("Collision WATER");
+		dead = true;
 		break;
 	case ColliderType::ENEMY:
 		LOG("Collision ENEMY");

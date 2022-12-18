@@ -140,17 +140,6 @@ bool SlimeEnemy::Update()
 	//Takes player pos for the path destination
 	iPoint playerTile = app->map->WorldToMap(app->scene->player->position.x + 32, app->scene->player->position.y);
 
-	//Check if the enemy is visible on camera, if not, don't create path and don't move
-	/*if (pbody->body->GetPosition().x > app->render->camera.x - app->render->camera.w/2 && pbody->body->GetPosition().x < app->render->camera.x + app->render->camera.w/2)
-	{
-		
-	}
-	else 
-	{
-		app->pathfinding->ClearLastPath();
-		refreshPathTime = 0;
-	}*/
-	
 	//Calculates distance between slime and player for detection range
 	float distance = playerTile.x - origin.x;
 
@@ -166,15 +155,14 @@ bool SlimeEnemy::Update()
 	}
 	else
 	{
+		velocity = { 0, 0 };
 		origin.x = pbody->body->GetPosition().x;
 		origin.y = pbody->body->GetPosition().y;
 		originSelected = true;
 		app->pathfinding->ClearLastPath();
 		refreshPathTime = 0;
 	}
-
-	//MovementDirection(origin, playerTile);
-
+	
 	if(jump == false)
 		pbody->body->SetLinearVelocity(velocity);
 	else if(jump == true)
