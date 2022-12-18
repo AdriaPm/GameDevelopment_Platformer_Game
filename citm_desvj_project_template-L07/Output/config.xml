@@ -56,6 +56,12 @@
 	<bat x="500" y="500" texturepath="Assets/Textures/Bat/Bat_Full.png"/>
   </scene>
 
+  <player>
+	 <SFXset jumpSFXPath="Assets/Audio/Fx/jump.wav" dieSFXPath="Assets/Audio/Fx/death.wav" hurtSFXPath="Assets/Audio/Fx/hurt.wav"
+			 pickCoinSFX="Assets/Audio/Fx/pick_coin.wav" levelCompletedSFXPath="Assets/Audio/Fx/level_completed.wav" selectSFXPath="Assets/Audio/Fx/select.wav"
+			 shortRangeAttackSFXPath="Assets/Audio/Fx/whip_attack.wav"/>
+  </player>
+	
   <ending>
 	 <backgroundimage texturepath="Assets/Textures/EndingScreen.png"/>
 	 <music musicPath="Assets/Audio/Music/gameOver.ogg"/>

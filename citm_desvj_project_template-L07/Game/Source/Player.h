@@ -52,12 +52,19 @@ public:
 
 	//Set of SFX
 	uint jumpSFX = 0;
+	const char* jumpSFXPath;
 	uint dieSFX = 0;
+	const char* dieSFXPath;
 	uint hurtSFX = 0;
+	const char* hurtSFXPath;
 	uint pickCoinSFX = 0;
+	const char* pickCoinSFXPath;
 	uint levelCompletedSFX = 0;
+	const char* levelCompletedSFXPath;
 	uint selectSFX = 0;
+	const char* selectSFXPath;
 	uint shortRangeAttackSFX = 0;
+	const char* shortRangeAttackSFXPath;
 
 	bool onGround = false;
 	bool dead = false;

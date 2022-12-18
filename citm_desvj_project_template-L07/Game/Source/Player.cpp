@@ -85,14 +85,22 @@ bool Player::Start() {
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 
+	jumpSFXPath = app->configNode.child("player").child("SFXset").attribute("jumpSFXPath").as_string();
+	dieSFXPath = app->configNode.child("player").child("SFXset").attribute("dieSFXPath").as_string();
+	hurtSFXPath = app->configNode.child("player").child("SFXset").attribute("hurtSFXPath").as_string();
+	pickCoinSFXPath = app->configNode.child("player").child("SFXset").attribute("pickCoinSFXPath").as_string();
+	levelCompletedSFXPath = app->configNode.child("player").child("SFXset").attribute("levelCompletedSFXPath").as_string();
+	selectSFXPath = app->configNode.child("player").child("SFXset").attribute("selectSFXPath").as_string();
+	shortRangeAttackSFXPath = app->configNode.child("player").child("SFXset").attribute("shortRangeAttackSFXPath").as_string();
+
 	// Loading the set of SFX, BETTER HERE FOR ENABLE/DISABLE
-	jumpSFX = app->audio->LoadFx("Assets/Audio/Fx/jump.wav");
-	dieSFX = app->audio->LoadFx("Assets/Audio/Fx/death.wav");
-	hurtSFX = app->audio->LoadFx("Assets/Audio/Fx/hurt.wav");
-	pickCoinSFX = app->audio->LoadFx("Assets/Audio/Fx/pick_coin.wav");
-	levelCompletedSFX = app->audio->LoadFx("Assets/Audio/Fx/level_completed.wav");
-	selectSFX = app->audio->LoadFx("Assets/Audio/Fx/select.wav");
-	shortRangeAttackSFX = app->audio->LoadFx("Assets/Audio/Fx/whip_attack.wav");
+	jumpSFX = app->audio->LoadFx(jumpSFXPath);
+	dieSFX = app->audio->LoadFx(dieSFXPath);
+	hurtSFX = app->audio->LoadFx(hurtSFXPath);
+	pickCoinSFX = app->audio->LoadFx(pickCoinSFXPath);
+	levelCompletedSFX = app->audio->LoadFx(levelCompletedSFXPath);
+	selectSFX = app->audio->LoadFx(selectSFXPath);
+	shortRangeAttackSFX = app->audio->LoadFx(shortRangeAttackSFXPath);
 
 	currentAnim = &idlePlayer;
 	dead = false;
