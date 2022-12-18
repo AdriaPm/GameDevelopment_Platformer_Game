@@ -162,7 +162,10 @@ bool Scene::Update(float dt)
 
 	// Cap FPS to 30
 	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+	{
 		capTo30fps = !capTo30fps;
+		app->audio->PlayFx(selectSFX);
+	}
 
 	// Draw map
 	app->map->Draw();
