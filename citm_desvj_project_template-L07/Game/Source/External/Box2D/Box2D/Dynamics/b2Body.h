@@ -181,6 +181,10 @@ public:
 	/// Set the linear velocity of the center of mass.
 	/// @param v the new linear velocity of the center of mass.
 	void SetLinearVelocity(const b2Vec2& v);
+	
+	/// Set the linear velocity of the center of mass.
+	/// @param v the new linear velocity of the center of mass.
+	void SetLinearVelocityX(const float& v);
 
 	/// Get the linear velocity of the center of mass.
 	/// @return the linear velocity of the center of mass.
@@ -509,6 +513,21 @@ inline void b2Body::SetLinearVelocity(const b2Vec2& v)
 	}
 
 	m_linearVelocity = v;
+}
+
+inline void b2Body::SetLinearVelocityX(const float& v)
+{
+	if (m_type == b2_staticBody)
+	{
+		return;
+	}
+
+	if (v > 0.0f)
+	{
+		SetAwake(true);
+	}
+
+	m_linearVelocity.x = v;
 }
 
 inline const b2Vec2& b2Body::GetLinearVelocity() const

@@ -169,53 +169,39 @@ bool Player::Update()
 				fliped = SDL_FLIP_NONE;
 			}
 		}
-
+		pbody->body->SetLinearVelocity(velocity);
 
 	}
 	else if(godMode == false && dead == false)
 	{
-		velocity = { 0, -GRAVITY_Y };
+		//velocity = { 0, -GRAVITY_Y };
+		velocity.y = -GRAVITY_Y;
 
 		//L02: DONE 4: modify the position of the player using arrow keys and render the texture
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 
 			longPress = false;
-
-			if (onGround == true) {
+			if (jumping == false) {
+				jumpingTime = 0;
 				jumping = true;
-				jumpingTime = 0;
-
-				app->audio->PlayFx(jumpSFX);
 			}
-			else if (onGround == false && jumpCount > 1 && jumping == true) {
-				jumpingTime = 0;
+			
+			if (jumpingTime <= 50 && jumpCount > 0) {
 				Jump();
 				jumpCount--;
-
-				app->audio->PlayFx(jumpSFX);
+				LOG("Jump Count = %d", jumpCount);
 			}
-
-			onGround = false;
-		}
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
-
-			longPress = true;
-
-			if (onGround == true) {
-				jumping = true;
-				jumpingTime = 0;
-
-				app->audio->PlayFx(jumpSFX);
-			}
-
-			onGround = false;
+			
 		}
 
 		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 
 			isFliped = true;
 
-			velocity.x = -5;
+			/*if (jumping == true)
+				velocity.x = -2;
+			else*/
+				velocity.x = -5;
 
 			if (isFliped == true && fliped == SDL_FLIP_NONE) {
 				fliped = SDL_FLIP_HORIZONTAL;
@@ -226,14 +212,19 @@ bool Player::Update()
 		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 			isFliped = false;
 	
-
-			velocity.x = 5;
+			/*if(jumping==true)
+				velocity.x = 2;
+			else*/
+				velocity.x = 5;
 
 			if (isFliped == false && fliped == SDL_FLIP_HORIZONTAL) {
 				fliped = SDL_FLIP_NONE;
 			}
 			currentAnim = &runPlayer;
 
+		}
+		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE) {
+			velocity.x = 0;
 		}
 
 		//Reset player position input
@@ -268,15 +259,23 @@ bool Player::Update()
 		timeToAttack++;
 
 		//Jumping Function
-		if (jumping == true && jumpingTime <= 12) {
+		/*if (jumping == true && jumpingTime <= 12) {
 			Jump();
 		}
-
-
+		else*/
+		
+		if (jumping == false) {
+			pbody->body->SetLinearVelocity(velocity);
+		}
+		else if (jumping == true) {
+			pbody->body->SetLinearVelocityX(velocity.x);
+			jumpingTime++;
+		}
+		
 		longPress = false;
 	}
 
-	pbody->body->SetLinearVelocity(velocity);
+	
 	
 	// Link player's texture with pbody when moving, if player's dies then stop motion
 	if (dead == true) {
@@ -326,12 +325,11 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
-		jumpVel = GRAVITY_Y;
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) != KEY_REPEAT) {
-			onGround = true;
+		if (jumping == true) {
+			jumpCount = 2;
 			jumping = false;
+			jumpingTime = 0;
 		}
-		jumpCount = 2;
 		break;
 	case ColliderType::WATER:
 		LOG("Collision WATER");
@@ -426,17 +424,12 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 }
 
 void Player::Jump() {
-	velocity.y = jumpVel;
+	
+	jumping = true;
 
-	//Mini Jump
-	if (longPress == true)
-		jumpVel = -15.0f;
-	else if(jumpCount == 0)
-		jumpVel = -20.0f;
-	else
-		jumpVel = -5.0f;
+	pbody->body->ApplyLinearImpulse({ 0, -1.5 }, pbody->body->GetWorldCenter(), true);
 
-	jumpingTime++;
+	
 }
 
 void Player::Attack() {
