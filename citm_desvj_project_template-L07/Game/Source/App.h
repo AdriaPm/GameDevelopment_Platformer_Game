@@ -32,6 +32,7 @@ class EndingScreen;
 class Physics;
 class PathFinding;
 class Animation;
+class GuiManager;
 
 class App
 {
@@ -117,6 +118,7 @@ public:
 	//L07 TODO 2: Add Physics module
 	Physics* physics;
 	PathFinding* pathfinding;
+	GuiManager* guiManager;
 
 	// L01: DONE 2: Create new variables from pugui namespace:
 	// xml_document to store the config file and

@@ -100,6 +100,8 @@
     <ClCompile Include="Source\EndingScreen.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\Fonts.cpp" />
+    <ClCompile Include="Source\GuiButton.cpp" />
+    <ClCompile Include="Source\GuiManager.cpp" />
     <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\LogoScreen.cpp" />
     <ClCompile Include="Source\Main.cpp" />
@@ -126,6 +128,9 @@
     <ClInclude Include="Source\Coin.h" />
     <ClInclude Include="Source\EndingScreen.h" />
     <ClInclude Include="Source\Fonts.h" />
+    <ClInclude Include="Source\GuiButton.h" />
+    <ClInclude Include="Source\GuiControl.h" />
+    <ClInclude Include="Source\GuiManager.h" />
     <ClInclude Include="Source\ModuleController.h" />
     <ClInclude Include="Source\PerfTimer.h" />
     <ClInclude Include="Source\SlimeEnemy.h" />

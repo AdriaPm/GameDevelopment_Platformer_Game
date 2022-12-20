@@ -73,6 +73,11 @@ public:
 
 	}
 	
+	virtual bool OnGuiMouseClickEvent(GuiControl* control)
+	{
+		return true;
+	}
+
 	void Enable() {
 		if (!active)
 		{

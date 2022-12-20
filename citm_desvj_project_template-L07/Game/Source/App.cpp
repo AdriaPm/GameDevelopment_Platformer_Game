@@ -16,6 +16,9 @@
 #include "UI.h"
 #include "Fonts.h"
 #include "ModuleController.h"
+#include "GuiManager.h"
+#include "GuiButton.h"
+#include "GuiControl.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -46,6 +49,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	entityManager = new EntityManager();
 	map = new Map();
 	endingscreen = new EndingScreen();
+	guiManager = new GuiManager();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -66,6 +70,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(entityManager, false);
 	AddModule(map, false);
 	AddModule(endingscreen, false);
+	AddModule(guiManager, true);
 
 	// Render last to swap buffer
 	AddModule(render, true);
