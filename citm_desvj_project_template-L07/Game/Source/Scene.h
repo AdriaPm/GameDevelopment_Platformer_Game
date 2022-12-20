@@ -7,6 +7,7 @@
 #include "Coin.h"
 #include "SlimeEnemy.h"
 #include "BatEnemy.h"
+#include "GuiButton.h"
 
 struct SDL_Texture;
 
@@ -36,6 +37,9 @@ public:
 
 	// Called before quitting
 	bool CleanUp();
+
+	// Define multiple Gui Event methods
+	bool OnGuiMouseClickEvent(GuiControl* control);
 
 	void ResetScene();
 
@@ -81,6 +85,10 @@ private:
 
 	const char* musicPath;
 	const char* selectSFXPath;
+
+	// Declare a GUI Button and create it using the GuiManager
+	GuiButton* btn1;
+	GuiButton* btn2;
 };
 
 #endif // __SCENE_H__

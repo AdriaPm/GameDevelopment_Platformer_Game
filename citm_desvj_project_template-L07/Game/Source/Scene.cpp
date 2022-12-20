@@ -12,6 +12,7 @@
 #include "ModuleFadeToBlack.h"
 #include "EndingScreen.h"
 #include "UI.h"
+#include "GuiManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -110,6 +111,12 @@ bool Scene::Start()
 
 	app->win->SetTitle(title.GetString());*/
 
+	// L15: TODO 2: Declare a GUI Button and create it using the GuiManager
+	uint w, h;
+	app->win->GetWindowSize(w, h);
+	btn1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Test1", { ((int)w / 2) - 80, (int)w / 10,     190, 66 }, this);
+	btn2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Test2", { ((int)w / 2) - 80, (int)w / 10 * 2, 190, 66 }, this);
+
 	ResetScene();
 
 	return true;
@@ -169,6 +176,9 @@ bool Scene::Update(float dt)
 
 	// Draw map
 	app->map->Draw();
+
+	//L15: Draw GUI
+	app->guiManager->Draw();
 
 	//Blit UI
 	app->ui->BlitCoins();
@@ -246,16 +256,23 @@ bool Scene::PostUpdate()
 	return ret;
 }
 
+bool Scene::OnGuiMouseClickEvent(GuiControl* control)
+{
+	// L15: TODO 5: Implement the OnGuiMouseClickEvent method
+
+
+	return true;
+}
+
 // Called before quitting
 bool Scene::CleanUp()
 {
 	LOG("Freeing GAME SCENE");
-
 	app->entityManager->Disable();
 	app->pathfinding->Disable();
 	app->physics->Disable();
 	//app->map->Disable();
-
+	
 
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
