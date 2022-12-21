@@ -86,7 +86,7 @@ bool GuiButton::Draw(Render* render)
 	{
 		SDL_Rect rect = { 0,141,190,66 };
 		render->DrawTexture(buttonTex, bounds.x, bounds.y, &rect);
-		render->DrawRectangle(bounds, 255, 255, 255, 200);
+		render->DrawRectangle(bounds, 255, 255, 255, 0);
 
 	} break;
 
