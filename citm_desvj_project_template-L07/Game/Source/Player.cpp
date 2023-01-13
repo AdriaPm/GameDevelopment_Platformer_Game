@@ -198,10 +198,8 @@ bool Player::Update()
 
 			isFliped = true;
 
-			/*if (jumping == true)
-				velocity.x = -2;
-			else*/
-				velocity.x = -5;
+			
+			velocity.x = -5;
 
 			if (isFliped == true && fliped == SDL_FLIP_NONE) {
 				fliped = SDL_FLIP_HORIZONTAL;
@@ -212,10 +210,7 @@ bool Player::Update()
 		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 			isFliped = false;
 	
-			/*if(jumping==true)
-				velocity.x = 2;
-			else*/
-				velocity.x = 5;
+			velocity.x = 5;
 
 			if (isFliped == false && fliped == SDL_FLIP_HORIZONTAL) {
 				fliped = SDL_FLIP_NONE;
@@ -257,12 +252,6 @@ bool Player::Update()
 		}
 		Attack();
 		timeToAttack++;
-
-		//Jumping Function
-		/*if (jumping == true && jumpingTime <= 12) {
-			Jump();
-		}
-		else*/
 		
 		if (jumping == false) {
 			pbody->body->SetLinearVelocity(velocity);
@@ -427,7 +416,7 @@ void Player::Jump() {
 	
 	jumping = true;
 
-	pbody->body->ApplyLinearImpulse({ 0, -1.5 }, pbody->body->GetWorldCenter(), true);
+	pbody->body->ApplyLinearImpulse({ 0, -1.4 }, pbody->body->GetWorldCenter(), true);
 
 	
 }
