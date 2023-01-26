@@ -107,10 +107,7 @@ bool Scene::Start()
 	// Texture to show path origin 
 	originTex = app->tex->Load(origintexturePath);
 
-	/*SString title("Misco Jones Adventures by ADVENTURES JOKES STUDIO");
-
-	app->win->SetTitle(title.GetString());*/
-
+	
 	// L15: TODO 2: Declare a GUI Button and create it using the GuiManager
 	uint w, h;
 	app->win->GetWindowSize(w, h);
