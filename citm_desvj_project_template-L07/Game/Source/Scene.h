@@ -80,13 +80,14 @@ public:
 	bool gamePaused = false;
 
 private:
-	SDL_Texture* img;
+	SDL_Texture* img_pause;
 	iPoint startPosition;
 	
 	// L12: Debug pathfing
 	iPoint origin;
 	bool originSelected = false;
 
+	const char* imgPausePath;
 	const char* musicPath;
 	const char* selectSFXPath;
 

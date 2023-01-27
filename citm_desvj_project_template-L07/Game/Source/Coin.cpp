@@ -46,25 +46,33 @@ bool Coin::Update()
 {
 	// Link item's texture with pbody when moving
 	
+	if (app->scene->gamePaused != true)
+	{
+		if (timeMov <= 50)
+			velocity.y = .5f;
+		else if (timeMov <= 100) {
+			velocity.y = -.5f;
+		}
+		else
+			timeMov = 0;
 
-	if (timeMov <= 50)
-		velocity.y = .5f;
-	else if (timeMov <= 100) {
-		velocity.y = -.5f;
+		timeMov++;
+
+
+		pbody->body->SetLinearVelocity(velocity);
+
+		position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x - (width / 2));
+		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y - (height / 2));
 	}
-	else
-		timeMov = 0;
 
+	if(app->scene->gamePaused==true)
+		pbody->body->SetLinearVelocity({0,0});
 
-	timeMov++;
-
-	pbody->body->SetLinearVelocity(velocity);
-
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x - (width / 2));
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y - (height / 2));
-
-	if (isPicked == false)
-		app->render->DrawTexture(texture, position.x, position.y);
+	if (app->scene->gamePaused != true)
+	{
+		if (isPicked == false)
+			app->render->DrawTexture(texture, position.x, position.y);
+	}
 
 	if (isPicked == true) 
 	{

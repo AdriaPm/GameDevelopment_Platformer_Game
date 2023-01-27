@@ -46,6 +46,7 @@
 		<originTexture origintexturePath = "Assets/Maps/x.png" />
 		<pathfinding  slimePathTile="Assets/Textures/Slime/path.png" />
 		<music musicPath="Assets/Audio/Music/song1.ogg" />
+		<imgPause imgPausePath="Assets/Textures/PopScreen_pause.png"/>
 		<scenesfx selectSFXPath="Assets/Audio/Fx/select.wav" />
 		<slimesfx stompSFXPath="Assets/Audio/Fx/stomp.wav" powerUpSFXPath="Assets/Audio/Fx/powerUp.wav" slimeHitSFXPath="Assets/Audio/Fx/slime_hit.wav" />
 		<batsfx batHitSFXPath="Assets/Audio/Fx/bat_hit.wav"/>

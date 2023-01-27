@@ -46,6 +46,7 @@ bool Scene::Start()
 	slimeTilePath = app->configNode.child("scene").child("pathfinding").attribute("slimePathTile").as_string();
 	musicPath = app->configNode.child("scene").child("music").attribute("musicPath").as_string();
 	selectSFXPath = app->configNode.child("scene").child("scenesfx").attribute("selectSFXPath").as_string();
+	imgPausePath = app->configNode.child("scene").child("imgPause").attribute("imgPausePath").as_string();
 
 	// Iterate all objects in the scene
 	// Check https://pugixml.org/docs/quickstart.html#access
@@ -113,6 +114,7 @@ bool Scene::Start()
 	// Texture to show path origin 
 	originTex = app->tex->Load(origintexturePath);
 
+	img_pause = app->tex->Load(imgPausePath);
 	
 	// L15: TODO 2: Declare a GUI Button and create it using the GuiManager
 	uint w, h;
@@ -137,10 +139,16 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN)
 	{
 		gamePaused = !gamePaused;
+		
+		Mix_PauseMusic();
 	}
+
+	
 
 	if (gamePaused != true)
 	{
+		Mix_ResumeMusic();
+
 		// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
 		if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		{
@@ -207,6 +215,16 @@ bool Scene::Update(float dt)
 		app->ui->BlitTimeSinceStart();
 		app->ui->BlitFrameCount();
 	}
+
+	if (gamePaused == true)
+	{
+		// Display pause menu
+
+		app->render->DrawTexture(img_pause, 0, 0, NULL);
+
+
+	}
+
 
 	return true;
 }

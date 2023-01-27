@@ -279,10 +279,13 @@ bool Player::Update()
 		pbody->body->SetAwake(false);
 	}
 
-	SDL_Rect rect = currentAnim->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x, position.y, &rect, fliped);
-	currentAnim->Update();
-	
+	if (app->scene->gamePaused != true) 
+	{
+		SDL_Rect rect = currentAnim->GetCurrentFrame();
+		app->render->DrawTexture(texture, position.x, position.y, &rect, fliped);
+		currentAnim->Update();
+	}
+
 
 	return true;
 }
