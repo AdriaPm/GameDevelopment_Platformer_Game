@@ -59,6 +59,8 @@ public:
 	const char* hurtSFXPath;
 	uint pickCoinSFX = 0;
 	const char* pickCoinSFXPath;
+	uint pickLifeSFX = 0;
+	const char* pickLifeSFXPath;
 	uint levelCompletedSFX = 0;
 	const char* levelCompletedSFXPath;
 	uint selectSFX = 0;
@@ -78,7 +80,7 @@ public:
 
 	int coins = 0;
 
-	int lives = 3;
+	float lives = 3;
 
 	//Attack Variables
 	const int cooldownTime = 60;		//Cooldown time --> 60 ticks = 1 seconds (if fps=60)

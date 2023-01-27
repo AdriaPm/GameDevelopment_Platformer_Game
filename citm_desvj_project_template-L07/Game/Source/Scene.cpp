@@ -54,6 +54,12 @@ bool Scene::Start()
 		coin = (Coin*)app->entityManager->CreateEntity(EntityType::COIN);
 		coin->parameters = itemNode;
 	}
+	
+	for (pugi::xml_node itemNode = app->configNode.child("scene").child("life"); itemNode; itemNode = itemNode.next_sibling("life"))
+	{
+		item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+		item->parameters = itemNode;
+	}
 
 	//L02: DONE 3: Instantiate the player using the entity manager
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);

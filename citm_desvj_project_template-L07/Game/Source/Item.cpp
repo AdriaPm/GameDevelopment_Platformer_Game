@@ -27,6 +27,7 @@ bool Item::Start() {
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
 	texturePath = parameters.attribute("texturepath").as_string();
+	iType = parameters.attribute("iType").as_string();
 
 	width = 32;
 	height = 32;
@@ -34,6 +35,9 @@ bool Item::Start() {
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 	
+	if (iType == "life")
+		lifeRect = {32, 0, 32, 32};
+
 	// L07 TODO 4: Add a physics to an item - initialize the physics body
 	pbody = app->physics->CreateCircle(position.x, position.y, width/3, bodyType::KINEMATIC, ColliderType::ITEM);
 
@@ -45,7 +49,7 @@ bool Item::Start() {
 bool Item::Update()
 {
 	// Link item's texture with pbody when moving
-	
+
 
 	if (timeMov <= 50)
 		velocity.y = .5f;
@@ -63,14 +67,25 @@ bool Item::Update()
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x - (width / 2));
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y - (height / 2));
 
+	if (isPicked == false) {
+		if(iType == "life")
+			app->render->DrawTexture(texture, position.x, position.y, &lifeRect);
+		else
+			app->render->DrawTexture(texture, position.x, position.y);
+	}
+		
+
+	if (isPicked == true)
+	{
+		app->entityManager->DestroyEntity(this);
+		app->physics->world->DestroyBody(pbody->body);
+	}
+
 	return true;
 }
 
 bool Item::PostUpdate()
 {
-
-	// L07 TODO 4: Add a physics to an item - update the position of the object from the physics.  
-	app->render->DrawTexture(texture, position.x, position.y);
 
 	return true;
 }
@@ -92,4 +107,10 @@ void Item::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	}
 
+}
+
+void Item::ResetItem() {
+	SDL_SetTextureAlphaMod(texture, 1);
+	pbody->body->SetActive(true);
+	isPicked = false;
 }

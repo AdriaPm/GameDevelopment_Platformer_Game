@@ -27,18 +27,22 @@ public:
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
+	void ResetItem();
+
 public:
 
 	bool isPicked = false;
 
 	//TODO 4: Add a physics to an item
 	PhysBody* pbody;
+	SString iType;
 
 private:
 
 	SDL_Texture* texture;
 	const char* texturePath;
 
+	SDL_Rect lifeRect;
 	
 	b2Vec2 velocity;
 

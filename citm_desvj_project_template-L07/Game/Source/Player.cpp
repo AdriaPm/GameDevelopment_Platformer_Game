@@ -98,6 +98,7 @@ bool Player::Start() {
 	dieSFX = app->audio->LoadFx(dieSFXPath);
 	hurtSFX = app->audio->LoadFx(hurtSFXPath);
 	pickCoinSFX = app->audio->LoadFx(pickCoinSFXPath);
+	pickLifeSFX = app->audio->LoadFx(pickCoinSFXPath);
 	levelCompletedSFX = app->audio->LoadFx(levelCompletedSFXPath);
 	selectSFX = app->audio->LoadFx(selectSFXPath);
 	shortRangeAttackSFX = app->audio->LoadFx(shortRangeAttackSFXPath);
@@ -305,6 +306,11 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
+		if (app->scene->item->iType == "life")
+		{
+			app->audio->PlayFx(pickLifeSFX);
+			lives += 0.5f;
+		}
 		break;
 	case ColliderType::COIN:
 		LOG("Collision COIN");
@@ -416,7 +422,7 @@ void Player::Jump() {
 	
 	jumping = true;
 
-	pbody->body->ApplyLinearImpulse({ 0, -1.4 }, pbody->body->GetWorldCenter(), true);
+	pbody->body->ApplyLinearImpulse({ 0, -1.8 }, pbody->body->GetWorldCenter(), true);
 
 	
 }

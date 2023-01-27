@@ -84,7 +84,7 @@ bool UI::CleanUp()
 void UI::BlitLives()
 {
 	char playerLives[20];
-	sprintf_s(playerLives, 20, "lives: %d", app->scene->player->lives);
+	sprintf_s(playerLives, 20, "lives: %.1f", app->scene->player->lives);
 	app->fonts->BlitText(20, 15, font2_id, playerLives);
 }
 
