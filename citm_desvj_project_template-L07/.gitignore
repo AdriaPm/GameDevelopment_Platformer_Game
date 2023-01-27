@@ -32,6 +32,9 @@
 !Game/Source/External/Box2D/libx86/DebugLib/Box2D.pdb
 !Game/Source/External/Box2D/libx86/ReleaseLib/Box2D.lib
 !Game/Source/External/Box2D/libx86/ReleaseLib/Box2D.pdb
+!Game/Source/External/Optick/lib/debugLib/OptickCore.lib
+!Game/Source/External/Optick/lib/releaseLib/OptickCore.lib
+!Game/Source/External/SDL_ttf/libx86/SDL2_ttf.lib
 
 # Executables
 *.exe
