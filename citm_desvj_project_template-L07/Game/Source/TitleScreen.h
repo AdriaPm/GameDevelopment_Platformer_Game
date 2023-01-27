@@ -39,6 +39,7 @@ public:
 
 public:
 	uint startSFX = 0;
+	uint menuSelectionSFX = 0;
 
 	// Declare a GUI Button and create it using the GuiManager
 	GuiButton* playButton1;
@@ -72,6 +73,7 @@ private:
 	const char* popImgCreditsPath;
 	const char* musicPath;
 	const char* startSFXPath;
+	const char* selectSFXPath;
 
 	bool exitGame = false;
 

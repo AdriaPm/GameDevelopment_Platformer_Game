@@ -34,7 +34,6 @@ bool GuiButton::Update(float dt)
 {
 	if (state != GuiControlState::DISABLED)
 	{
-
 		// L15: TODO 3: Update the state of the GUiButton according to the mouse position
 		app->input->GetMousePosition(mouseX, mouseY);
 
@@ -51,12 +50,13 @@ bool GuiButton::Update(float dt)
 					app->fonts->BlitText(this->bounds.x + (this->bounds.w / 4.5), (this->bounds.y + 2) + (this->bounds.h / 3), app->ui->font1_id, this->text);
 				else if (textSize > 8 && textSize <= 12)
 					app->fonts->BlitText(this->bounds.x + (this->bounds.w / 5), (this->bounds.y + 2) + (this->bounds.h / 3), app->ui->font1_id, this->text);
+			
 			}
 
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
 			{
 				state = GuiControlState::PRESSED;
-
+			
 				if (app->titlescreen->settingMenu == false && app->titlescreen->creditsMenu == false)
 				{
 					if (textSize <= 5)
@@ -78,7 +78,7 @@ bool GuiButton::Update(float dt)
 		}
 		else {
 			state = GuiControlState::NORMAL;
-
+			
 			if (app->titlescreen->settingMenu == false && app->titlescreen->creditsMenu == false)
 			{
 				if (textSize <= 5)

@@ -54,6 +54,7 @@ bool TitleScreen::Start()
 	popImgCreditsPath = app->configNode.child("title").child("popImage").attribute("creditstexturepath").as_string();
 	musicPath = app->configNode.child("title").child("music").attribute("musicPath").as_string();
 	startSFXPath = app->configNode.child("title").child("startsfx").attribute("startSFXPath").as_string();
+	selectSFXPath = app->configNode.child("title").child("selectsfx").attribute("selectSFXPath").as_string();
 
 	/*Load*/
 	img = app->tex->Load(imgPath);
@@ -61,6 +62,7 @@ bool TitleScreen::Start()
 	popImg_credits = app->tex->Load(popImgCreditsPath);
 	app->audio->PlayMusic(musicPath);
 	startSFX = app->audio->LoadFx(startSFXPath);
+	menuSelectionSFX = app->audio->LoadFx(selectSFXPath);
 
 	app->physics->debug = false;
 	settingMenu = false;
@@ -241,6 +243,7 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 			creditsButton3->state = GuiControlState::NORMAL;
 			exitButton4->state = GuiControlState::NORMAL;
 		}
+		app->audio->PlayFx(menuSelectionSFX);
 		break;
 
 	case 3:
@@ -254,6 +257,7 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 			creditsButton3->state = GuiControlState::NORMAL;
 			exitButton4->state = GuiControlState::NORMAL;
 		}
+		app->audio->PlayFx(menuSelectionSFX);
 		break;
 
 	case 8:
@@ -264,6 +268,7 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 		if (app->musicValue >= 100)
 			app->musicValue = 100;
 		Mix_VolumeMusic(app->musicValue);
+		app->audio->PlayFx(menuSelectionSFX);
 		break;
 
 	case 9:
@@ -274,6 +279,7 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 		if (app->musicValue >= 100)
 			app->musicValue = 100;
 		Mix_VolumeMusic(app->musicValue);
+		app->audio->PlayFx(menuSelectionSFX);
 		break;
 
 	case 10:
@@ -284,6 +290,7 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 		if (app->sfxValue >= 100)
 			app->sfxValue = 100;
 		Mix_Volume(-1, app->sfxValue);
+		app->audio->PlayFx(menuSelectionSFX);
 		break;
 
 	case 11:
@@ -294,6 +301,7 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 		if (app->sfxValue >= 100)
 			app->sfxValue = 100;
 		Mix_Volume(-1, app->sfxValue);
+		app->audio->PlayFx(menuSelectionSFX);
 		break;
 
 	case 12:
@@ -307,23 +315,21 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_SHOWN);
 		}
+		app->audio->PlayFx(menuSelectionSFX);
 		break;
-
-
 
 	case 13:
 		// V-Sync button
 		app->render->limitFPS = !app->render->limitFPS;
-
-
+		app->audio->PlayFx(menuSelectionSFX);
 		break;
 
 	case 4:
 		// Exit button
 		exitGame = !exitGame;
+		app->audio->PlayFx(menuSelectionSFX);
 		break;
 
-	
 
 	default:
 		break;

@@ -37,6 +37,7 @@
 		<popImage settingtexturepath="Assets/Textures/PopScreen_settings.png" creditstexturepath="Assets/Textures/PopScreen_credits.png"/>
 		<music musicPath="Assets/Audio/Music/title_screen.ogg"/>
 		<startsfx startSFXPath="Assets/Audio/Fx/start_game.wav"/>
+		<selectsfx selectSFXPath="Assets/Audio/FX/menu_selection.wav"/>
 	</title>
 
 	<!-- L02: DONE: Add an element for the entity manager and add the player parameters -->
