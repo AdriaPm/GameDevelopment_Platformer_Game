@@ -75,6 +75,7 @@ public:
 	SDL_Texture* slimeTilePathTex = nullptr;
 	const char* slimeTilePath;
 
+	GuiButton* btn1;
 private:
 	SDL_Texture* img;
 	iPoint startPosition;
@@ -87,7 +88,7 @@ private:
 	const char* selectSFXPath;
 
 	// Declare a GUI Button and create it using the GuiManager
-	GuiButton* btn1;
+	//GuiButton* btn1;
 	GuiButton* btn2;
 };
 

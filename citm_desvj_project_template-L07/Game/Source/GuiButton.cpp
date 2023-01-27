@@ -3,6 +3,8 @@
 #include "App.h"
 #include "Audio.h"
 #include "Textures.h"
+#include "TitleScreen.h"
+#include "Scene.h"
 
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
 {
@@ -12,7 +14,11 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(
 	canClick = true;
 	drawBasic = false;
 
-	buttonTex = app->tex->Load("Assets/Textures/button_texture_atlas.png");
+	//Load gui button atlas texture
+	buttonTexPath = app->configNode.child("gui").child("guiButtons").attribute("buttonsTexPath").as_string();
+	buttonTex = app->tex->Load(buttonTexPath);
+
+	//buttonTex = app->tex->Load("Assets/Textures/button_texture_atlas.png");
 
 }
 
@@ -69,7 +75,7 @@ bool GuiButton::Draw(Render* render)
 	case GuiControlState::NORMAL:
 	{
 		//render->DrawRectangle(bounds, 255, 0, 0, 255);
-		SDL_Rect rect = {0,70,190,66};
+		SDL_Rect rect = { 0,29,93,29 };
 		render->DrawTexture(buttonTex, bounds.x, bounds.y, &rect);
 
 	} break;
@@ -78,19 +84,21 @@ bool GuiButton::Draw(Render* render)
 	case GuiControlState::FOCUSED:
 	{
 		//render->DrawRectangle(bounds, 255, 255, 255, 160);
-		SDL_Rect rect = { 0,0,190,66 };
+		SDL_Rect rect = { 0,57,93,29 };
 		render->DrawTexture(buttonTex, bounds.x, bounds.y, &rect);
 
 	} break;
 	case GuiControlState::PRESSED:
 	{
-		SDL_Rect rect = { 0,141,190,66 };
+		SDL_Rect rect = { 0,0,93,29 };
 		render->DrawTexture(buttonTex, bounds.x, bounds.y, &rect);
 		render->DrawRectangle(bounds, 255, 255, 255, 0);
 
 	} break;
 
-	case GuiControlState::SELECTED: render->DrawRectangle(bounds, 0, 255, 0, 255);
+	case GuiControlState::SELECTED: 
+		render->DrawRectangle(bounds, 0, 255, 0, 255);
+		
 		break;
 
 	default:

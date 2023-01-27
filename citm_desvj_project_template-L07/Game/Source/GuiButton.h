@@ -23,7 +23,7 @@ public:
 	bool drawBasic = false;
 
 	SDL_Texture* buttonTex;
-
+	const char* buttonTexPath;
 };
 
 #endif // __GUIBUTTON_H__

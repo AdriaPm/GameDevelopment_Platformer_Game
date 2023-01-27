@@ -111,8 +111,8 @@ bool Scene::Start()
 	// L15: TODO 2: Declare a GUI Button and create it using the GuiManager
 	uint w, h;
 	app->win->GetWindowSize(w, h);
-	btn1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Test1", { ((int)w / 2) - 80, (int)w / 10,     190, 66 }, this);
-	btn2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Test2", { ((int)w / 2) - 80, (int)w / 10 * 2, 190, 66 }, this);
+	/*btn1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 10, "Test1", { ((int)w / 2) - 80, (int)w / 10,     93, 29 }, this);
+	btn2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 11, "Test2", { ((int)w / 2) - 80, (int)w / 10 * 2, 93, 29 }, this);*/
 
 	ResetScene();
 
@@ -174,7 +174,7 @@ bool Scene::Update(float dt)
 	// Draw map
 	app->map->Draw();
 
-	//L15: Draw GUI
+	// Draw GUI
 	app->guiManager->Draw();
 
 	//Blit UI
@@ -253,14 +253,6 @@ bool Scene::PostUpdate()
 	return ret;
 }
 
-bool Scene::OnGuiMouseClickEvent(GuiControl* control)
-{
-	// L15: TODO 5: Implement the OnGuiMouseClickEvent method
-
-
-	return true;
-}
-
 // Called before quitting
 bool Scene::CleanUp()
 {
@@ -270,9 +262,24 @@ bool Scene::CleanUp()
 	app->physics->Disable();
 	//app->map->Disable();
 	
+	//app->guiManager->guiControlsList.Clear();
 
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
+
+	return true;
+}
+
+bool Scene::OnGuiMouseClickEvent(GuiControl* control)
+{
+	// L15: TODO 5: Implement the OnGuiMouseClickEvent method
+	switch (control->id)
+	{
+	
+
+	default:
+		break;
+	}
 
 	return true;
 }

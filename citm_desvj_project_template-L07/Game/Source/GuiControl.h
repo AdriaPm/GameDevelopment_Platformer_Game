@@ -88,7 +88,7 @@ public:
 	SDL_Texture* texture;   // Texture atlas reference
 	SDL_Rect section;       // Texture atlas base section
 
-	//Font font;              // Text font
+	//Fonts font;              // Text font
 
 	Module* observer;        // Observer module (it should probably be an array/list)
 };

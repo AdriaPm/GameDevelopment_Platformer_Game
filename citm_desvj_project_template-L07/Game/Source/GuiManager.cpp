@@ -97,6 +97,12 @@ bool GuiManager::Draw() {
 
 }
 
+void GuiManager::DestroyGuiControl(GuiControl* gui)
+{
+
+
+}
+
 bool GuiManager::CleanUp()
 {
 	ListItem<GuiControl*>* control = guiControlsList.start;
