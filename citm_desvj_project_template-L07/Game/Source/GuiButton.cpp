@@ -5,11 +5,14 @@
 #include "Textures.h"
 #include "TitleScreen.h"
 #include "Scene.h"
+#include "Fonts.h"
+#include "UI.h"
 
-GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
+GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text, int textSize) : GuiControl(GuiControlType::BUTTON, id)
 {
 	this->bounds = bounds;
 	this->text = text;
+	this->textSize = textSize;
 
 	canClick = true;
 	drawBasic = false;
@@ -31,6 +34,7 @@ bool GuiButton::Update(float dt)
 {
 	if (state != GuiControlState::DISABLED)
 	{
+
 		// L15: TODO 3: Update the state of the GUiButton according to the mouse position
 		app->input->GetMousePosition(mouseX, mouseY);
 
@@ -39,9 +43,30 @@ bool GuiButton::Update(float dt)
 		{
 			state = GuiControlState::FOCUSED;
 
+			if (app->titlescreen->settingMenu == false && app->titlescreen->creditsMenu == false)
+			{
+				if (textSize <= 5)
+					app->fonts->BlitText(this->bounds.x + (this->bounds.w / 3), (this->bounds.y + 2) + (this->bounds.h / 3), app->ui->font1_id, this->text);
+				else if (textSize > 5 && textSize <= 8)
+					app->fonts->BlitText(this->bounds.x + (this->bounds.w / 4.5), (this->bounds.y + 2) + (this->bounds.h / 3), app->ui->font1_id, this->text);
+				else if (textSize > 8 && textSize <= 12)
+					app->fonts->BlitText(this->bounds.x + (this->bounds.w / 5), (this->bounds.y + 2) + (this->bounds.h / 3), app->ui->font1_id, this->text);
+			}
+
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
 			{
 				state = GuiControlState::PRESSED;
+
+				if (app->titlescreen->settingMenu == false && app->titlescreen->creditsMenu == false)
+				{
+					if (textSize <= 5)
+						app->fonts->BlitText(this->bounds.x + (this->bounds.w / 3), (this->bounds.y + 2) + (this->bounds.h / 3), app->ui->font1_id, this->text);
+					else if (textSize > 5 && textSize <= 8)
+						app->fonts->BlitText(this->bounds.x + (this->bounds.w / 4.5), (this->bounds.y + 2) + (this->bounds.h / 3), app->ui->font1_id, this->text);
+					else if (textSize > 8 && textSize <= 12)
+						app->fonts->BlitText(this->bounds.x + (this->bounds.w / 5), (this->bounds.y + 2) + (this->bounds.h / 3), app->ui->font1_id, this->text);
+				}
+
 			}
 
 			// If mouse button pressed -> Generate event!
@@ -53,8 +78,17 @@ bool GuiButton::Update(float dt)
 		}
 		else {
 			state = GuiControlState::NORMAL;
-		}
 
+			if (app->titlescreen->settingMenu == false && app->titlescreen->creditsMenu == false)
+			{
+				if (textSize <= 5)
+					app->fonts->BlitText(this->bounds.x + (this->bounds.w / 3), (this->bounds.y) + (this->bounds.h / 3), app->ui->font1_id, this->text);
+				else if (textSize > 5 && textSize <= 8)
+					app->fonts->BlitText(this->bounds.x + (this->bounds.w / 4.5), (this->bounds.y) + (this->bounds.h / 3), app->ui->font1_id, this->text);
+				else if (textSize > 8 && textSize <= 12)
+					app->fonts->BlitText(this->bounds.x + (this->bounds.w / 5), (this->bounds.y) + (this->bounds.h / 3), app->ui->font1_id, this->text);
+			}
+		}
 	}
 
 	return false;

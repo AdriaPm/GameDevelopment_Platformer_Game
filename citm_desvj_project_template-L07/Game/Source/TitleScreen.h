@@ -46,15 +46,35 @@ public:
 	GuiButton* creditsButton3;
 	GuiButton* exitButton4;
 	GuiButton* continueButton5; // Show only if there is a saved game in "save_game.xml"
+	GuiButton* closeSettingMenuButton6; // Show only if bool "settingMenu" is true
+	GuiButton* closeCreditsMenuButton7; // Show only if bool "creditsMenu" is true
+
+	GuiButton* decreaseMusicButton8;
+	GuiButton* increaseMusicButton9;
+
+	GuiButton* decreaseSFXButton10;
+	GuiButton* increaseSFXButton11;
+
+	GuiButton* fullscreenButton12;
+
+	GuiButton* vsyncButton13;
+
+	bool settingMenu = false;
+	bool creditsMenu = false;
 
 private:
 	SDL_Texture* img = nullptr;
+	SDL_Texture* popImg_settings = nullptr;
+	SDL_Texture* popImg_credits = nullptr;
 
 	const char* imgPath;
+	const char* popImgSettingsPath;
+	const char* popImgCreditsPath;
 	const char* musicPath;
 	const char* startSFXPath;
 
 	bool exitGame = false;
+
 };
 
 #endif // !__TITLESCREEN_H__

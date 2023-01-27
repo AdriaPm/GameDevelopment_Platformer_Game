@@ -126,6 +126,9 @@ public:
 	pugi::xml_document configFile;
 	pugi::xml_node configNode;
 
+
+	int musicValue = 128;
+	int sfxValue = 128;
 private:
 
 	int argc;
