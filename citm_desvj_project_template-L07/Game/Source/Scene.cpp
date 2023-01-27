@@ -160,6 +160,12 @@ bool Scene::Update(float dt)
 			app->LoadGameRequest();
 			app->audio->PlayFx(selectSFX);
 		}
+		
+		if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+		{
+			app->render->limitFPS = !app->render->limitFPS;
+			app->audio->PlayFx(selectSFX);
+		}
 
 		// God Mode key
 		if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)

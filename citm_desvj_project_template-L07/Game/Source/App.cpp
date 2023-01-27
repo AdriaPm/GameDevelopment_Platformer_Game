@@ -252,7 +252,7 @@ void App::FinishUpdate()
 
 	PerfTimer delayTimer = PerfTimer();
 	delayTimer.Start();
-	if (maxFrameDuration > 0 && delay > 0) {
+	if (maxFrameDuration > 0 && delay > 0 && render->limitFPS == false) {
 		SDL_Delay(delay);
 		LOG("We waited for %f milliseconds and the real delay is % f", delay, delayTimer.ReadMs());
 		dt = maxFrameDuration;
