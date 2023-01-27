@@ -72,6 +72,14 @@ bool Render::PreUpdate()
 
 bool Render::Update(float dt)
 {
+	if (limitFPS == true)
+	{
+		//SDL_RenderSetVSync(1)		// Function not available in the current SDL version 
+	}
+	else if (limitFPS == false) 
+	{
+		//SDL_RenderSetVSync(0)		// Function not available in the current SDL version
+	}
 	return true;
 }
 

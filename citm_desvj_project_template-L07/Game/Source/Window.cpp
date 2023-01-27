@@ -36,7 +36,7 @@ bool Window::Awake(pugi::xml_node& config)
 		// L01: DONE 6: Load all required configurations from config.xml
 		// Tip: get the name of the child and the attribute value
 		Uint32 flags = SDL_WINDOW_SHOWN;
-		bool fullscreen = config.child("fullscreen").attribute("value").as_bool(); // get from config
+		fullscreenMode = config.child("fullscreen").attribute("value").as_bool(); // get from config
 		bool borderless = config.child("bordeless").attribute("value").as_bool(); // get from config
 		bool resizable = config.child("resizable").attribute("value").as_bool(); // get from config
 		bool fullscreen_window = config.child("fullscreen_window").attribute("value").as_bool(); // get from config
@@ -45,7 +45,7 @@ bool Window::Awake(pugi::xml_node& config)
 		height = config.child("resolution").attribute("height").as_int();; //get from config 
 		scale = config.child("resolution").attribute("scale").as_int();; //get from config 
 
-		if (fullscreen == true) flags |= SDL_WINDOW_FULLSCREEN;
+		if (fullscreenMode == true) flags |= SDL_WINDOW_FULLSCREEN;
 		if (borderless == true) flags |= SDL_WINDOW_BORDERLESS;
 		if (resizable == true) flags |= SDL_WINDOW_RESIZABLE;
 		if (fullscreen_window == true) flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;

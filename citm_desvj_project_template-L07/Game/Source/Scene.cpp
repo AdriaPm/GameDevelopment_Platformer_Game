@@ -177,6 +177,13 @@ bool Scene::Update(float dt)
 		app->audio->PlayFx(selectSFX);
 	}
 
+
+	if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	{
+		app->render->limitFPS = !app->render->limitFPS;
+		app->audio->PlayFx(selectSFX);
+	}
+
 	// Draw map
 	app->map->Draw();
 

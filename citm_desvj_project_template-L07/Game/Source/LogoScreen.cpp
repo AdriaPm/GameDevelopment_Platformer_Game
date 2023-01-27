@@ -39,6 +39,8 @@ bool LogoScreen::Start()
 {
 	LOG("--STARTS LOGO SCENE--");
 
+	app->render->SetBackgroundColor({ 0,0,0,255 });
+
 	/*Initialize*/
 	imgPath = app->configNode.child("logo").child("backgroundimage").attribute("texturepath").as_string();
 	musicPath = app->configNode.child("logo").child("music").attribute("musicPath").as_string();

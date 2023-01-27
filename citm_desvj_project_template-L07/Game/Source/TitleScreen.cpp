@@ -73,7 +73,7 @@ bool TitleScreen::Start()
 	settingsButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "setting", 8, { ((int)w / 2) - (93 / 2), (int(h) - 170), 93, 29 }, this);
 	creditsButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "credits", 8,{ ((int)w / 2) - (93 / 2), (int(h) - 140), 93, 29 }, this);
 	exitButton4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "exit", 5,{ ((int)w / 2) - (93 / 2), (int(h) - 110), 93, 29 }, this);
-	continueButton5 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "continue", 9,{ ((int)w / 2) - (93 / 2), (int(h) - 240), 93, 29 }, this);
+	//continueButton5 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "continue", 9,{ ((int)w / 2) - (93 / 2), (int(h) - 240), 93, 29 }, this);
 	closeSettingMenuButton6 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "close", 6, { 780, 110, 93, 29 }, this);
 	closeCreditsMenuButton7 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "close", 6, { 780, 110, 93, 29 }, this);
 
@@ -140,13 +140,20 @@ bool TitleScreen::Update(float dt)
 		vsyncButton13->state = GuiControlState::NORMAL;
 
 		char music[10];
-		sprintf_s(music, 10, "%d", Mix_VolumeMusic(-1));
+		sprintf_s(music, 10, "%d", app->musicValue);
 		app->fonts->BlitText(500, 250, app->ui->font1_id, music);
 
 		char sfx[10];
-		sprintf_s(sfx, 10, "%d", Mix_Volume(0,-1));
-		app->fonts->BlitText(500, 160, app->ui->font1_id, sfx);
+		sprintf_s(sfx, 10, "%d", app->sfxValue);
+		app->fonts->BlitText(500, 330, app->ui->font1_id, sfx);
 
+		char fullscreen[10];
+		sprintf_s(fullscreen, 10, "%s", app->win->fullscreenMode ? "on" : "off");
+		app->fonts->BlitText(502, 428, app->ui->font1_id, fullscreen);
+
+		char vsync[10];
+		sprintf_s(vsync, 10, "%s", app->render->limitFPS ? "on" : "off");
+		app->fonts->BlitText(502, 510, app->ui->font1_id, vsync);
 	}
 
 	// Credits Menu
@@ -194,7 +201,19 @@ bool TitleScreen::CleanUp()
 		app->tex->UnLoad(popImg_credits);
 	}
 	
-	//delete(playButton1);
+	playButton1->state = GuiControlState::DISABLED;
+	settingsButton2->state = GuiControlState::DISABLED;
+	creditsButton3->state = GuiControlState::DISABLED;
+	exitButton4->state = GuiControlState::DISABLED;
+	//continueButton5->state = GuiControlState::DISABLED;
+	closeSettingMenuButton6->state = GuiControlState::DISABLED;
+	closeCreditsMenuButton7->state = GuiControlState::DISABLED;
+	decreaseMusicButton8->state = GuiControlState::DISABLED;
+	increaseMusicButton9->state = GuiControlState::DISABLED;
+	decreaseSFXButton10->state = GuiControlState::DISABLED;
+	increaseSFXButton11->state = GuiControlState::DISABLED;
+	fullscreenButton12->state = GuiControlState::DISABLED;
+	vsyncButton13->state = GuiControlState::DISABLED;
 
 	return true;
 }
@@ -240,13 +259,63 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 	case 8:
 		// Decrease music volume
 		app->musicValue = app->musicValue - 1;
+		if (app->musicValue <= 0)
+			app->musicValue = 0;
+		if (app->musicValue >= 100)
+			app->musicValue = 100;
 		Mix_VolumeMusic(app->musicValue);
 		break;
 
 	case 9:
 		// Increase music volume
 		app->musicValue = app->musicValue + 1;
+		if (app->musicValue <= 0)
+			app->musicValue = 0;
+		if (app->musicValue >= 100)
+			app->musicValue = 100;
 		Mix_VolumeMusic(app->musicValue);
+		break;
+
+	case 10:
+		// Decrease SFX volume
+		app->sfxValue = app->sfxValue - 1;
+		if (app->sfxValue <= 0)
+			app->sfxValue = 0;
+		if (app->sfxValue >= 100)
+			app->sfxValue = 100;
+		Mix_Volume(-1, app->sfxValue);
+		break;
+
+	case 11:
+		// Increase SFX volume
+		app->sfxValue = app->sfxValue + 1;
+		if (app->sfxValue <= 0)
+			app->sfxValue = 0;
+		if (app->sfxValue >= 100)
+			app->sfxValue = 100;
+		Mix_Volume(-1, app->sfxValue);
+		break;
+
+	case 12:
+		// Fullscreen button
+		app->win->fullscreenMode = !app->win->fullscreenMode;
+		if (app->win->fullscreenMode == true)
+		{
+			SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_FULLSCREEN);
+		}
+		else if(app->win->fullscreenMode == false)
+		{
+			SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_SHOWN);
+		}
+		break;
+
+
+
+	case 13:
+		// V-Sync button
+		app->render->limitFPS = !app->render->limitFPS;
+
+
 		break;
 
 	case 4:
@@ -254,7 +323,7 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 		exitGame = !exitGame;
 		break;
 
-
+	
 
 	default:
 		break;
