@@ -134,18 +134,33 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
-	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
-	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN)
 	{
-		app->SaveGameRequest();
-		app->audio->PlayFx(selectSFX);
-	}
-	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
-	{
-		app->LoadGameRequest();
-		app->audio->PlayFx(selectSFX);
+		gamePaused = !gamePaused;
 	}
 
+	if (gamePaused != true)
+	{
+		// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
+		if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+		{
+			app->SaveGameRequest();
+			app->audio->PlayFx(selectSFX);
+		}
+		if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+		{
+			app->LoadGameRequest();
+			app->audio->PlayFx(selectSFX);
+		}
+
+		// God Mode key
+		if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+		{
+			player->godMode = !player->godMode;
+			app->audio->PlayFx(selectSFX);
+		}
+	}
+	
 	// Camera movement related to player's movement
 	if (cameraFix2 == true)
 	{
@@ -163,12 +178,6 @@ bool Scene::Update(float dt)
 			app->render->camera.x = (-player->position.x-23) + (app->win->screenSurface->w) / 2;
 	}
 
-	// God Mode key
-	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
-	{
-		player->godMode = !player->godMode;
-		app->audio->PlayFx(selectSFX);
-	}
 
 	// Cap FPS to 30
 	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
@@ -198,52 +207,6 @@ bool Scene::Update(float dt)
 		app->ui->BlitTimeSinceStart();
 		app->ui->BlitFrameCount();
 	}
-
-	//// L08: DONE 3: Test World to map method
-	//int mouseX, mouseY;
-	//app->input->GetMousePosition(mouseX, mouseY);
-	//iPoint mouseTile = app->map->WorldToMap(mouseX - app->render->camera.x,
-	//										mouseY - app->render->camera.y);
-
-	////Convert again the tile coordinates to world coordinates to render the texture of the tile
-	//if (app->physics->debug) 
-	//{
-	//	iPoint highlightedTileWorld = app->map->MapToWorld(mouseTile.x, mouseTile.y);
-	//	app->render->DrawTexture(slimeTilePathTex, highlightedTileWorld.x, highlightedTileWorld.y);
-	//}
-
-	////Test compute path function
-	//if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
-	//{
-	//	if (originSelected == true)
-	//	{
-	//		app->pathfinding->CreatePath(origin, mouseTile);
-	//		originSelected = false;
-	//	}
-	//	else
-	//	{
-	//		origin = mouseTile;
-	//		originSelected = true;
-	//		app->pathfinding->ClearLastPath();
-	//	}
-	//}
-
-	//
-	//if (app->physics->debug) 
-	//{
-	//// L12: Get the latest calculated path and draw
-	//	const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
-	//	for (uint i = 0; i < path->Count(); ++i)
-	//	{
-	//	iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-	//	app->render->DrawTexture(slimeTilePathTex, pos.x, pos.y);
-	//	}
-
-	//	// L12: Debug pathfinding
-	//	iPoint originScreen = app->map->MapToWorld(origin.x, origin.y);
-	//	app->render->DrawTexture(originTex, originScreen.x - 16, originScreen.y - 19);
-	//}
-
 
 	return true;
 }

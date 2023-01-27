@@ -126,158 +126,159 @@ bool Player::PreUpdate() {
 
 bool Player::Update()
 {
-	/*float speedMultiplier = app->GetAverageFPS() / 60; //Calculates the multiplier for changing speed by framerate
-
-	LOG("PLAYER SPEED = %f", currentAnim->speed);
-
-	if (app->scene->capTo30fps == true) {
-
-		currentAnim->speed = currentAnim->speed *2;
-	}*/
 
 	currentAnim = &idlePlayer;
 
-	//Enable/Disable Debug
-	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+	if (app->scene->gamePaused != true) 
 	{
-		app->physics->debug = !app->physics->debug;
-		app->audio->PlayFx(selectSFX);
-	}
 
-	if (godMode == true) {
-
-		velocity = { 0, 0 };
-		pbody->body->SetGravityScale(0);
-
-		// Fly around the map
-		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-			velocity.y = -5;
-		}
-		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-			velocity.y = 5;
-		}
-		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-			isFliped = true;
-			velocity.x = -5;
-			if (isFliped == true && fliped == SDL_FLIP_NONE) {
-				fliped = SDL_FLIP_HORIZONTAL;
-			}
-		}
-		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-			isFliped = false;
-			velocity.x = 5;
-			if (isFliped == false && fliped == SDL_FLIP_HORIZONTAL) {
-				fliped = SDL_FLIP_NONE;
-			}
-		}
-		pbody->body->SetLinearVelocity(velocity);
-
-	}
-	else if(godMode == false && dead == false)
-	{
-		//velocity = { 0, -GRAVITY_Y };
-		velocity.y = -GRAVITY_Y;
-
-		//L02: DONE 4: modify the position of the player using arrow keys and render the texture
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-
-			longPress = false;
-			if (jumping == false) {
-				jumpingTime = 0;
-				jumping = true;
-			}
-			
-			if (jumpingTime <= 50 && jumpCount > 0) {
-				Jump();
-				jumpCount--;
-				LOG("Jump Count = %d", jumpCount);
-			}
-			
-		}
-
-		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-
-			isFliped = true;
-
-			
-			velocity.x = -5;
-
-			if (isFliped == true && fliped == SDL_FLIP_NONE) {
-				fliped = SDL_FLIP_HORIZONTAL;
-			}
-			currentAnim = &runPlayer;
-
-		}
-		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-			isFliped = false;
-	
-			velocity.x = 5;
-
-			if (isFliped == false && fliped == SDL_FLIP_HORIZONTAL) {
-				fliped = SDL_FLIP_NONE;
-			}
-			currentAnim = &runPlayer;
-
-		}
-		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE) {
-			velocity.x = 0;
-		}
-
-		//Reset player position input
-		if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN
-			|| app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+		//Enable/Disable Debug
+		if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 		{
-			ResetPlayerPos();
+			app->physics->debug = !app->physics->debug;
 			app->audio->PlayFx(selectSFX);
 		}
 
-		// Being hit anim if slime or bat attacks the player
-		if (onCollision) {
-			currentAnim = &hitPlayer;
+		if (godMode == true) {
 
-			if (hitPlayer.HasFinished()) {
-				onCollision = false;
-				hitPlayer.Reset();
+			velocity = { 0, 0 };
+			pbody->body->SetGravityScale(0);
+
+			// Fly around the map
+			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+				velocity.y = -5;
 			}
-		}
-
-		//Attacking animation function
-		if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
-		{
-			if (timeToAttack >= cooldownTime) 
-			{
-				attacking = true;
-				app->audio->PlayFx(shortRangeAttackSFX);
+			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+				velocity.y = 5;
 			}
-
-		}
-		Attack();
-		timeToAttack++;
-		
-		if (jumping == false) {
+			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+				isFliped = true;
+				velocity.x = -5;
+				if (isFliped == true && fliped == SDL_FLIP_NONE) {
+					fliped = SDL_FLIP_HORIZONTAL;
+				}
+			}
+			if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+				isFliped = false;
+				velocity.x = 5;
+				if (isFliped == false && fliped == SDL_FLIP_HORIZONTAL) {
+					fliped = SDL_FLIP_NONE;
+				}
+			}
 			pbody->body->SetLinearVelocity(velocity);
-		}
-		else if (jumping == true) {
-			pbody->body->SetLinearVelocityX(velocity.x);
-			jumpingTime++;
-		}
-		
-		longPress = false;
-	}
 
-	
-	
-	// Link player's texture with pbody when moving, if player's dies then stop motion
-	if (dead == true) {
-		currentAnim = &diePlayer;
-		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 20;
-		pbody->body->SetAwake(false);
+		}
+		else if (godMode == false && dead == false)
+		{
+			//velocity = { 0, -GRAVITY_Y };
+			velocity.y = -GRAVITY_Y;
+
+			//L02: DONE 4: modify the position of the player using arrow keys and render the texture
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+
+				longPress = false;
+				if (jumping == false) {
+					jumpingTime = 0;
+					jumping = true;
+				}
+
+				if (jumpingTime <= 50 && jumpCount > 0) {
+					Jump();
+					jumpCount--;
+					LOG("Jump Count = %d", jumpCount);
+				}
+
+			}
+
+			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+
+				isFliped = true;
+
+
+				velocity.x = -5;
+
+				if (isFliped == true && fliped == SDL_FLIP_NONE) {
+					fliped = SDL_FLIP_HORIZONTAL;
+				}
+				currentAnim = &runPlayer;
+
+			}
+			if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+				isFliped = false;
+
+				velocity.x = 5;
+
+				if (isFliped == false && fliped == SDL_FLIP_HORIZONTAL) {
+					fliped = SDL_FLIP_NONE;
+				}
+				currentAnim = &runPlayer;
+
+			}
+			if (app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE) {
+				velocity.x = 0;
+			}
+
+			//Reset player position input
+			if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN
+				|| app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+			{
+				ResetPlayerPos();
+				app->audio->PlayFx(selectSFX);
+			}
+
+			// Being hit anim if slime or bat attacks the player
+			if (onCollision) {
+				currentAnim = &hitPlayer;
+
+				if (hitPlayer.HasFinished()) {
+					onCollision = false;
+					hitPlayer.Reset();
+				}
+			}
+
+			//Attacking animation function
+			if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
+			{
+				if (timeToAttack >= cooldownTime)
+				{
+					attacking = true;
+					app->audio->PlayFx(shortRangeAttackSFX);
+				}
+
+			}
+			Attack();
+			timeToAttack++;
+
+			if (jumping == false) {
+				pbody->body->SetLinearVelocity(velocity);
+			}
+			else if (jumping == true) {
+				pbody->body->SetLinearVelocityX(velocity.x);
+				jumpingTime++;
+			}
+
+			longPress = false;
+		}
+
+
+
+		// Link player's texture with pbody when moving, if player's dies then stop motion
+		if (dead == true) {
+			currentAnim = &diePlayer;
+			position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 20;
+			pbody->body->SetAwake(false);
+		}
+		else {
+			position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x - (width));
+			position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y - (height / 1.5));
+		}
+
 	}
 	else {
-		position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x - (width));
-		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y - (height/1.5));
+		//pbody->body->SetLinearVelocity({0, 0});
+		pbody->body->SetAwake(false);
 	}
-	
+
 	SDL_Rect rect = currentAnim->GetCurrentFrame();
 	app->render->DrawTexture(texture, position.x, position.y, &rect, fliped);
 	currentAnim->Update();

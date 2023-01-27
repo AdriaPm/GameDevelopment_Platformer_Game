@@ -76,6 +76,9 @@ public:
 	const char* slimeTilePath;
 
 	GuiButton* btn1;
+
+	bool gamePaused = false;
+
 private:
 	SDL_Texture* img;
 	iPoint startPosition;
