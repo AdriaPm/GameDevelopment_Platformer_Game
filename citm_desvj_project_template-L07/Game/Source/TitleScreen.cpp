@@ -89,8 +89,7 @@ bool TitleScreen::Start()
 
 	vsyncButton13 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 13, "vsync", 6, { 466, 502, 93, 29 }, this);
 
-
-
+	
 	return true;
 }
 
@@ -197,7 +196,7 @@ bool TitleScreen::CleanUp()
 
 	//app->guiManager->guiControlsList.Clear();
 
-	if (img != nullptr) {
+	if (img != nullptr && popImg_settings != nullptr && popImg_credits != nullptr) {
 		app->tex->UnLoad(img);
 		app->tex->UnLoad(popImg_settings);
 		app->tex->UnLoad(popImg_credits);

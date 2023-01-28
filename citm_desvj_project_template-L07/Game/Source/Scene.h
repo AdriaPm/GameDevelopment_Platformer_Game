@@ -75,8 +75,6 @@ public:
 	SDL_Texture* slimeTilePathTex = nullptr;
 	const char* slimeTilePath;
 
-	GuiButton* btn1;
-
 	bool gamePaused = false;
 
 private:
@@ -92,8 +90,12 @@ private:
 	const char* selectSFXPath;
 
 	// Declare a GUI Button and create it using the GuiManager
-	//GuiButton* btn1;
-	GuiButton* btn2;
+	GuiButton* resumeButton14;
+	GuiButton* backToTitleButton15;
+	GuiButton* exitButton16;
+	GuiButton* closeButton17;
+
+	bool exitGame = false;
 };
 
 #endif // __SCENE_H__

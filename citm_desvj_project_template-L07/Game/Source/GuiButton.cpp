@@ -42,7 +42,7 @@ bool GuiButton::Update(float dt)
 		{
 			state = GuiControlState::FOCUSED;
 
-			if (app->titlescreen->settingMenu == false && app->titlescreen->creditsMenu == false)
+			if (app->titlescreen->settingMenu == false && app->titlescreen->creditsMenu == false && app->scene->gamePaused == false)
 			{
 				if (textSize <= 5)
 					app->fonts->BlitText(this->bounds.x + (this->bounds.w / 3), (this->bounds.y + 2) + (this->bounds.h / 3), app->ui->font1_id, this->text);
@@ -57,7 +57,7 @@ bool GuiButton::Update(float dt)
 			{
 				state = GuiControlState::PRESSED;
 			
-				if (app->titlescreen->settingMenu == false && app->titlescreen->creditsMenu == false)
+				if (app->titlescreen->settingMenu == false && app->titlescreen->creditsMenu == false && app->scene->gamePaused == false)
 				{
 					if (textSize <= 5)
 						app->fonts->BlitText(this->bounds.x + (this->bounds.w / 3), (this->bounds.y + 2) + (this->bounds.h / 3), app->ui->font1_id, this->text);
@@ -79,7 +79,7 @@ bool GuiButton::Update(float dt)
 		else {
 			state = GuiControlState::NORMAL;
 			
-			if (app->titlescreen->settingMenu == false && app->titlescreen->creditsMenu == false)
+			if (app->titlescreen->settingMenu == false && app->titlescreen->creditsMenu == false && app->scene->gamePaused == false)
 			{
 				if (textSize <= 5)
 					app->fonts->BlitText(this->bounds.x + (this->bounds.w / 3), (this->bounds.y) + (this->bounds.h / 3), app->ui->font1_id, this->text);

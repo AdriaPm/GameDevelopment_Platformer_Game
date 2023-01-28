@@ -13,6 +13,7 @@
 #include "EndingScreen.h"
 #include "UI.h"
 #include "GuiManager.h"
+#include "TitleScreen.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -87,7 +88,7 @@ bool Scene::Start()
 	app->map->Enable();
 	LOG("--STARTS GAME SCENE--");
 	app->physics->debug = false;
-	
+	exitGame = false;
 
 	// L03: DONE: Load map
 	app->map->Load();
@@ -119,8 +120,11 @@ bool Scene::Start()
 	// L15: TODO 2: Declare a GUI Button and create it using the GuiManager
 	uint w, h;
 	app->win->GetWindowSize(w, h);
-	/*btn1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 10, "Test1", { ((int)w / 2) - 80, (int)w / 10,     93, 29 }, this);
-	btn2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 11, "Test2", { ((int)w / 2) - 80, (int)w / 10 * 2, 93, 29 }, this);*/
+	resumeButton14 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 14, "resume", 7, { 469, 305, 93, 29 }, this);
+	backToTitleButton15 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 15, "back to title", 14, {469, 344, 93, 29 }, this);
+	exitButton16 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 16, "exit", 5, { 469, 385, 93, 29 }, this);
+	closeButton17 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 17, "close", 6, { 767, 114, 93, 29 }, this);
+
 
 	ResetScene();
 
@@ -136,14 +140,18 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
-	if (app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
 		gamePaused = !gamePaused;
 		
 		Mix_PauseMusic();
 	}
 
-	
+	if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
+	{
+		app->fade->FadeToBlack(this, (Module*)app->titlescreen, 90);
+	}
+
 
 	if (gamePaused != true)
 	{
@@ -222,13 +230,25 @@ bool Scene::Update(float dt)
 		app->ui->BlitFrameCount();
 	}
 
+
+	resumeButton14->state = GuiControlState::DISABLED;
+	backToTitleButton15->state = GuiControlState::DISABLED;
+	exitButton16->state = GuiControlState::DISABLED;
+	closeButton17->state = GuiControlState::DISABLED;
+
 	if (gamePaused == true)
 	{
 		// Display pause menu
 
-		app->render->DrawTexture(img_pause, 0, 0, NULL);
+		if (cameraFix == false)
+			app->render->DrawTexture(img_pause, 0, 0, NULL);
+		else
+			app->render->DrawTexture(img_pause, player->position.x-490, 0, NULL);
 
-
+		resumeButton14->state = GuiControlState::NORMAL;
+		backToTitleButton15->state = GuiControlState::NORMAL;
+		exitButton16->state = GuiControlState::NORMAL;
+		closeButton17->state = GuiControlState::NORMAL;
 	}
 
 
@@ -240,7 +260,7 @@ bool Scene::PostUpdate()
 {
 	bool ret = true;
 
-	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	if (exitGame == true)
 		ret = false;
 
 	return ret;
@@ -257,18 +277,40 @@ bool Scene::CleanUp()
 	
 	//app->guiManager->guiControlsList.Clear();
 
+	app->tex->UnLoad(img_pause);
+
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 
+	resumeButton14->state = GuiControlState::DISABLED;
+	backToTitleButton15->state = GuiControlState::DISABLED;
+	exitButton16->state = GuiControlState::DISABLED;
+	closeButton17->state = GuiControlState::DISABLED;
+
 	return true;
 }
+
 
 bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 {
 	// L15: TODO 5: Implement the OnGuiMouseClickEvent method
 	switch (control->id)
 	{
-	
+	case 17:
+	case 14:
+		gamePaused = !gamePaused;
+		app->audio->PlayFx(app->titlescreen->menuSelectionSFX);
+		break;
+
+	case 15:
+		app->fade->FadeToBlack(this, (Module*)app->titlescreen, 90);
+		app->audio->PlayFx(app->titlescreen->menuSelectionSFX);
+		break;
+
+	case 16:
+		exitGame = !exitGame;
+		app->audio->PlayFx(app->titlescreen->menuSelectionSFX);
+		break;
 
 	default:
 		break;
