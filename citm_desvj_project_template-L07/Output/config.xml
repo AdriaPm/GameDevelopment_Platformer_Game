@@ -66,7 +66,7 @@
 	<player>
 		<SFXset jumpSFXPath="Assets/Audio/Fx/jump.wav" dieSFXPath="Assets/Audio/Fx/death.wav" hurtSFXPath="Assets/Audio/Fx/hurt.wav"
 				pickCoinSFXPath="Assets/Audio/Fx/pick_coin.wav" levelCompletedSFXPath="Assets/Audio/Fx/level_completed.wav" selectSFXPath="Assets/Audio/Fx/select.wav"
-				shortRangeAttackSFXPath="Assets/Audio/Fx/whip_attack.wav" pickLifeSFXPath="Assets/Audio/Fx/pick_coin.wav"/>
+				shortRangeAttackSFXPath="Assets/Audio/Fx/whip_attack.wav" pickLifeSFXPath="Assets/Audio/Fx/life_up.wav"/>
 	</player>
 
 	<ending>

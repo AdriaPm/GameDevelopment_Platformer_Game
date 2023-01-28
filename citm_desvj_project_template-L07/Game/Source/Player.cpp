@@ -88,6 +88,7 @@ bool Player::Start() {
 	jumpSFXPath = app->configNode.child("player").child("SFXset").attribute("jumpSFXPath").as_string();
 	dieSFXPath = app->configNode.child("player").child("SFXset").attribute("dieSFXPath").as_string();
 	hurtSFXPath = app->configNode.child("player").child("SFXset").attribute("hurtSFXPath").as_string();
+	pickLifeSFXPath = app->configNode.child("player").child("SFXset").attribute("pickLifeSFXPath").as_string();
 	pickCoinSFXPath = app->configNode.child("player").child("SFXset").attribute("pickCoinSFXPath").as_string();
 	levelCompletedSFXPath = app->configNode.child("player").child("SFXset").attribute("levelCompletedSFXPath").as_string();
 	selectSFXPath = app->configNode.child("player").child("SFXset").attribute("selectSFXPath").as_string();
@@ -98,7 +99,7 @@ bool Player::Start() {
 	dieSFX = app->audio->LoadFx(dieSFXPath);
 	hurtSFX = app->audio->LoadFx(hurtSFXPath);
 	pickCoinSFX = app->audio->LoadFx(pickCoinSFXPath);
-	pickLifeSFX = app->audio->LoadFx(pickCoinSFXPath);
+	pickLifeSFX = app->audio->LoadFx(pickLifeSFXPath);
 	levelCompletedSFX = app->audio->LoadFx(levelCompletedSFXPath);
 	selectSFX = app->audio->LoadFx(selectSFXPath);
 	shortRangeAttackSFX = app->audio->LoadFx(shortRangeAttackSFXPath);

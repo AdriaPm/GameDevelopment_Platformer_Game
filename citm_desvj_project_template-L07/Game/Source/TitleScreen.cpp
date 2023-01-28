@@ -202,6 +202,7 @@ bool TitleScreen::CleanUp()
 		app->tex->UnLoad(popImg_credits);
 	}
 	
+	//STORE IN A LIST THIS BUTTONS AND THEN CHECK HERE IF NULLPTR TO CLEAN THEM UP
 	playButton1->state = GuiControlState::DISABLED;
 	settingsButton2->state = GuiControlState::DISABLED;
 	creditsButton3->state = GuiControlState::DISABLED;
