@@ -174,6 +174,8 @@ bool Player::Update()
 			//velocity = { 0, -GRAVITY_Y };
 			velocity.y = -GRAVITY_Y;
 
+			pbody->body->SetGravityScale(1);
+
 			//L02: DONE 4: modify the position of the player using arrow keys and render the texture
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 
@@ -260,7 +262,6 @@ bool Player::Update()
 
 			longPress = false;
 		}
-
 
 
 		// Link player's texture with pbody when moving, if player's dies then stop motion
