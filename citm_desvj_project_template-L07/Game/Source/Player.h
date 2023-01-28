@@ -86,6 +86,8 @@ public:
 	const int cooldownTime = 60;		//Cooldown time --> 60 ticks = 1 seconds (if fps=60)
 	int timeToAttack = 60;				//Starts equal to cooldownTime, so player can attack immediately when the scene starts
 
+	Timer gameTimer;
+
 private:
 
 	//L02: DONE 1: Declare player parameters

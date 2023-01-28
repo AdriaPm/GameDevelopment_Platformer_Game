@@ -36,10 +36,10 @@ bool Item::Start() {
 	texture = app->tex->Load(texturePath);
 	
 	if (iType == "life")
-		lifeRect = {32, 0, 32, 32};
+		lifeRect = {0, 0, 32, 32};
 
 	// L07 TODO 4: Add a physics to an item - initialize the physics body
-	pbody = app->physics->CreateCircle(position.x, position.y, width/3, bodyType::KINEMATIC, ColliderType::ITEM);
+	pbody = app->physics->CreateCircleSensor(position.x, position.y, width/3, bodyType::KINEMATIC, ColliderType::ITEM);
 
 	pbody->listener = this;
 
@@ -108,8 +108,14 @@ void Item::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 	case ColliderType::PLAYER:
 		LOG("Collision PLAYER");
-		pbody->body->SetActive(false);
-		this->Disable();
+
+
+		if (iType == "life" && app->scene->player->lives < 3) {
+			pbody->body->SetActive(false);
+			this->Disable();
+		}
+
+		
 		
 		break;
 	}

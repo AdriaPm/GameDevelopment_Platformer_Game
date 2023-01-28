@@ -43,6 +43,9 @@ public:
 
 	void ResetScene();
 
+	void SaveUI();
+	void Checkpoint();
+
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&);
 
@@ -79,9 +82,14 @@ public:
 	const char* checkPointTexPath;
 	bool checkpointEnabled = false;
 
+	int saveTime = 0;
+	bool showSavingState = false;
+
 	bool gamePaused = false;
 
 	bool continueGame = false;
+
+	List<Coin*> coinsList;
 
 private:
 	SDL_Texture* img_pause;

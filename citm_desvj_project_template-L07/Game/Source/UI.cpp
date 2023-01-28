@@ -39,7 +39,7 @@ bool UI::Start()
 	/*Initialize*/
 	font1Path = app->configNode.child("ui").child("font1").attribute("texturepath").as_string();
 	font2Path = app->configNode.child("ui").child("font2").attribute("texturepath").as_string();
-	
+	livesTexPath = app->configNode.child("scene").child("life").attribute("texturepath").as_string();
 
 	//Loading font 1
 	char lookupTableFont1[] = { "! @,_./0123456789$;<&?abcdefghijklmnopqrstuvwxyz" };
@@ -47,6 +47,8 @@ bool UI::Start()
 
 	char lookupTableFont2[] = { "! %&'()*+,-./0123456789:;<=>abcdefghijklmnopqrstuvwxyz" };
 	font2_id = app->fonts->Load(font2Path, lookupTableFont2, 1);
+
+	livesTex = app->tex->Load(livesTexPath);
 
 	return true;
 }
@@ -83,9 +85,37 @@ bool UI::CleanUp()
 
 void UI::BlitLives()
 {
-	char playerLives[20];
+	/*char playerLives[20];
 	sprintf_s(playerLives, 20, "lives: %.1f", app->scene->player->lives);
-	app->fonts->BlitText(20, 15, font2_id, playerLives);
+	app->fonts->BlitText(20, 15, font2_id, playerLives);*/
+	SDL_Rect fullLifeRect = { 0, 0, 32, 32 };
+	SDL_Rect halfLifeRect = { 32, 0, 32, 32 };
+
+	if (app->scene->player->lives == 3) {
+		app->render->DrawTexture(livesTex, 20, 5, &fullLifeRect, SDL_FLIP_NONE, 0);
+		app->render->DrawTexture(livesTex, 20+32, 5, &fullLifeRect, SDL_FLIP_NONE, 0);
+		app->render->DrawTexture(livesTex, 20+64, 5, &fullLifeRect, SDL_FLIP_NONE, 0);
+	}
+	else if (app->scene->player->lives == 2.5f) {
+		app->render->DrawTexture(livesTex, 20, 5, &fullLifeRect, SDL_FLIP_NONE, 0);
+		app->render->DrawTexture(livesTex, 20+32, 5, &fullLifeRect, SDL_FLIP_NONE, 0);
+		app->render->DrawTexture(livesTex, 20 + 64, 5, &halfLifeRect, SDL_FLIP_NONE, 0);
+	}
+	else if (app->scene->player->lives == 2) {
+		app->render->DrawTexture(livesTex, 20, 5, &fullLifeRect, SDL_FLIP_NONE, 0);
+		app->render->DrawTexture(livesTex, 20+32, 5, &fullLifeRect, SDL_FLIP_NONE, 0);
+	}
+	else if (app->scene->player->lives == 1.5f) {
+		app->render->DrawTexture(livesTex, 20, 5, &fullLifeRect, SDL_FLIP_NONE, 0);
+		app->render->DrawTexture(livesTex, 20+32, 5, &halfLifeRect, SDL_FLIP_NONE, 0);
+	}
+	else if (app->scene->player->lives == 1) {
+		app->render->DrawTexture(livesTex, 20, 5, &fullLifeRect, SDL_FLIP_NONE, 0);
+	}
+	else if (app->scene->player->lives == 0.5f) {
+		app->render->DrawTexture(livesTex, 20, 5, &halfLifeRect, SDL_FLIP_NONE, 0);
+	}
+
 }
 
 void UI::BlitCoins()

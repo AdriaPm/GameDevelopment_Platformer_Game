@@ -117,6 +117,8 @@ bool Player::Start() {
 	jumping = false;
 	jumpCount = 2;
 
+	gameTimer.Start();
+
 	return true;
 }
 
@@ -312,7 +314,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
-		if (app->scene->item->iType == "life")
+		if (app->scene->item->iType == "life" && lives < 3)
 		{
 			app->audio->PlayFx(pickLifeSFX);
 			lives += 0.5f;
@@ -343,8 +345,12 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::CHECKPOINT:
 		LOG("Collision CHECKPOINT");
+		if (app->scene->checkpointEnabled == false) {
+			app->scene->checkpointEnabled = true;
+			app->SaveGameRequest();
+			app->audio->PlayFx(levelCompletedSFX);
+		}
 		
-		app->audio->PlayFx(levelCompletedSFX);
 		//app->fade->FadeToBlack((Module*)app->scene, (Module*)app->titlescreen, 90);
 		break;
 	case ColliderType::WIN_ZONE:

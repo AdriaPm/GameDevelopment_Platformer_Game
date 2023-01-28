@@ -56,6 +56,7 @@ bool Scene::Start()
 	{
 		coin = (Coin*)app->entityManager->CreateEntity(EntityType::COIN);
 		coin->parameters = itemNode;
+		coinsList.Add(coin);
 	}
 	
 	for (pugi::xml_node itemNode = app->configNode.child("scene").child("life"); itemNode; itemNode = itemNode.next_sibling("life"))
@@ -221,11 +222,10 @@ bool Scene::Update(float dt)
 	// Draw map
 	app->map->Draw();
 
-	if (checkpointEnabled == false) {
-		SDL_Rect rect_1 = {};
-		//app->render->DrawTexture(checkPointTex, 62 * 32, 10 * 32, );
-	}
+	Checkpoint();
 		
+	SaveUI();
+
 	// Draw GUI
 	app->guiManager->Draw();
 
@@ -340,13 +340,51 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 	return true;
 }
 
+void Scene::SaveUI() {
+	if (app->saveGameRequested == true) {
+		showSavingState = true;
+	}
+	if (showSavingState == true) {
+		if (saveTime < 50) {
+			uint w, h;
+			SDL_Rect rect_2 = { 64, 0, 32, 32 };
+			app->win->GetWindowSize(w, h);
+			app->render->DrawTexture(checkPointTex, w - 100, h - 100, &rect_2, SDL_FLIP_HORIZONTAL, 0);
+			saveTime++;
+			LOG("SAVETIME: %d", saveTime);
+		}
+		else {
+			showSavingState = false;
+			saveTime = 0;
+		}
+
+	}
+}
+
+void Scene::Checkpoint() {
+	
+	//Checkpoint
+	if (checkpointEnabled == false) {
+		SDL_Rect rect_1 = { 32, 0, 32, 32 };
+		app->render->DrawTexture(checkPointTex, 62 * 32, 10 * 32, &rect_1);
+	}
+	else
+	{
+		SDL_Rect rect_1 = { 0, 0, 32, 32 };
+		app->render->DrawTexture(checkPointTex, 62 * 32, 10 * 32, &rect_1);
+	}
+}
+
 void Scene::ResetScene() {
 	
 	app->audio->PlayMusic("Assets/Audio/Music/song1.ogg", 1.0f);
-	player->ResetPlayerPos();
-	player->lives = 3;
-	
-	//coin->ResetCoin();
+
+	if (checkpointEnabled == false) {
+		player->ResetPlayerPos();
+		player->lives = 3;
+	}
+	else
+		app->LoadGameRequest();
 }
 
 bool Scene::LoadState(pugi::xml_node& data)
@@ -360,9 +398,23 @@ bool Scene::LoadState(pugi::xml_node& data)
 	app->scene->cameraFix2 = data.child("cameraIsFix2").attribute("value").as_bool();
 
 	//Load previous saved player number of lives
-	app->scene->player->lives = data.child("playerLives").attribute("playerLives").as_int();
+	app->scene->player->lives = data.child("playerLives").attribute("playerLives").as_float();
 
+	/*app->scene->player->coins = data.child("coins").attribute("coins").as_int();
+	ListItem<Coin*>* coinsCollected;
+	coinsCollected = coinsList.end;
+	int countCoins = app->scene->player->coins;
+	while(countCoins >= 0 && coinsCollected != NULL){
+		
+		if (coinsCollected->data->isPicked == true) {
+			coinsCollected->data->ResetCoin();
+			countCoins--;
+		}
+			
 
+		coinsCollected = coinsCollected->prev;
+	}*/
+	
 	// Load previous saved slime position
 	b2Vec2 slimePos = { data.child("slimePosition").attribute("x").as_float(), data.child("slimePosition").attribute("y").as_float() };
 	app->scene->slime->pbody->body->SetTransform(slimePos, 0);
@@ -399,6 +451,10 @@ bool Scene::SaveState(pugi::xml_node& data)
 	// Save current player number of lives
 	pugi::xml_node playerLives = data.append_child("playerLives");
 	playerLives.append_attribute("playerLives") = app->scene->player->lives;
+	
+	// Save current player number of coins
+	/*pugi::xml_node playerCoins = data.append_child("coins");
+	playerCoins.append_attribute("coins") = app->scene->player->coins;*/
 
 
 	// Save current slime position
@@ -419,6 +475,9 @@ bool Scene::SaveState(pugi::xml_node& data)
 	// Save current bat number of lives
 	pugi::xml_node batLives = data.append_child("batLives");
 	batLives.append_attribute("batLives") = app->scene->bat->lives;
+	
+	pugi::xml_node checkPoint = data.append_child("checkPoint");
+	checkPoint.append_attribute("checkPoint") = app->scene->checkpointEnabled;
 
 	return true;
 }
