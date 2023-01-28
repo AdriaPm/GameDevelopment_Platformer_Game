@@ -143,6 +143,13 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
+	if (continueGame == true)
+	{
+		app->LoadGameRequest();
+		app->audio->PlayFx(selectSFX);
+		continueGame = false;
+	}
+
 	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
 	{
 		app->render->viewGUIbounds = !app->render->viewGUIbounds;

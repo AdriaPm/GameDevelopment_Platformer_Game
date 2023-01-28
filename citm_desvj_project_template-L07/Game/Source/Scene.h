@@ -81,6 +81,8 @@ public:
 
 	bool gamePaused = false;
 
+	bool continueGame = false;
+
 private:
 	SDL_Texture* img_pause;
 	iPoint startPosition;

@@ -77,7 +77,15 @@ bool TitleScreen::Start()
 	settingsButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "setting", 8, { ((int)w / 2) - (93 / 2), (int(h) - 170), 93, 29 }, this);
 	creditsButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "credits", 8,{ ((int)w / 2) - (93 / 2), (int(h) - 140), 93, 29 }, this);
 	exitButton4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "exit", 5,{ ((int)w / 2) - (93 / 2), (int(h) - 110), 93, 29 }, this);
-	continueButton5 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "continue", 9,{ ((int)w / 2) - (93 / 2), (int(h) - 240), 93, 29 }, this);
+	
+	//CHECK SAVE GAME button
+	pugi::xml_document gameStateFile;
+	pugi::xml_parse_result result = gameStateFile.load_file("save_game.xml");
+	if (result != NULL) 
+	{
+		continueButton5 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "continue", 9, { ((int)w / 2) - (93 / 2), (int(h) - 240), 93, 29 }, this);
+	}
+
 	closeSettingMenuButton6 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "close", 6, { 780, 110, 93, 29 }, this);
 	closeCreditsMenuButton7 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "close", 6, { 780, 110, 93, 29 }, this);
 
@@ -267,6 +275,13 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 
 	switch (control->id)
 	{
+	case 5:
+		// Continue button (only if "save_game.xml" exists)
+		app->fade->FadeToBlack(this, (Module*)app->scene, 90);
+		app->scene->continueGame = true;
+		app->audio->PlayFx(startSFX);
+		break;
+
 	case 1:
 		// Play button
 		app->fade->FadeToBlack(this, (Module*)app->scene, 90);
