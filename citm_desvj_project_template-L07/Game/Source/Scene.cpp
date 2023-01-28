@@ -276,6 +276,8 @@ bool Scene::CleanUp()
 	//app->map->Disable();
 	
 	//app->guiManager->guiControlsList.Clear();
+	gamePaused = false;
+	Mix_ResumeMusic();
 
 	app->tex->UnLoad(img_pause);
 
@@ -308,7 +310,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 
 	case 15:
 		app->fade->FadeToBlack(this, (Module*)app->titlescreen, 90);
-		app->audio->PlayFx(app->titlescreen->menuSelectionSFX);
+		app->audio->PlayFx(app->titlescreen->startSFX);
 		break;
 
 	case 16:
