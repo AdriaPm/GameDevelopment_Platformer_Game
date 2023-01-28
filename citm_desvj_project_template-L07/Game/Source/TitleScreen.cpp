@@ -77,7 +77,7 @@ bool TitleScreen::Start()
 	settingsButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "setting", 8, { ((int)w / 2) - (93 / 2), (int(h) - 170), 93, 29 }, this);
 	creditsButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "credits", 8,{ ((int)w / 2) - (93 / 2), (int(h) - 140), 93, 29 }, this);
 	exitButton4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "exit", 5,{ ((int)w / 2) - (93 / 2), (int(h) - 110), 93, 29 }, this);
-	//continueButton5 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "continue", 9,{ ((int)w / 2) - (93 / 2), (int(h) - 240), 93, 29 }, this);
+	continueButton5 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "continue", 9,{ ((int)w / 2) - (93 / 2), (int(h) - 240), 93, 29 }, this);
 	closeSettingMenuButton6 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "close", 6, { 780, 110, 93, 29 }, this);
 	closeCreditsMenuButton7 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "close", 6, { 780, 110, 93, 29 }, this);
 
@@ -104,6 +104,24 @@ bool TitleScreen::PreUpdate()
 // Called each loop iteration
 bool TitleScreen::Update(float dt)
 {
+	//CHECK SAVE GAME
+	pugi::xml_document gameStateFile;
+	pugi::xml_parse_result result = gameStateFile.load_file("save_game.xml");
+
+	if (result == NULL )
+	{
+		if(isSaved != false)
+			continueButton5->state = GuiControlState::DISABLED;
+
+		isSaved = false;
+	}
+	else
+	{
+		if (isSaved != true)
+			continueButton5->state = GuiControlState::NORMAL;
+
+		isSaved = true;
+	}
 
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
 		LOG("PASA A GAME SCENE");
@@ -133,6 +151,7 @@ bool TitleScreen::Update(float dt)
 
 	if (settingMenu == true)
 	{
+		continueButton5->state = GuiControlState::DISABLED;
 		playButton1->state = GuiControlState::DISABLED;
 		settingsButton2->state = GuiControlState::DISABLED;
 		creditsButton3->state = GuiControlState::DISABLED;
@@ -170,6 +189,7 @@ bool TitleScreen::Update(float dt)
 
 	if (creditsMenu == true)
 	{
+		continueButton5->state = GuiControlState::DISABLED;
 		playButton1->state = GuiControlState::DISABLED;
 		settingsButton2->state = GuiControlState::DISABLED;
 		creditsButton3->state = GuiControlState::DISABLED;
@@ -211,6 +231,8 @@ bool TitleScreen::CleanUp()
 	}
 	
 	//STORE IN A LIST THIS BUTTONS AND THEN CHECK HERE IF NULLPTR TO CLEAN THEM UP
+	if(continueButton5 != nullptr)
+		continueButton5->state = GuiControlState::DISABLED;
 	if(playButton1 != nullptr)
 		playButton1->state = GuiControlState::DISABLED;
 	if (settingsButton2 != nullptr)
@@ -219,7 +241,6 @@ bool TitleScreen::CleanUp()
 		creditsButton3->state = GuiControlState::DISABLED;
 	if (exitButton4 != nullptr)
 		exitButton4->state = GuiControlState::DISABLED;
-	//continueButton5->state = GuiControlState::DISABLED;
 	if (closeSettingMenuButton6 != nullptr)
 		closeSettingMenuButton6->state = GuiControlState::DISABLED;
 	if (closeCreditsMenuButton7 != nullptr)
@@ -258,6 +279,7 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 		settingMenu = !settingMenu;
 		if (settingMenu == false) 
 		{
+			continueButton5->state = GuiControlState::NORMAL;
 			playButton1->state = GuiControlState::NORMAL;
 			settingsButton2->state = GuiControlState::NORMAL;
 			creditsButton3->state = GuiControlState::NORMAL;
@@ -272,6 +294,7 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 		creditsMenu = !creditsMenu;
 		if (creditsMenu == false)
 		{
+			continueButton5->state = GuiControlState::NORMAL;
 			playButton1->state = GuiControlState::NORMAL;
 			settingsButton2->state = GuiControlState::NORMAL;
 			creditsButton3->state = GuiControlState::NORMAL;

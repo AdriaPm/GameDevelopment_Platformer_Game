@@ -342,6 +342,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::CHECKPOINT:
 		LOG("Collision CHECKPOINT");
+		
 		app->audio->PlayFx(levelCompletedSFX);
 		//app->fade->FadeToBlack((Module*)app->scene, (Module*)app->titlescreen, 90);
 		break;

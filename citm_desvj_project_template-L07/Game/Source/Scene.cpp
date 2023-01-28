@@ -44,6 +44,7 @@ bool Scene::Start()
 {	
 	/*STORE INFO FROM XML*/
 	origintexturePath = app->configNode.child("scene").child("originTexture").attribute("origintexturePath").as_string();
+	checkPointTexPath = app->configNode.child("scene").child("checkpoint").attribute("checkpointPath").as_string();
 	slimeTilePath = app->configNode.child("scene").child("pathfinding").attribute("slimePathTile").as_string();
 	musicPath = app->configNode.child("scene").child("music").attribute("musicPath").as_string();
 	selectSFXPath = app->configNode.child("scene").child("scenesfx").attribute("selectSFXPath").as_string();
@@ -114,6 +115,8 @@ bool Scene::Start()
 	slimeTilePathTex = app->tex->Load(slimeTilePath);
 	// Texture to show path origin 
 	originTex = app->tex->Load(origintexturePath);
+
+	checkPointTex = app->tex->Load(checkPointTexPath);
 
 	img_pause = app->tex->Load(imgPausePath);
 	
@@ -211,6 +214,11 @@ bool Scene::Update(float dt)
 	// Draw map
 	app->map->Draw();
 
+	if (checkpointEnabled == false) {
+		SDL_Rect rect_1 = {};
+		//app->render->DrawTexture(checkPointTex, 62 * 32, 10 * 32, );
+	}
+		
 	// Draw GUI
 	app->guiManager->Draw();
 

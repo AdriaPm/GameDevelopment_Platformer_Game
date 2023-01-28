@@ -15,9 +15,9 @@
 		<cameraIsFix value="false" />
 		<cameraIsFix2 value="false" />
 		<playerLives playerLives="3" />
-		<slimePosition x="11.0663166" y="16.7762547" />
+		<slimePosition x="80.5" y="4.77625084" />
 		<slimeLives slimeLives="2" />
-		<batPosition x="14.3583345" y="16.0249996" />
+		<batPosition x="47" y="8.3125" />
 		<batLives batLives="2" />
 	</scene>
 	<Fonts_Module />
@@ -25,6 +25,7 @@
 	<entitymanager />
 	<map />
 	<EndingScreen />
+	<guiManager />
 	<renderer>
 		<camera x="0" y="0" />
 	</renderer>

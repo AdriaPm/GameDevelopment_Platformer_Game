@@ -77,6 +77,8 @@ private:
 	const char* selectSFXPath;
 	const char* select2SFXPath;
 
+	bool isSaved = false;
+
 	bool exitGame = false;
 
 };

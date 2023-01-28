@@ -74,6 +74,10 @@ public:
 
 	SDL_Texture* slimeTilePathTex = nullptr;
 	const char* slimeTilePath;
+	
+	SDL_Texture* checkPointTex = nullptr;
+	const char* checkPointTexPath;
+	bool checkpointEnabled = false;
 
 	bool gamePaused = false;
 

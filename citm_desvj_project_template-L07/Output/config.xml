@@ -44,6 +44,7 @@
 	<scene>
 		<!-->player x="150" y="672" texturepath="Assets/Textures/player1.png"/-->
 		<originTexture origintexturePath = "Assets/Maps/x.png" />
+		<checkpoint checkpointPath = "Assets/Maps/Tileset_CheckPoints.png" />
 		<pathfinding  slimePathTile="Assets/Textures/Slime/path.png" />
 		<music musicPath="Assets/Audio/Music/song1.ogg" />
 		<imgPause imgPausePath="Assets/Textures/PopScreen_pause.png"/>
