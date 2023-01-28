@@ -140,18 +140,18 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
+	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+	{
+		app->render->viewGUIbounds = !app->render->viewGUIbounds;
+		app->audio->PlayFx(selectSFX);
+	}
+
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
 		gamePaused = !gamePaused;
 		
 		Mix_PauseMusic();
 	}
-
-	if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
-	{
-		app->fade->FadeToBlack(this, (Module*)app->titlescreen, 90);
-	}
-
 
 	if (gamePaused != true)
 	{
