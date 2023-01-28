@@ -43,6 +43,7 @@ enum class ColliderType {
 	CAMERAFIX_2,
 	NONCAMERAFIX_2,
 	WIN_ZONE,
+	CHECKPOINT,
 	UNKNOWN
 };
 

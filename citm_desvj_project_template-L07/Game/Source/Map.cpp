@@ -322,29 +322,6 @@ bool Map::Load()
         ret = LoadAllObjectGroups(mapFileXML.child("map"));
     }
 
-    
-    // L07 TODO 3: Create colliders
-     // WATER collider
-    //PhysBody* c28 = app->physics->CreateRectangle(0+1648, 560+40, 32*103, (32*2)+16, STATIC, ColliderType::WATER);
-
-     //Camera Fixed To Player Colliders (left side)
-     /*PhysBody* c29 = app->physics->CreateRectangleSensor((32*16)+27 ,0+288 , 10, 32 * 18, STATIC, ColliderType::CAMERAFIX);
-     mapColliders.Add(c29);*/
-
-     //PhysBody* c30 = app->physics->CreateRectangleSensor((32*16)-8 ,0+288 , 10, 32 * 18, STATIC, ColliderType::NONCAMERAFIX);
-     //mapColliders.Add(c30);
-
-     ////Camera Fixed To Player Colliders (right side)
-     //PhysBody* c31 = app->physics->CreateRectangleSensor((2858)-24, 0+288, 10, 32 * 18, STATIC, ColliderType::NONCAMERAFIX_2);
-     //mapColliders.Add(c31);
-
-     //PhysBody* c32 = app->physics->CreateRectangleSensor((2858)+8, 0+288, 10, 32 * 18, STATIC, ColliderType::CAMERAFIX_2);
-     //mapColliders.Add(c32);
-
-     //// WIN collider (if player touches it, player wins)
-     //PhysBody* c33 = app->physics->CreateRectangleSensor((32 * 105) + 16, (32 * 9) + 96, 32, 32 * 6, STATIC, ColliderType::WIN_ZONE);
-     //mapColliders.Add(c33);
-
      CreateColliders();
 
     if(ret == true)
@@ -749,6 +726,26 @@ bool Map::CreateColliders()
                         default: break;
                         }
 
+                        mapColliders.Add(c1);
+                    }
+                }
+            }
+
+        }
+        
+        if (mapLayerItem->data->name == "Checkpoint")
+        {
+            int halfTileHeight = mapData.tileHeight / 2;
+            int halfTileWidth = mapData.tileWidth / 2;
+
+            for (int x = 0; x < mapLayerItem->data->width; x++)
+            {
+                for (int y = 0; y < mapLayerItem->data->height; y++)
+                {
+                    if (mapLayerItem->data->Get(x, y) != 0)
+                    {
+                        iPoint pos = MapToWorld(x, y);
+                        PhysBody* c1 = app->physics->CreateRectangleSensor(pos.x + halfTileHeight, pos.y + halfTileWidth, mapData.tileWidth, mapData.tileHeight, STATIC, ColliderType::CHECKPOINT);
                         mapColliders.Add(c1);
                     }
                 }

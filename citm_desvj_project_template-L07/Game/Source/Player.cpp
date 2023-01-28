@@ -340,6 +340,11 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			app->fade->FadeToBlack((Module*)app->scene, (Module*)app->endingscreen, 60);
 		}
 		break;
+	case ColliderType::CHECKPOINT:
+		LOG("Collision CHECKPOINT");
+		app->audio->PlayFx(levelCompletedSFX);
+		//app->fade->FadeToBlack((Module*)app->scene, (Module*)app->titlescreen, 90);
+		break;
 	case ColliderType::WIN_ZONE:
 		LOG("Collision WIN ZONE");
 		app->audio->PlayFx(levelCompletedSFX);
