@@ -159,7 +159,9 @@ bool TitleScreen::Update(float dt)
 
 	if (settingMenu == true)
 	{
-		continueButton5->state = GuiControlState::DISABLED;
+		if(continueButton5 != nullptr)
+			continueButton5->state = GuiControlState::DISABLED;
+
 		playButton1->state = GuiControlState::DISABLED;
 		settingsButton2->state = GuiControlState::DISABLED;
 		creditsButton3->state = GuiControlState::DISABLED;
@@ -197,7 +199,9 @@ bool TitleScreen::Update(float dt)
 
 	if (creditsMenu == true)
 	{
-		continueButton5->state = GuiControlState::DISABLED;
+		if (continueButton5 != nullptr)
+			continueButton5->state = GuiControlState::DISABLED;
+
 		playButton1->state = GuiControlState::DISABLED;
 		settingsButton2->state = GuiControlState::DISABLED;
 		creditsButton3->state = GuiControlState::DISABLED;
@@ -294,7 +298,8 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 		settingMenu = !settingMenu;
 		if (settingMenu == false) 
 		{
-			continueButton5->state = GuiControlState::NORMAL;
+			if (continueButton5 != nullptr)
+				continueButton5->state = GuiControlState::NORMAL;
 			playButton1->state = GuiControlState::NORMAL;
 			settingsButton2->state = GuiControlState::NORMAL;
 			creditsButton3->state = GuiControlState::NORMAL;
@@ -309,7 +314,8 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 		creditsMenu = !creditsMenu;
 		if (creditsMenu == false)
 		{
-			continueButton5->state = GuiControlState::NORMAL;
+			if (continueButton5 != nullptr)
+				continueButton5->state = GuiControlState::NORMAL;
 			playButton1->state = GuiControlState::NORMAL;
 			settingsButton2->state = GuiControlState::NORMAL;
 			creditsButton3->state = GuiControlState::NORMAL;
