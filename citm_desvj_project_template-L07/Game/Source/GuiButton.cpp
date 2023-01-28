@@ -103,12 +103,14 @@ bool GuiButton::Draw(Render* render)
 
 	case GuiControlState::DISABLED: 
 	{
-		render->DrawRectangle(bounds, 0, 0, 0, 0);
+		if(app->render->viewGUIbounds == true)
+			render->DrawRectangle(bounds, 0, 0, 0, 0);
 	} break;
 
 	case GuiControlState::NORMAL:
 	{
-		//render->DrawRectangle(bounds, 255, 0, 0, 255);
+		if (app->render->viewGUIbounds == true)
+			render->DrawRectangle(bounds, 255, 255, 0, 255);
 		SDL_Rect rect = { 0,29,93,29 };
 		render->DrawTexture(buttonTex, bounds.x, bounds.y, &rect);
 
@@ -117,16 +119,18 @@ bool GuiButton::Draw(Render* render)
 	//L15: TODO 4: Draw the button according the GuiControl State
 	case GuiControlState::FOCUSED:
 	{
-		//render->DrawRectangle(bounds, 255, 255, 255, 160);
+		if (app->render->viewGUIbounds == true)
+			render->DrawRectangle(bounds, 255, 255, 255, 160);
 		SDL_Rect rect = { 0,57,93,29 };
 		render->DrawTexture(buttonTex, bounds.x, bounds.y, &rect);
 
 	} break;
 	case GuiControlState::PRESSED:
 	{
+		if (app->render->viewGUIbounds == true)
+			render->DrawRectangle(bounds, 255, 255, 255, 0);
 		SDL_Rect rect = { 0,0,93,29 };
 		render->DrawTexture(buttonTex, bounds.x, bounds.y, &rect);
-		render->DrawRectangle(bounds, 255, 255, 255, 0);
 
 	} break;
 

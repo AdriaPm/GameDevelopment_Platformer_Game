@@ -55,6 +55,7 @@ bool TitleScreen::Start()
 	musicPath = app->configNode.child("title").child("music").attribute("musicPath").as_string();
 	startSFXPath = app->configNode.child("title").child("startsfx").attribute("startSFXPath").as_string();
 	selectSFXPath = app->configNode.child("title").child("selectsfx").attribute("selectSFXPath").as_string();
+	select2SFXPath = app->configNode.child("player").child("SFXset").attribute("selectSFXPath").as_string();
 
 	/*Load*/
 	img = app->tex->Load(imgPath);
@@ -63,12 +64,13 @@ bool TitleScreen::Start()
 	app->audio->PlayMusic(musicPath);
 	startSFX = app->audio->LoadFx(startSFXPath);
 	menuSelectionSFX = app->audio->LoadFx(selectSFXPath);
+	selectSFX = app->audio->LoadFx(select2SFXPath);
 
 	app->physics->debug = false;
 	settingMenu = false;
 	creditsMenu = false;
 
-	// L15: TODO 2: Declare a GUI Button and create it using the GuiManager
+	// Declare a GUI Button and create it using the GuiManager
 	uint w, h;
 	app->win->GetWindowSize(w, h);
 	playButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "play", 5, { ((int)w / 2) - (93/2), (int(h)-200), 93, 29}, this);
@@ -109,6 +111,12 @@ bool TitleScreen::Update(float dt)
 		app->audio->PlayFx(startSFX);
 	}
 	
+	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+	{
+		app->render->viewGUIbounds = !app->render->viewGUIbounds;
+		app->audio->PlayFx(selectSFX);
+	}
+
 	app->render->DrawTexture(img, 0, 0, NULL);
 
 	//Draw GUI
