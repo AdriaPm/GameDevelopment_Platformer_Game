@@ -203,19 +203,31 @@ bool TitleScreen::CleanUp()
 	}
 	
 	//STORE IN A LIST THIS BUTTONS AND THEN CHECK HERE IF NULLPTR TO CLEAN THEM UP
-	playButton1->state = GuiControlState::DISABLED;
-	settingsButton2->state = GuiControlState::DISABLED;
-	creditsButton3->state = GuiControlState::DISABLED;
-	exitButton4->state = GuiControlState::DISABLED;
+	if(playButton1 != nullptr)
+		playButton1->state = GuiControlState::DISABLED;
+	if (settingsButton2 != nullptr)
+		settingsButton2->state = GuiControlState::DISABLED;
+	if (creditsButton3 != nullptr)
+		creditsButton3->state = GuiControlState::DISABLED;
+	if (exitButton4 != nullptr)
+		exitButton4->state = GuiControlState::DISABLED;
 	//continueButton5->state = GuiControlState::DISABLED;
-	closeSettingMenuButton6->state = GuiControlState::DISABLED;
-	closeCreditsMenuButton7->state = GuiControlState::DISABLED;
-	decreaseMusicButton8->state = GuiControlState::DISABLED;
-	increaseMusicButton9->state = GuiControlState::DISABLED;
-	decreaseSFXButton10->state = GuiControlState::DISABLED;
-	increaseSFXButton11->state = GuiControlState::DISABLED;
-	fullscreenButton12->state = GuiControlState::DISABLED;
-	vsyncButton13->state = GuiControlState::DISABLED;
+	if (closeSettingMenuButton6 != nullptr)
+		closeSettingMenuButton6->state = GuiControlState::DISABLED;
+	if (closeCreditsMenuButton7 != nullptr)
+		closeCreditsMenuButton7->state = GuiControlState::DISABLED;
+	if (decreaseMusicButton8 != nullptr)
+		decreaseMusicButton8->state = GuiControlState::DISABLED;
+	if (increaseMusicButton9 != nullptr)
+		increaseMusicButton9->state = GuiControlState::DISABLED;
+	if (decreaseSFXButton10 != nullptr)
+		decreaseSFXButton10->state = GuiControlState::DISABLED;
+	if (increaseSFXButton11 != nullptr)
+		increaseSFXButton11->state = GuiControlState::DISABLED;
+	if (fullscreenButton12 != nullptr)
+		fullscreenButton12->state = GuiControlState::DISABLED;
+	if (vsyncButton13 != nullptr)
+		vsyncButton13->state = GuiControlState::DISABLED;
 
 	return true;
 }

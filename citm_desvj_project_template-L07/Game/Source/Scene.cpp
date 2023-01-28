@@ -282,10 +282,14 @@ bool Scene::CleanUp()
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 
-	resumeButton14->state = GuiControlState::DISABLED;
-	backToTitleButton15->state = GuiControlState::DISABLED;
-	exitButton16->state = GuiControlState::DISABLED;
-	closeButton17->state = GuiControlState::DISABLED;
+	if(resumeButton14 != nullptr)
+		resumeButton14->state = GuiControlState::DISABLED;
+	if(backToTitleButton15 != nullptr)
+		backToTitleButton15->state = GuiControlState::DISABLED;
+	if(exitButton16 != nullptr)
+		exitButton16->state = GuiControlState::DISABLED;
+	if(closeButton17 != nullptr)
+		closeButton17->state = GuiControlState::DISABLED;
 
 	return true;
 }
