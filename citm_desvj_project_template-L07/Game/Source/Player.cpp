@@ -286,6 +286,12 @@ bool Player::Update()
 		currentAnim->Update();
 	}
 
+	if (gameTimer <= 0) {
+		lives = 0;
+		dead = true;
+		app->audio->PlayFx(dieSFX);
+		app->fade->FadeToBlack((Module*)app->scene, (Module*)app->endingscreen, 60);
+	}
 
 	return true;
 }
@@ -400,7 +406,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::BAT_HITBOX:
 		LOG("Collison BAT HEAD HITBOX");
-
+		Jump();
 		app->scene->bat->lives--;
 		app->scene->bat->onCollision = true;
 		if (app->scene->bat->lives <= 0) {

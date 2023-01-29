@@ -111,6 +111,7 @@ void Item::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 
 		if (iType == "life" && app->scene->player->lives < 3) {
+			app->scene->itemLivesCount++;
 			pbody->body->SetActive(false);
 			this->Disable();
 		}

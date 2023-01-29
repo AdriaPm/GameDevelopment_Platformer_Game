@@ -290,6 +290,10 @@ bool TitleScreen::OnGuiMouseClickEvent(GuiControl* control)
 		// Play button
 		app->fade->FadeToBlack(this, (Module*)app->scene, 90);
 		app->audio->PlayFx(startSFX);
+		if (remove("save_game.xml") != 0)
+			LOG("Error at Deleting Save Game");
+		else
+			LOG("Save Game Successfully Deleted");
 		break;
 
 	case 2:

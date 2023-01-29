@@ -39,6 +39,7 @@ bool UI::Start()
 	/*Initialize*/
 	font1Path = app->configNode.child("ui").child("font1").attribute("texturepath").as_string();
 	font2Path = app->configNode.child("ui").child("font2").attribute("texturepath").as_string();
+	font2_RedPath = app->configNode.child("ui").child("font2Red").attribute("texturepath").as_string();
 	livesTexPath = app->configNode.child("scene").child("life").attribute("texturepath").as_string();
 	coinsTexPath = app->configNode.child("scene").child("coin").attribute("texturepath").as_string();
 
@@ -48,6 +49,9 @@ bool UI::Start()
 
 	char lookupTableFont2[] = { "! %&'()*+,-./0123456789:;<=>abcdefghijklmnopqrstuvwxyz" };
 	font2_id = app->fonts->Load(font2Path, lookupTableFont2, 1);
+	
+	char lookupTableFont2Red[] = { "! %&'()*+,-./0123456789:;<=>abcdefghijklmnopqrstuvwxyz" };
+	font2Red_id = app->fonts->Load(font2_RedPath, lookupTableFont2Red, 1);
 
 	livesTex = app->tex->Load(livesTexPath);
 	coinsTex = app->tex->Load(coinsTexPath);
@@ -122,9 +126,19 @@ void UI::BlitLives()
 
 void UI::BlitTimer()
 {
-	char time[20];
-	sprintf_s(time, 20, "time: %.f", app->scene->player->gameTimer);
-	app->fonts->BlitText(400, 15, font2_id, time);
+	if (app->scene->player->gameTimer < 50) 
+	{
+		char time[20];
+		sprintf_s(time, 20, "time: %.f", app->scene->player->gameTimer);
+		app->fonts->BlitText(425, 15, font2Red_id, time);
+	}
+	else 
+	{
+		char time[20];
+		sprintf_s(time, 20, "time: %.f", app->scene->player->gameTimer);
+		app->fonts->BlitText(425, 15, font2_id, time);
+	}
+	
 }
 
 void UI::BlitCoins()
@@ -187,7 +201,7 @@ void UI::BlitFPS()
 {
 	char fps[25];
 	sprintf_s(fps, 25, "fps: %d", app->GetFPS());
-	app->fonts->BlitText(825, 15, font2_id, fps);
+	app->fonts->BlitText(870, 15, font2_id, fps);
 }
 
 void UI::BlitAverageFPS()

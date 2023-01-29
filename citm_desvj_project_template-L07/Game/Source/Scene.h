@@ -91,6 +91,9 @@ public:
 
 	List<Coin*> coinsList;
 
+	List<Item*> livesCollectedList;
+	int itemLivesCount = 0;
+
 private:
 	SDL_Texture* img_pause;
 	iPoint startPosition;

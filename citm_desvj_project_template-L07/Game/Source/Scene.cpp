@@ -63,6 +63,7 @@ bool Scene::Start()
 	{
 		item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
 		item->parameters = itemNode;
+		livesCollectedList.Add(item);
 	}
 
 	//L02: DONE 3: Instantiate the player using the entity manager
@@ -179,12 +180,6 @@ bool Scene::Update(float dt)
 			app->LoadGameRequest();
 			app->audio->PlayFx(selectSFX);
 		}
-		
-		if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-		{
-			app->render->limitFPS = !app->render->limitFPS;
-			app->audio->PlayFx(selectSFX);
-		}
 
 		// God Mode key
 		if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
@@ -212,10 +207,10 @@ bool Scene::Update(float dt)
 	}
 
 
-	// Cap FPS to 30
+	// Cap FPS to 60
 	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 	{
-		capTo30fps = !capTo30fps;
+		app->render->limitFPS = !app->render->limitFPS;
 		app->audio->PlayFx(selectSFX);
 	}
 
@@ -389,12 +384,17 @@ void Scene::ResetScene() {
 	
 	app->audio->PlayMusic("Assets/Audio/Music/song1.ogg", 1.0f);
 
-	if (checkpointEnabled == false) {
+	pugi::xml_document gameStateFile;
+	pugi::xml_parse_result result = gameStateFile.load_file("save_game.xml");
+
+	if (checkpointEnabled == false || result == NULL) {
+		checkpointEnabled = false;
 		player->ResetPlayerPos();
 		player->lives = 3;
 	}
-	else
+	else if (checkpointEnabled == true && result != NULL) {
 		app->LoadGameRequest();
+	}
 }
 
 bool Scene::LoadState(pugi::xml_node& data)
@@ -410,21 +410,39 @@ bool Scene::LoadState(pugi::xml_node& data)
 	//Load previous saved player number of lives
 	app->scene->player->lives = data.child("playerLives").attribute("playerLives").as_float();
 
-	/*app->scene->player->coins = data.child("coins").attribute("coins").as_int();
+	app->scene->player->coins = data.child("coins").attribute("coins").as_int();
 	ListItem<Coin*>* coinsCollected;
-	coinsCollected = coinsList.end;
+	coinsCollected = coinsList.start;
 	int countCoins = app->scene->player->coins;
 	while(countCoins >= 0 && coinsCollected != NULL){
 		
-		if (coinsCollected->data->isPicked == true) {
-			coinsCollected->data->ResetCoin();
+		if (coinsCollected->data->isPicked == false) {
+			coinsCollected->data->isPicked = true;
 			countCoins--;
 		}
 			
 
-		coinsCollected = coinsCollected->prev;
-	}*/
+		coinsCollected = coinsCollected->next;
+	}
 	
+	itemLivesCount = data.child("itemLives").attribute("itemLives").as_int();
+	ListItem<Item*>* livesCollected;
+	livesCollected = livesCollectedList.start;
+	int countLives = itemLivesCount;
+	while(countLives >= 0 && livesCollected != NULL){
+		
+		if (livesCollected->data->isPicked == false) {
+			livesCollected->data->isPicked = true;
+			countLives--;
+		}
+			
+
+		livesCollected = livesCollected->next;
+	}
+
+	//Load previous saved player number of lives
+	checkpointEnabled = data.child("checkpointEnabled").attribute("checkpointEnabled").as_bool();
+
 	// Load previous saved slime position
 	b2Vec2 slimePos = { data.child("slimePosition").attribute("x").as_float(), data.child("slimePosition").attribute("y").as_float() };
 	app->scene->slime->pbody->body->SetTransform(slimePos, 0);
@@ -463,9 +481,16 @@ bool Scene::SaveState(pugi::xml_node& data)
 	playerLives.append_attribute("playerLives") = app->scene->player->lives;
 	
 	// Save current player number of coins
-	/*pugi::xml_node playerCoins = data.append_child("coins");
-	playerCoins.append_attribute("coins") = app->scene->player->coins;*/
-
+	pugi::xml_node playerCoins = data.append_child("coins");
+	playerCoins.append_attribute("coins") = app->scene->player->coins;
+	
+	// Save current player number of coins
+	pugi::xml_node itemLives = data.append_child("itemLives");
+	itemLives.append_attribute("itemLives") = itemLives;
+	
+	// Save current player number of coins
+	pugi::xml_node checkpointEnabled = data.append_child("checkpointEnabled");
+	checkpointEnabled.append_attribute("checkpointEnabled") = checkpointEnabled;
 
 	// Save current slime position
 	pugi::xml_node slimePos = data.append_child("slimePosition");

@@ -51,6 +51,7 @@ public:
 
 	uint font1_id = -1;
 	uint font2_id = -1;
+	uint font2Red_id = -1;
 
 	SDL_Texture* livesTex;
 	const char* livesTexPath;
@@ -62,6 +63,7 @@ private:
 
 	const char* font1Path;
 	const char* font2Path;
+	const char* font2_RedPath;
 
 };
 
