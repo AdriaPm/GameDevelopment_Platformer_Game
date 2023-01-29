@@ -53,11 +53,11 @@
 		<batsfx batHitSFXPath="Assets/Audio/Fx/bat_hit.wav"/>
 		<player x="224" y="530" texturepath="Assets/Textures/PlayerJones.png"/>
 		<coin x="704" y="300" texturepath="Assets/Textures/bitcoin.png"/>
-		<coin x="1312" y="270" texturepath="Assets/Textures/bitcoin.png"/>
+		<coin x="1312" y="250" texturepath="Assets/Textures/bitcoin.png"/>
 		<coin x="2192" y="430" texturepath="Assets/Textures/bitcoin.png"/>
 		<coin x="2928" y="150" texturepath="Assets/Textures/bitcoin.png"/>
 		<life x="230" y="400" iType ="life" texturepath="Assets/Textures/GUI/life.png"/>
-		<life x="1325" y="300" iType ="life" texturepath="Assets/Textures/GUI/life.png"/>
+		<life x="1550" y="250" iType ="life" texturepath="Assets/Textures/GUI/life.png"/>
 		<life x="3000" y="170" iType ="life" texturepath="Assets/Textures/GUI/life.png"/>
 		<slime x="719" y="339" texturepath="Assets/Textures/Slime/Slime_Spiked_Full.png"/>
 		<slime x="2576" y="145" texturepath="Assets/Textures/Slime/Slime_Spiked_Full.png"/>

@@ -133,13 +133,19 @@ void UI::BlitCoins()
 	sprintf_s(playerCoins, 20, "coins: %d", app->scene->player->coins);
 	app->fonts->BlitText(20, 45, font2_id, playerCoins);*/
 
-	if (app->scene->player->coins == 3) {
+	if (app->scene->player->coins == 4) {
+		app->render->DrawTexture(coinsTex, 20, 35, NULL, SDL_FLIP_NONE, 0);
+		app->render->DrawTexture(coinsTex, 20 + 32, 35, NULL, SDL_FLIP_NONE, 0);
+		app->render->DrawTexture(coinsTex, 20 + 64, 35, NULL, SDL_FLIP_NONE, 0);
+		app->render->DrawTexture(coinsTex, 20 + 96, 35, NULL, SDL_FLIP_NONE, 0);
+	}
+	else if (app->scene->player->coins == 3) {
 		app->render->DrawTexture(coinsTex, 20, 35, NULL, SDL_FLIP_NONE, 0);
 		app->render->DrawTexture(coinsTex, 20 + 32, 35, NULL, SDL_FLIP_NONE, 0);
 		app->render->DrawTexture(coinsTex, 20 + 64, 35, NULL, SDL_FLIP_NONE, 0);
 	}
 	else if (app->scene->player->coins == 2) {
-		app->render->DrawTexture(coinsTex, 20, 25, NULL, SDL_FLIP_NONE, 0);
+		app->render->DrawTexture(coinsTex, 20, 35, NULL, SDL_FLIP_NONE, 0);
 		app->render->DrawTexture(coinsTex, 20 + 32, 35, NULL, SDL_FLIP_NONE, 0);
 	}
 	else if (app->scene->player->coins == 1) {

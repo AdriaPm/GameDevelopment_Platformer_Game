@@ -90,7 +90,7 @@ bool BatEnemy::Start() {
 
 	pbody->listener = this;
 
-	hitbox = app->physics->CreateRectangle(METERS_TO_PIXELS(pbody->body->GetTransform().p.x), METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15, 8, 2, bodyType::DYNAMIC, ColliderType::BAT_HITBOX);
+	hitbox = app->physics->CreateRectangle(METERS_TO_PIXELS(pbody->body->GetTransform().p.x), METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15, 13, 4, bodyType::DYNAMIC, ColliderType::BAT_HITBOX);
 
 	refreshPathTime = 0;
 
@@ -129,7 +129,7 @@ bool BatEnemy::Update()
 		float distance = playerTile.x - origin.x;
 
 		//Test compute path function
-		if (originSelected == true && distance <= 10 && distance >= -10)
+		if (originSelected == true && distance <= 15 && distance >= -15)
 		{
 			app->pathfinding->CreatePath(origin, playerTile);
 			refreshPathTime++;
@@ -223,19 +223,19 @@ void BatEnemy::MovementDirection(const iPoint& origin, const iPoint& destination
 	iPoint playerTile = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
 	if (app->pathfinding->IsWalkable(playerTile) != 0) {
 		//Check if player is to the right or the left of the origin
-		if (resX < 0) {
-			velocity.x = -2;
+		if (resX < 0 || app->scene->player->position.x+32 < position.x) {
+			velocity.x = -5;
 			fliped = SDL_FLIP_HORIZONTAL;
 		}
-		if (resX > 0) {
-			velocity.x = +2;
+		if (resX > 0 || app->scene->player->position.x > position.x) {
+			velocity.x = +5;
 			fliped = SDL_FLIP_NONE;
 		}
-		if (resY < 0) {
-			velocity.y = -2;
+		if (resY < 0 || app->scene->player->position.y+32 < position.y) {
+			velocity.y = -5;
 		}
-		if (resY > 0) {
-			velocity.y = +2;
+		if (resY > 0 || app->scene->player->position.y > position.y) {
+			velocity.y = +5;
 		}
 	}
 	else {

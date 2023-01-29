@@ -107,7 +107,9 @@ bool SlimeEnemy::Start() {
 
 	pbody->listener = this;
 
-	hitbox = app->physics->CreateRectangle(METERS_TO_PIXELS(pbody->body->GetTransform().p.x), METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15, 8, 2, bodyType::DYNAMIC, ColliderType::SLIME_HITBOX);
+	hitbox = app->physics->CreateRectangle(METERS_TO_PIXELS(pbody->body->GetTransform().p.x), METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 13, 13, 4, bodyType::DYNAMIC, ColliderType::SLIME_HITBOX);
+
+	hitbox->listener = this;
 
 	refreshPathTime = 0;
 
@@ -251,12 +253,12 @@ void SlimeEnemy::MovementDirection(const iPoint& origin, const iPoint& destinati
 	if (app->pathfinding->IsWalkable(destination) != 0) {
 
 		//Check if player is to the right or the left of the origin
-		if (resX < 0) {
-			velocity.x = -2;
+		if (resX < 0 || app->scene->player->position.x + 32 < position.x) {
+			velocity.x = -3;
 			fliped = SDL_FLIP_NONE;
 		}
-		if (resX > 0) {
-			velocity.x = +2;
+		if (resX > 0 || app->scene->player->position.x > position.x) {
+			velocity.x = +3;
 			fliped = SDL_FLIP_HORIZONTAL;
 		}
 
@@ -306,37 +308,64 @@ void SlimeEnemy::Attack(const iPoint& origin, const iPoint& destination) {
 void SlimeEnemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	// L07 DONE 7: Detect the type of collision
-
-	switch (physB->cType)
-	{
-	case ColliderType::PLATFORM:
-		LOG("Collision PLATFORM");
-		if(jump == true)
-			jump = false;
-		break;
-	case ColliderType::WATER:
-		LOG("Collision WATER");
-		dead = true;
-		break;
-	case ColliderType::ENEMY:
-		LOG("Collision ENEMY");
-		break;
-	case ColliderType::PLAYER_ATTACK_HITBOX:
-		LOG("Collision PLAYER ATTACK HITBOX");
-		lives--;
-		if (lives <= 0) {
+	if (physA->cType == ColliderType::ENEMY) {
+		switch (physB->cType)
+		{
+		case ColliderType::PLATFORM:
+			LOG("Collision PLATFORM");
+			if (jump == true)
+				jump = false;
+			break;
+		case ColliderType::WATER:
+			LOG("Collision WATER");
 			dead = true;
+			break;
+		case ColliderType::ENEMY:
+			LOG("Collision ENEMY");
+			break;
+		case ColliderType::PLAYER_ATTACK_HITBOX:
+			LOG("Collision PLAYER ATTACK HITBOX");
+			lives--;
+			if (lives <= 0) {
+				dead = true;
+			}
+			onCollision = true;
+			app->audio->PlayFx(slimeHitSFX);
+			break;
+		case ColliderType::WALL:
+			LOG("Collision WALL");
+			break;
+		case ColliderType::UNKNOWN:
+			LOG("Collision UNKNOWN");
+			break;
 		}
-		onCollision = true;
-		app->audio->PlayFx(slimeHitSFX);
-		break;
-	case ColliderType::WALL:
-		LOG("Collision WALL");
-		break;
-	case ColliderType::UNKNOWN:
-		LOG("Collision UNKNOWN");
-		break;
 	}
+	
+	if (physA->cType == ColliderType::SLIME_HITBOX) {
+		switch (physB->cType)
+		{
+		case ColliderType::PLAYER_ATTACK_HITBOX:
+			LOG("Collision PLAYER ATTACK HITBOX");
+			lives--;
+			if (lives <= 0) {
+				dead = true;
+			}
+			onCollision = true;
+			app->audio->PlayFx(slimeHitSFX);
+			break;
+		case ColliderType::PLAYER:
+			LOG("Collision WALL");
+			lives--;
+			if (lives <= 0) {
+				dead = true;
+			}
+			onCollision = true;
+			app->audio->PlayFx(slimeHitSFX);
+			//dead = true;
+			break;
+		}
+	}
+	
 
 }
 

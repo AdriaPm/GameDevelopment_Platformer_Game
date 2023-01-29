@@ -180,14 +180,11 @@ bool Player::Update()
 
 			//L02: DONE 4: modify the position of the player using arrow keys and render the texture
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-
-				longPress = false;
 				if (jumping == false) {
-					jumpingTime = 0;
 					jumping = true;
 				}
 
-				if (jumpingTime <= 50 && jumpCount > 0) {
+				if (jumpingTime <= 70 && jumpCount > 0) {
 					Jump();
 					jumpCount--;
 					LOG("Jump Count = %d", jumpCount);
@@ -255,15 +252,12 @@ bool Player::Update()
 			timeToAttack++;
 
 			if (jumping == false) {
-				pbody->body->SetLinearVelocity(velocity);
+				jumpingTime = 0;
 			}
 			else if (jumping == true) {
-				pbody->body->SetLinearVelocityX(velocity.x);
 				jumpingTime++;
 			}
-
-			longPress = false;
-
+			pbody->body->SetLinearVelocityX(velocity.x);
 			gameTimer -= 1 * (app->GetDT()/1000);
 		}
 
@@ -396,6 +390,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::SLIME_HITBOX:
 		LOG("Collison SLIME HEAD HITBOX");
+		Jump();
 		app->scene->slime->lives--;
 		app->scene->slime->onCollision = true;
 		if (app->scene->slime->lives <= 0) {
@@ -405,6 +400,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::BAT_HITBOX:
 		LOG("Collison BAT HEAD HITBOX");
+
 		app->scene->bat->lives--;
 		app->scene->bat->onCollision = true;
 		if (app->scene->bat->lives <= 0) {
