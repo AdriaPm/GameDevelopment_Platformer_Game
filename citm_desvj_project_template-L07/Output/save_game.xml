@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<save_state>
+	<input />
+	<window />
+	<textures />
+	<audio />
+	<Controller_Module />
+	<fade />
+	<LogoScreen />
+	<TitleScreen />
+	<:anonymous />
+	<pathfinding />
+	<scene>
+		<playerPosition x="61.7510414" y="9.9192152" />
+		<cameraIsFix value="true" />
+		<cameraIsFix2 value="false" />
+		<playerLives playerLives="2" />
+		<slimePosition x="80.5" y="4.77625084" />
+		<slimeLives slimeLives="2" />
+		<batPosition x="46.017662" y="6.95869589" />
+		<batLives batLives="0" />
+		<checkPoint checkPoint="true" />
+	</scene>
+	<Fonts_Module />
+	<UI_Module />
+	<entitymanager />
+	<map />
+	<EndingScreen />
+	<guiManager />
+	<renderer>
+		<camera x="-1455" y="0" />
+	</renderer>
+</save_state>

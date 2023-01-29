@@ -39,6 +39,7 @@ public:
 	void BlitPlayerXPos();
 	void BlitPlayerYPos();
 	void BlitCoins();
+	void BlitTimer();
 	void BlitLives();
 	void BlitSlimeLives();
 	void BlitBatLives();
@@ -53,6 +54,9 @@ public:
 
 	SDL_Texture* livesTex;
 	const char* livesTexPath;
+	
+	SDL_Texture* coinsTex;
+	const char* coinsTexPath;
 
 private:
 

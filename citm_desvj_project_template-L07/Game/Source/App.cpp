@@ -22,6 +22,7 @@
 
 #include "Defs.h"
 #include "Log.h"
+#include "Optick/include/optick.h"
 
 #include <iostream>
 #include <sstream>
@@ -223,6 +224,7 @@ void App::PrepareUpdate()
 // ---------------------------------------------
 void App::FinishUpdate()
 {
+	OPTICK_CATEGORY("FinishUpdate", Optick::Category::GameLogic);
 	// L03: DONE 1: This is a good place to call Load / Save methods
 	if (loadGameRequested == true) LoadFromFile();
 	if (saveGameRequested == true) SaveToFile();
@@ -272,6 +274,7 @@ void App::FinishUpdate()
 // Call modules before each loop iteration
 bool App::PreUpdate()
 {
+	OPTICK_CATEGORY("PreUpdate", Optick::Category::GameLogic);
 	bool ret = true;
 	ListItem<Module*>* item;
 	item = modules.start;
@@ -294,6 +297,7 @@ bool App::PreUpdate()
 // Call modules on each loop iteration
 bool App::DoUpdate()
 {
+	OPTICK_CATEGORY("DoUpdate", Optick::Category::GameLogic);
 	bool ret = true;
 	ListItem<Module*>* item;
 	item = modules.start;
@@ -316,6 +320,7 @@ bool App::DoUpdate()
 // Call modules after each loop iteration
 bool App::PostUpdate()
 {
+	OPTICK_CATEGORY("PostUpdate", Optick::Category::GameLogic);
 	bool ret = true;
 	ListItem<Module*>* item;
 	Module* pModule = NULL;

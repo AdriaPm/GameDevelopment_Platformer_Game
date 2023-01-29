@@ -117,7 +117,7 @@ bool Player::Start() {
 	jumping = false;
 	jumpCount = 2;
 
-	gameTimer.Start();
+	gameTimer = 120;
 
 	return true;
 }
@@ -263,6 +263,8 @@ bool Player::Update()
 			}
 
 			longPress = false;
+
+			gameTimer -= 1 * (app->GetDT()/1000);
 		}
 
 
@@ -483,6 +485,7 @@ void Player::ResetPlayerPos() {
 	app->scene->cameraFix = false;
 	app->render->camera.x = 0;
 	dead = false;
+	gameTimer = 120;
 	
 	LOG("--RESETING PLAYER--");
 }

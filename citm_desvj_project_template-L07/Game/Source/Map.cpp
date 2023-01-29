@@ -12,6 +12,7 @@
 #include <math.h>
 #include <cmath>
 #include "SDL_image/include/SDL_image.h"
+#include "Optick/include/optick.h"
 
 Map::Map() : Module(), mapLoaded(false)
 {
@@ -99,6 +100,7 @@ bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 
 void Map::Draw()
 {
+    OPTICK_CATEGORY("Draw Map", Optick::Category::GameLogic);
     if(mapLoaded == false)
         return;
 

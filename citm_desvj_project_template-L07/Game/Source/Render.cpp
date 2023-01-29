@@ -6,6 +6,7 @@
 
 #include "Defs.h"
 #include "Log.h"
+#include "Optick/include/optick.h"
 
 #define VSYNC true
 
@@ -80,6 +81,7 @@ bool Render::Update(float dt)
 
 bool Render::PostUpdate()
 {
+	OPTICK_CATEGORY("Render PostUpdate", Optick::Category::GameLogic);
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
 	return true;

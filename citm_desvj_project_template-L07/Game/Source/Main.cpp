@@ -6,6 +6,7 @@
 
 // NOTE: SDL redefines main function
 #include "SDL/include/SDL.h"
+#include "Optick/include/optick.h"
 
 // NOTE: Library linkage is configured in Linker Options
 //#pragma comment(lib, "../Game/Source/External/SDL/libx86/SDL2.lib")
@@ -35,6 +36,7 @@ int main(int argc, char* args[])
 
 	while(state != EXIT)
 	{
+		OPTICK_FRAME("MainLoop");
 		switch(state)
 		{
 			// Allocate the engine --------------------------------------------
@@ -80,8 +82,11 @@ int main(int argc, char* args[])
 
 			// Loop all modules until we are asked to leave ---------------------
 			case LOOP:
-			if(app->Update() == false)
-				state = CLEAN;
+			{
+				OPTICK_FRAME("Main Loop");
+				if (app->Update() == false)
+					state = CLEAN;
+			}
 			break;
 
 			// Cleanup allocated memory -----------------------------------------

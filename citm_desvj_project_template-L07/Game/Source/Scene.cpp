@@ -231,6 +231,7 @@ bool Scene::Update(float dt)
 
 	//Blit UI
 	app->ui->BlitCoins();
+	app->ui->BlitTimer();
 	app->ui->BlitLives();
 	app->ui->BlitFPS();
 
@@ -260,10 +261,19 @@ bool Scene::Update(float dt)
 		else
 			app->render->DrawTexture(img_pause, player->position.x-490, 0, NULL);
 
-		resumeButton14->state = GuiControlState::NORMAL;
-		backToTitleButton15->state = GuiControlState::NORMAL;
-		exitButton16->state = GuiControlState::NORMAL;
-		closeButton17->state = GuiControlState::NORMAL;
+		if (resumeButton14->state == GuiControlState::DISABLED) {
+			resumeButton14->state = GuiControlState::NORMAL;
+		}
+		if (backToTitleButton15->state == GuiControlState::DISABLED) {
+			backToTitleButton15->state = GuiControlState::NORMAL;
+		}
+		if (exitButton16->state == GuiControlState::DISABLED) {
+			exitButton16->state = GuiControlState::NORMAL;
+		}
+		if (closeButton17->state == GuiControlState::DISABLED) {
+			closeButton17->state = GuiControlState::NORMAL;
+		}
+
 	}
 
 

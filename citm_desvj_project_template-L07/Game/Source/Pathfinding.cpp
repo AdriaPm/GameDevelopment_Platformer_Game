@@ -3,6 +3,7 @@
 
 #include "Defs.h"
 #include "Log.h"
+#include "Optick/include/optick.h"
 
 PathFinding::PathFinding() : Module(), map(NULL), lastPath(DEFAULT_PATH_LENGTH), width(0), height(0)
 {
@@ -134,6 +135,7 @@ PathNode::PathNode(const PathNode& node) : g(node.g), h(node.h), pos(node.pos), 
 // ----------------------------------------------------------------------------------
 uint PathNode::FindWalkableAdjacents(PathList& listToFill) const
 {
+	OPTICK_CATEGORY("Find Walkable Adjacents", Optick::Category::GameLogic);
 	iPoint cell;
 	uint before = listToFill.list.Count();
 
@@ -184,6 +186,7 @@ int PathNode::CalculateF(const iPoint& destination)
 // ----------------------------------------------------------------------------------
 int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 {
+	OPTICK_CATEGORY("Create Path", Optick::Category::GameLogic);
 	int ret = -1;
 	int iterations = 0;
 	
