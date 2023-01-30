@@ -10,7 +10,9 @@
  - {F3} - Start from the beginning of the current level
  - {F5} - Save current game state (player & enemies)
  - {F6} - Load the previous game state (player & enemies)
+ - {F7} - Move between checkpoints
  - {F9} - View colliders/logic/paths
+ - {F8} - View GUI bounds rectangles and state
  - {F10} - God Mode
  - {F11} - Enable/Disable FPS cap to 30
  
@@ -28,7 +30,7 @@
  - {SPACEBAR} - Player's jump
  - {SPACEBAR + SPACEBAR} - Player's DOUBLE jump 
  - {ENTER} - Pass to the next screen  
- - {ESCAPE} - Exit the game
+ - {ESCAPE} - Pause the game
 
 ## Developers
 
@@ -45,4 +47,5 @@ This project is licensed under an unmodified MIT license, which is an OSI-certif
 ## Latest release
 
  Click [here](https://github.com/Historn/GameDev-Platformer/releases) to check our latest game release.
+
 
